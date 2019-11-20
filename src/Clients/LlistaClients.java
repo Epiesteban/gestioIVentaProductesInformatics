@@ -6,6 +6,7 @@ public class LlistaClients {
 	private Clients [] llista;
 	private LlistaComandes obj;
 	private final int mida = 50;
+	private int cont =0;
 	
 	public LlistaClients(LlistaComandes obj) {
 		nClients = 0;
