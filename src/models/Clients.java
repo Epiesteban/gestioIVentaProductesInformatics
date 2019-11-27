@@ -1,4 +1,4 @@
-package Clients;
+package models;
 
 /**
  * Classe que implementa un client

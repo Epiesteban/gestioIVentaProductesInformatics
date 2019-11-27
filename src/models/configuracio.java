@@ -1,3 +1,4 @@
+package models;
 
 public class configuracio extends productes {
 	//classe filla de productes

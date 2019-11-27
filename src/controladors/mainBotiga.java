@@ -1,4 +1,4 @@
-package aplicacioBotiga;
+package controladors;
 
 public class mainBotiga {
 

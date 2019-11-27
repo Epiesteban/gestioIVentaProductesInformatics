@@ -1,4 +1,5 @@
-package Clients;
+package models;
+
 public class LlistaClients {
 
 	private int nClients;
