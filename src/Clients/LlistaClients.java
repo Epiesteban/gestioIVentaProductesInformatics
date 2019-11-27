@@ -56,9 +56,17 @@ public class LlistaClients {
 	}
 	
 	public void afegirClient(Clients client) {
+		boolean trobat = false;
+		int i = 0;
 		if(mida>nClients) {
+			while (( i<nClients) &&(!trobat)) {
+				if(llista[i].getDni()!=client.getDni()) trobat = true;
+				i++;
+			}
+			if (trobat) {
 			llista[nClients] = client;
 			nClients++;
+			}
 		}
 	}
 	
