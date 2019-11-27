@@ -1,17 +1,13 @@
 package Clients;
-
 public class LlistaClients {
 
 	private int nClients;
 	private Clients [] llista;
-	private LlistaComandes obj;
 	private final int mida = 50;
-	private int cont =0;
 	
-	public LlistaClients(LlistaComandes obj) {
+	public LlistaClients() {
 		nClients = 0;
 		llista = new Clients [mida];
-		this.obj = obj;
 	}
 
 	public int getnClients() {
@@ -31,14 +27,6 @@ public class LlistaClients {
 		for (int i = 0; (i < this.llista.length) && (i < llista.length) && (llista[i] != null); i++) {
 			this.afegirClient(llista[i]); 
 		}
-	}
-
-	public LlistaComandes getObj() {
-		return obj;
-	}
-
-	public void setObj(LlistaComandes obj) {
-		this.obj = obj;
 	}
 
 	public int getMida() {
@@ -61,7 +49,41 @@ public class LlistaClients {
 		}
 	}
 	
+	public Clients buscarClient(String dni ) {
+		int i = buscarClient_id(dni);
+		if (i != -1) return llista[i];
+		else return null;
+	}
 	
+	public void afegirClient(Clients client) {
+		boolean trobat = false;
+		int i = 0;
+		if(mida>nClients) {
+			while (( i<nClients) &&(!trobat)) {
+				if(llista[i].getDni()!=client.getDni()) trobat = true;
+				i++;
+			}
+			if (trobat) {
+			llista[nClients] = client;
+			nClients++;
+			}
+		}
+	}
 	
-	
+	public void eliminarClient(String dni) {
+		int aux = buscarClient_id(dni);
+		if (aux != -1) {
+			llista[aux].eliminarComandes();
+			for(int i=aux;i<nClients-1;i++) {
+				llista[i]=llista[i+1];
+			}
+			nClients--;
+		}
+	}
+	private int buscarClient_id(String dni) {
+		for(int i = 0;i < nClients;i++) {
+			if(dni.equals(llista[i].getDni())) return i;
+		}
+		return -1;
+	}
 }
