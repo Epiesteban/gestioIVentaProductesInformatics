@@ -4,8 +4,8 @@ public class software extends productes {
 	//filla
 	private  SO sistema_operatiu;
 	
-	public software (String nom, float preu, int estoc,int id, SO sistema_operatiu) {
-		super(nom, preu, estoc, id);
+	public software (String nom, float preu, int estoc, SO sistema_operatiu) {
+		super(nom, preu, estoc);
 		this.sistema_operatiu= sistema_operatiu;
 	}
 	/**Setters i getters

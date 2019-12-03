@@ -12,8 +12,8 @@ public class configuracio extends productes {
 	public hardware[] hardwares;
 	
 	
-	public configuracio (String nom, float preu, int estoc,software[] softwares,hardware[] hardwares, int id) {
-		super(nom, preu, estoc, id);
+	public configuracio (String nom, float preu, int estoc,software[] softwares,hardware[] hardwares) {
+		super(nom, preu, estoc);
 		this.softwares= softwares;
 		this.hardwares= hardwares;
 	}

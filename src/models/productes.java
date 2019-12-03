@@ -8,16 +8,17 @@ public class productes {
 	public float preu;
 	public int estoc;
 	public int id;
+	public static int cont_id;
 	
 	
 	/** constructor
 	 * 
 	 */
-	public productes (String nom, float preu,int estoc, int id) {
+	public productes (String nom, float preu,int estoc) {
 		this.nom= nom;
 		this.preu= preu;
 		this.estoc= estoc;
-		this.id=id;
+		id=cont_id++;
 	}
 
 	public String getNom() {
@@ -48,9 +49,6 @@ public class productes {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	/**To string
 	 * 
