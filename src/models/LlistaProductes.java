@@ -100,6 +100,17 @@ public class LlistaProductes {
 		return j;
 	}
 	
+	
+	/*Modificar estoc*/
+	public boolean modificarEstoc (int i, int e) {
+		boolean realitzat=false;
+		if (e>=0) {
+			llista[i].setEstoc(e);
+			realitzat=true;
+		}
+		return realitzat;
+	}
+	
 	/**ToString
 	 * 
 	 */
@@ -110,7 +121,7 @@ public class LlistaProductes {
 		}else {
 			String frase= "";
 			for (int i=0; i<nElem; i++) {
-				frase+= llista[i].toString()+ "\n";
+				frase= i+"-"+frase+llista[i].toString()+ "\n";
 			}
 			return frase;
 		}

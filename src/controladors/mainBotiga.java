@@ -10,8 +10,10 @@ import models.LlistaProductes;
 import models.SO;
 import models.configuracio;
 import models.hardware;
+import models.productes;
 import models.software;
 import models.tipus_hardware;
+import sun.launcher.resources.launcher;
 
 public class mainBotiga {
 
@@ -164,5 +166,43 @@ public class mainBotiga {
 	
 	public static configuracio afegirConfiguracio() {
 		
+	}
+	
+	public static void modificarEstoc (LlistaProductes l) {
+		Scanner t=new Scanner (System.in);
+		int i, nouEstoc;
+		System.out.println(l.toString());
+		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
+		i=t.nextInt();
+		System.out.println("Quin es el nou estoc d'aquest producte?");
+		nouEstoc=t.nextInt();
+		if (l.modificarEstoc(i, nouEstoc)==true) {
+			System.out.println("S'ha modificat correctament l'estoc a:"+nouEstoc);
+		}else {
+			System.out.println("No s'ha realitzat l'operacio");
+		}
+		t.close();
+	}
+	
+	public static String productesEstoc(LlistaProductes l) {
+		String aux="";
+		for (int i=0; i<l.getnElem();i++) {
+			//Aqui pq no deixa posar l[i] i els metodes de clase producte?
+			if (!(l.getLlista()[i] instanceof configuracio)) {
+				aux=aux+l.getLlista()[i].toString();
+			}
+		}
+		return aux;
+	}
+	
+	public static String productesConfiguracio(LlistaProductes l) {
+		String aux="";
+		for (int i=0;i<l.getnElem();i++) {
+			if (l.getLlista()[i] instanceof configuracio) {
+				aux=aux+l.getLlista()[i].toString();
+			}
+			i++;
+		}
+		return aux;
 	}
 }
