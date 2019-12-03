@@ -11,13 +11,19 @@ public class configuracio extends productes {
 	public software[] softwares;
 	public hardware[] hardwares;
 	
-	
-	public configuracio (String nom, float preu, int estoc,software[] softwares,hardware[] hardwares) {
+	/*Constructor buit*/
+	public configuracio (String nom, float preu, int estoc, int mida) {
 		super(nom, preu, estoc);
-		this.softwares= softwares;
-		this.hardwares= hardwares;
+		softwares=new software[mida];
+		softwares=new software[mida];
 	}
-
+	
+	/*Constructor*/
+	public configuracio (String nom, float preu, int estoc, software[] softwares, hardware[] hardwares) {
+		super(nom, preu, estoc);
+		this.hardwares=hardwares;
+		this.softwares=softwares;
+	}
 
 	public software[] getSoftwares() {
 		return softwares;

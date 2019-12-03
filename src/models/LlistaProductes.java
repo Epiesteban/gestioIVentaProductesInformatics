@@ -52,12 +52,23 @@ public class LlistaProductes {
 		nElem++;
 	}
 	
+	public void afegirSoftware (String n, int p, int e, SO s) {
+		llista[nElem]=new software(n, p, e,s);
+		nElem++;
+	}
+	
 	/**
 	 * afegir producte hardware
 	 */
 	
 	public void afegirHardware (hardware h) {
 		llista[nElem]=h;
+		nElem++;
+	}
+	
+	
+	public void afegirHardware (String n, int p, int e, tipus_hardware t) {
+		llista[nElem]=new hardware(n, p, e, t);
 		nElem++;
 	}
 	/**
