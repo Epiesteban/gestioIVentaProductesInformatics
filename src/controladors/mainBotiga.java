@@ -6,6 +6,7 @@ import com.sun.glass.ui.Window;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.sun.xml.internal.ws.Closeable;
 
+import models.LlistaClients;
 import models.LlistaProductes;
 import models.SO;
 import models.configuracio;
@@ -83,7 +84,7 @@ public class mainBotiga {
 		String nom;
 		float preu;
 		int estoc, op=2;
-		SO sist;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
+		SO sist=SO.Windows;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
 		
 		
 		System.out.println("Introdueix el nom:");
@@ -109,7 +110,6 @@ public class mainBotiga {
 
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
-				sist=SO.Windows;
 			}
 		}
 		t.close();
@@ -122,7 +122,7 @@ public class mainBotiga {
 		String nom;
 		float preu;
 		int estoc, op=2;
-		tipus_hardware tipus;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
+		tipus_hardware tipus=tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
 		
 		
 		System.out.println("Introdueix el nom:");
@@ -187,7 +187,6 @@ public class mainBotiga {
 	public static String productesEstoc(LlistaProductes l) {
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
-			//Aqui pq no deixa posar l[i] i els metodes de clase producte?
 			if (!(l.getLlista()[i] instanceof configuracio)) {
 				aux=aux+l.getLlista()[i].toString();
 			}
@@ -204,5 +203,29 @@ public class mainBotiga {
 			i++;
 		}
 		return aux;
+	}
+	
+	
+	public static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
+		Scanner t= new Scanner(System.in);
+		int op=0;
+		
+		while (!(op==1 || op==2)) {
+			System.out.println("De quina llista vols veure els elements?");
+			System.out.println("1- Llista de productes,  2- Llista de clients");
+			op=t.nextInt();
+			switch (op) {
+			case 1:{
+				System.out.println(lp.toString());
+			}break;
+			case 2:{
+				System.out.println(lc.toString());
+			}break;
+
+			default:
+				System.out.println("Has introduït un numero erroni!Prova un altre numeo");
+			}
+		}
+		t.close();
 	}
 }
