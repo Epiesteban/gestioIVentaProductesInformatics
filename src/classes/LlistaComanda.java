@@ -45,7 +45,10 @@ public class LlistaComanda {
 	public Comanda[] getLlista () {
 		return llista;
 	}
-	
+	/**
+	 * Getter nElem
+	 * @return
+	 */
 	public int getnumElem () {
 		return numElem;
 	}
@@ -87,7 +90,7 @@ public class LlistaComanda {
 		if (trobat==true) {
 			numElem--;  
 			for (int i=posBorrar; i<numElem; i++) {
-				llista[i]=llista[i+1]; ///CAMBIO DE POSICIï¿½N
+				llista[i]=llista[i+1]; //Canvi de posició
 				nEspais++; 
 			}
 		}
