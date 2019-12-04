@@ -5,16 +5,15 @@ public class LlistaProductes {
 	 * Declaracio de variables
 	 */
 	
-	public int nElem; //controlem elements correctes de la llista
+	public int nElem, midaLlista=200; //controlem elements correctes de la llista
 	public productes[] llista;
 	
 	/**
 	 * constructor
-	 * @param mida
 	 */
-	public LlistaProductes (int mida) {
+	public LlistaProductes () {
 		nElem=0;
-		llista= new productes [mida];
+		llista= new productes [midaLlista];
 	}
 	
 	/**
@@ -52,12 +51,23 @@ public class LlistaProductes {
 		nElem++;
 	}
 	
+	public void afegirSoftware (String n, int p, int e, SO s) {
+		llista[nElem]=new software(n, p, e,s);
+		nElem++;
+	}
+	
 	/**
 	 * afegir producte hardware
 	 */
 	
 	public void afegirHardware (hardware h) {
 		llista[nElem]=h;
+		nElem++;
+	}
+	
+	
+	public void afegirHardware (String n, int p, int e, tipus_hardware t) {
+		llista[nElem]=new hardware(n, p, e, t);
 		nElem++;
 	}
 	/**
@@ -89,6 +99,17 @@ public class LlistaProductes {
 		return j;
 	}
 	
+	
+	/*Modificar estoc*/
+	public boolean modificarEstoc (int i, int e) {
+		boolean realitzat=false;
+		if (e>=0) {
+			llista[i].setEstoc(e);
+			realitzat=true;
+		}
+		return realitzat;
+	}
+	
 	/**ToString
 	 * 
 	 */
@@ -99,7 +120,7 @@ public class LlistaProductes {
 		}else {
 			String frase= "";
 			for (int i=0; i<nElem; i++) {
-				frase+= llista[i].toString()+ "\n";
+				frase= i+"-"+frase+llista[i].toString()+ "\n";
 			}
 			return frase;
 		}

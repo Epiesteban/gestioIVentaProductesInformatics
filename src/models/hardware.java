@@ -4,8 +4,8 @@ public class hardware extends productes{
 	//filla
 	private tipus_hardware tipus;
 	
-	public hardware (String nom, float preu, int estoc,int id,tipus_hardware tipus) {
-		super(nom, preu, estoc, id);
+	public hardware (String nom, float preu, int estoc,tipus_hardware tipus) {
+		super(nom, preu, estoc);
 		this.tipus= tipus;
 		
 		
