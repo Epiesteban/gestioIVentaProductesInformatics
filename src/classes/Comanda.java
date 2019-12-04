@@ -37,7 +37,7 @@ public class Comanda {
 	}
 	
 	public Comanda copia () {
-		return (new Comanda (productes producte,int nComandes,String identificador));
+		return (new Comanda (producte, nComandes, identificador));
 }
 /**
  * GETTERS
