@@ -1,11 +1,15 @@
 package models;
 
+import models.*;
+
 public class LlistaComandes {
+
 		private Comanda [] llista; 
 		private int numElem; 
 		public  int nEspais = 1000; //lliures
 		private int posBorrar; 
-		private boolean trobat; 
+		private boolean trobat;
+		 
 	
 
 
@@ -98,9 +102,24 @@ public class LlistaComandes {
 			}
 		}
 	}
-
+	
 	/**
 	 * 4.
+	 * @param identificador
+	 * @return
+	 */
+	public LlistaComandes eliminarComanda2 (String identificador){
+		LlistaComandes llistaAux=new LlistaComandes();
+		for (int i=0; i<numElem; i++) {
+			if (llista[i].getIdentificador().substring(0,9).equals(identificador)){
+				llistaAux.afegirComanda(llista[i]);;
+			}
+		}
+		return llistaAux;
+	}
+
+	/**
+	 * 5.
 	 * @param v
 	 * @return
 	 */
