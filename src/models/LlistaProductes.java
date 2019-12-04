@@ -5,16 +5,15 @@ public class LlistaProductes {
 	 * Declaracio de variables
 	 */
 	
-	public int nElem; //controlem elements correctes de la llista
+	public int nElem, midaLlista=200; //controlem elements correctes de la llista
 	public productes[] llista;
 	
 	/**
 	 * constructor
-	 * @param mida
 	 */
-	public LlistaProductes (int mida) {
+	public LlistaProductes () {
 		nElem=0;
-		llista= new productes [mida];
+		llista= new productes [midaLlista];
 	}
 	
 	/**
