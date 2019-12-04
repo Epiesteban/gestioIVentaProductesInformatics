@@ -39,7 +39,7 @@ public class LlistaProductes {
 	 * afegri producte
 	 */
 	
-	public void afegirproducte(productes p) {
+	public void afegirProducte(productes p) {
 		llista[nElem]=p;
 		nElem++;
 	}
@@ -72,7 +72,7 @@ public class LlistaProductes {
 	 *  alguna comanda mostrant dades del client
 	 */
 	public LlistaProductes algunaComanda (int comandes) {
-		
+		return null;
 	}
 	/**
 	 * buscar algun producte per el seu id i retorna posicio 
