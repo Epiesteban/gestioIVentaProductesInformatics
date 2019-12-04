@@ -1,12 +1,14 @@
 package classes;
 
+import seventeam_GestioiVendadeViatges.ListaReservas;
 
 public class LlistaComanda {
 		private Comanda [] llista; 
 		private int numElem; 
 		public  int nEspais = 1000; //lliures
 		private int posBorrar; 
-		private boolean trobat; 
+		private boolean trobat;
+		 
 	
 
 
@@ -99,9 +101,24 @@ public class LlistaComanda {
 			}
 		}
 	}
-
+	
 	/**
 	 * 4.
+	 * @param identificador
+	 * @return
+	 */
+	public LlistaComanda eliminarComanda2 (String identificador){
+		LlistaComanda llistaAux=new LlistaComanda();
+		for (int i=0; i<numElem; i++) {
+			if (llista[i].getIdentificador().substring(0,9).equals(identificador)){
+				llistaAux.afegirComanda(llista[i]);;
+			}
+		}
+		return llistaAux;
+	}
+
+	/**
+	 * 5.
 	 * @param v
 	 * @return
 	 */
