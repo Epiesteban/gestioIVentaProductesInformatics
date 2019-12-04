@@ -32,6 +32,10 @@ public class LlistaComanda {
 	public void setNElem (int numElem) {
 		this.numElem = numElem;
 	}
+	/**
+	 * Setter llitsa
+	 * @param llista
+	 */
 	public void setLlista (Comanda[] llista) {
 		this.llista = llista;
 	}
