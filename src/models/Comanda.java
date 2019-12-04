@@ -1,13 +1,11 @@
-package classes;
+package models;
 
 import java.util.Calendar;
-
-import models.productes;
 
 public class Comanda {
 	private Calendar data= Calendar.getInstance();
 	private int dia, mes, any;
-	private productes producte;
+	private Producte producte;
 	private int nComandes;
 	private String identificador;
 	
@@ -20,7 +18,7 @@ public class Comanda {
  * @param nComandes
  * @param dni
  */
-	public Comanda (productes producte, int nComandes, String dni){ //??????
+	public Comanda (Producte producte, int nComandes, String dni){ //??????
 		this.dia=data.get(Calendar.DATE);
 		this.mes=data.get(Calendar.MONTH);
 		this.any=data.get(Calendar.YEAR);
@@ -74,7 +72,7 @@ public class Comanda {
 	 * Getter producte
 	 * @return
 	 */
-	public productes getProducte() {
+	public Producte getProducte() {
 		return producte;
 	}
 	/**
@@ -126,14 +124,14 @@ public class Comanda {
 	 * Setter any
 	 * @return
 	 */
-	public void setAny() {
+	public void setAny(int any) {
 		this.any = any;
 	}
 	/**
 	 * Setter producte
 	 * @return
 	 */
-	public void setProducte(productes producte) {
+	public void setProducte(Producte producte) {
 		this.producte = producte;
 	}
 	/**

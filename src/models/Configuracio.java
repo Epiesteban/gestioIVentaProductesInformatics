@@ -1,46 +1,46 @@
 package models;
 
-public class configuracio extends productes {
+public class Configuracio extends Producte {
 	//classe filla de productes
 	
 	/**
 	 * DEclaració de variables
 	 */
 	
-	
-	public software[] softwares;
-	public hardware[] hardwares;
+	private final int mida = 500;
+	public Software[] softwares;
+	public Hardware[] hardwares;
 	
 	/*Constructor buit*/
-	public configuracio (String nom, float preu, int estoc, int mida) {
+	public Configuracio (String nom, float preu, int estoc) {
 		super(nom, preu, estoc);
-		softwares=new software[mida];
-		softwares=new software[mida];
+		softwares=new Software[mida];
+		softwares=new Software[mida];
 	}
 	
 	/*Constructor*/
-	public configuracio (String nom, float preu, int estoc, software[] softwares, hardware[] hardwares) {
+	public Configuracio (String nom, float preu, int estoc, Software[] softwares, Hardware[] hardwares) {
 		super(nom, preu, estoc);
 		this.hardwares=hardwares;
 		this.softwares=softwares;
 	}
 
-	public software[] getSoftwares() {
+	public Software[] getSoftwares() {
 		return softwares;
 	}
 
 
-	public void setSoftwares(software[] softwares) {
+	public void setSoftwares(Software[] softwares) {
 		this.softwares = softwares;
 	}
 
 
-	public hardware[] getHardwares() {
+	public Hardware[] getHardwares() {
 		return hardwares;
 	}
 
 
-	public void setHardwares(hardware[] hardwares) {
+	public void setHardwares(Hardware[] hardwares) {
 		this.hardwares = hardwares;
 	}
 	

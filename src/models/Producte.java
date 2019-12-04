@@ -1,6 +1,6 @@
 package models;
 
-public class productes {
+public class Producte {
 // pare
 	/** declaracio de variables*/
 	
@@ -14,7 +14,7 @@ public class productes {
 	/** constructor
 	 * 
 	 */
-	public productes (String nom, float preu,int estoc) {
+	public Producte (String nom, float preu,int estoc) {
 		this.nom= nom;
 		this.preu= preu;
 		this.estoc= estoc;

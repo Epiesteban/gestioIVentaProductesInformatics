@@ -6,13 +6,13 @@ package models;
  * @author Joel Panisello
  *
  */
-public class Clients {
+public class Client {
 	
 	//ATRIBUTS
 	private String dni, correu, adresa;
-	private LlistaComandes llistaComandes;
+	//private LlistaComandes llistaComandes;
 
-	public Clients(String dni, String correu, String adresa) {
+	public Client(String dni, String correu, String adresa) {
 		this.dni = dni;
 		this.correu = correu;
 		this.adresa = adresa;
@@ -46,19 +46,13 @@ public class Clients {
 	 * Metode que crea una copia de la instancia.
 	 * @return new Clients(dni, correu, adresa)
 	 */
-	public Clients copia() {
-		return  new Clients(dni, correu, adresa);
+	public Client copia() {
+		return  new Client(dni, correu, adresa);
 	}
 	
 	@Override
 	public String toString() {
 		return "Clients [dni=" + dni + ", correu=" + correu + ", adresa=" + adresa + "]";
-	}
-	
-	public void eliminarComandes() {
-		for(int i = 0;i<llistaComandes.nComandes;i++) {
-			llistaComandes.llista[i].eliminarComanda();
-		}
 	}
 	
 }

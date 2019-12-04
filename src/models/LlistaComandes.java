@@ -1,7 +1,6 @@
-package classes;
+package models;
 
-
-public class LlistaComanda {
+public class LlistaComandes {
 		private Comanda [] llista; 
 		private int numElem; 
 		public  int nEspais = 1000; //lliures
@@ -14,7 +13,7 @@ public class LlistaComanda {
  * Constructor per defecte
  */
 	
-	public LlistaComanda() {
+	public LlistaComandes() {
 		this.llista = new Comanda [1000];
 		this.numElem = 0;
 		this.nEspais = 1000; 

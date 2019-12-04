@@ -4,16 +4,16 @@ public class LlistaProductes {
 	/**
 	 * Declaracio de variables
 	 */
-	
-	public int nElem, midaLlista=200; //controlem elements correctes de la llista
-	public productes[] llista;
+	private final int mida = 500;
+	public int nElem; //controlem elements correctes de la llista
+	public Producte[] llista;
 	
 	/**
 	 * constructor
 	 */
 	public LlistaProductes () {
 		nElem=0;
-		llista= new productes [midaLlista];
+		llista= new Producte [mida];
 	}
 	
 	/**
@@ -27,56 +27,22 @@ public class LlistaProductes {
 		this.nElem = nElem;
 	}
 
-	public productes[] getLlista() {
+	public Producte[] getLlista() {
 		return llista;
 	}
 
-	public void setLlista(productes[] llista) {
+	public void setLlista(Producte[] llista) {
 		this.llista = llista;
 	}
 	/**
 	 * afegri producte
 	 */
 	
-	public void afegirProducte(productes p) {
+	public void afegirProducte(Producte p) {
 		llista[nElem]=p;
 		nElem++;
 	}
 	
-	/**
-	 * afegir producte software
-	 */
-	public void afegirSoftware (software s) {
-		llista[nElem]= s;
-		nElem++;
-	}
-	
-	public void afegirSoftware (String n, int p, int e, SO s) {
-		llista[nElem]=new software(n, p, e,s);
-		nElem++;
-	}
-	
-	/**
-	 * afegir producte hardware
-	 */
-	
-	public void afegirHardware (hardware h) {
-		llista[nElem]=h;
-		nElem++;
-	}
-	
-	
-	public void afegirHardware (String n, int p, int e, tipus_hardware t) {
-		llista[nElem]=new hardware(n, p, e, t);
-		nElem++;
-	}
-	/**
-	 * afegir configuracio
-	 */
-	public void afegirConfiguracio (configuracio c) {
-		llista [nElem]= c;
-		nElem++;
-	}
 	/**
 	 * llistat de tots els productes amb
 	 *  alguna comanda mostrant dades del client

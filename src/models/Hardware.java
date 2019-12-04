@@ -1,10 +1,10 @@
 package models;
 
-public class hardware extends productes{
+public class Hardware extends Producte{
 	//filla
-	private tipus_hardware tipus;
+	private Tipus_hardware tipus;
 	
-	public hardware (String nom, float preu, int estoc,tipus_hardware tipus) {
+	public Hardware (String nom, float preu, int estoc,Tipus_hardware tipus) {
 		super(nom, preu, estoc);
 		this.tipus= tipus;
 		
@@ -16,11 +16,11 @@ public class hardware extends productes{
 	 */
 	
 
-	public tipus_hardware getTipus() {
+	public Tipus_hardware getTipus() {
 		return tipus;
 	}
 
-	public void setTipus(tipus_hardware tipus) {
+	public void setTipus(Tipus_hardware tipus) {
 		this.tipus = tipus;
 	}
 	

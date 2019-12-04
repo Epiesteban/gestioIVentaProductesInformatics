@@ -3,12 +3,12 @@ package models;
 public class LlistaClients {
 
 	private int nClients;
-	private Clients [] llista;
-	private final int mida = 50;
+	private Client [] llista;
+	private final int mida = 500;
 	
 	public LlistaClients() {
 		nClients = 0;
-		llista = new Clients [mida];
+		llista = new Client [mida];
 	}
 
 	public int getnClients() {
@@ -19,11 +19,11 @@ public class LlistaClients {
 		this.nClients = nClients;
 	}
 
-	public Clients[] getLlista() {
+	public Client[] getLlista() {
 		return llista;
 	}
 
-	public void setLlista(Clients[] llista) {
+	public void setLlista(Client[] llista) {
 		nClients = 0;
 		for (int i = 0; (i < this.llista.length) && (i < llista.length) && (llista[i] != null); i++) {
 			this.afegirClient(llista[i]); 
@@ -50,13 +50,13 @@ public class LlistaClients {
 		}
 	}
 	
-	public Clients buscarClient(String dni ) {
+	public Client buscarClient(String dni ) {
 		int i = buscarClient_id(dni);
 		if (i != -1) return llista[i];
 		else return null;
 	}
 	
-	public void afegirClient(Clients client) {
+	public void afegirClient(Client client) {
 		boolean trobat = false;
 		int i = 0;
 		if(mida>nClients) {
@@ -74,7 +74,6 @@ public class LlistaClients {
 	public void eliminarClient(String dni) {
 		int aux = buscarClient_id(dni);
 		if (aux != -1) {
-			llista[aux].eliminarComandes();
 			for(int i=aux;i<nClients-1;i++) {
 				llista[i]=llista[i+1];
 			}

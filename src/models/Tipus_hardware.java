@@ -1,5 +1,5 @@
 package models;
 
-public enum tipus_hardware {
+public enum Tipus_hardware {
 	CPU, HDD, MoBo,PSU,Case, RAM;
 }

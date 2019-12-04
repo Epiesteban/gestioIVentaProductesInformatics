@@ -1,27 +1,19 @@
 package controladors;
 
+import java.io.File;
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import com.sun.glass.ui.Window;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import com.sun.xml.internal.ws.Closeable;
-
-import models.LlistaClients;
-import models.LlistaProductes;
-import models.SO;
-import models.configuracio;
-import models.hardware;
-import models.productes;
-import models.software;
-import models.tipus_hardware;
-import sun.launcher.resources.launcher;
+import models.*;
 
 public class mainBotiga {
 
-	
+	static Scanner teclat=new Scanner(System.in);
+
 	public static void main(String[] args) {
-		Scanner teclat=new Scanner(System.in);
-		LlistaProductes llista_p=new LlistaProductes(200);
+
+		LlistaProductes llista_p=new LlistaProductes();
 		int op=0;
 		
 		menu();
@@ -62,6 +54,29 @@ public class mainBotiga {
 		teclat.close();
 	}
 	
+	private static void llegirFitxerClients(LlistaClients llista) throws FileNotFoundException {
+		String result="";
+		Scanner f=new Scanner(new File("clients.txt"));
+		while (f.hasNextLine()) {
+			result= f.nextLine();
+			String[] separador = result.split("\\*");
+			llista.afegirClient(new Client(separador[0], separador[1], separador[2]));
+		}
+		f.close();
+	}
+
+
+	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
+		String result="";
+		Scanner f=new Scanner(new File("productes.txt"));
+		while (f.hasNextLine()) {
+			result= f.nextLine();
+			String[] separador = result.split("\\*");
+			//switch llista.afegirHardware, etc.
+		//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
+		}
+		f.close();
+	}	
 	
 	public static void menu () {
 		System.out.println("Benvingut a la botiga! Que vols fer?");
@@ -79,8 +94,8 @@ public class mainBotiga {
 		System.out.println("12-Sortir");
 	}
 	
-	public static software afegirSoftware () {
-		Scanner t=new Scanner(System.in);
+	public static Software afegirSoftware () {
+		
 		String nom;
 		float preu;
 		int estoc, op=2;
@@ -88,15 +103,15 @@ public class mainBotiga {
 		
 		
 		System.out.println("Introdueix el nom:");
-		nom=t.next();
+		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
-		preu=t.nextFloat();
+		preu=teclat.nextFloat();
 		System.out.println("Introdueix l'estoc:");
-		estoc=t.nextInt();
+		estoc=teclat.nextInt();
 		while (op<=1 && op>=3) {
 			System.out.println("Selecciona el sistema operatiu:");
 			System.out.println("1- Windows,  2-MacOS,  3-Linux");
-			op=t.nextInt();
+			op=teclat.nextInt();
 			switch (op) {
 			case 1:{
 				sist=SO.Windows;
@@ -112,82 +127,81 @@ public class mainBotiga {
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
 		}
-		t.close();
-		return(new software(nom, preu, estoc, sist));
+		teclat.close();
+		return(new Software(nom, preu, estoc, sist));
 	}
 	
 	
-	public static hardware afegirHardware () {
-		Scanner t=new Scanner(System.in);
+	public static Hardware afegirHardware () {
+		
 		String nom;
 		float preu;
 		int estoc, op=2;
-		tipus_hardware tipus=tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
+		Tipus_hardware tipus=Tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
 		
 		
 		System.out.println("Introdueix el nom:");
-		nom=t.next();
+		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
-		preu=t.nextFloat();
+		preu=teclat.nextFloat();
 		System.out.println("Introdueix l'estoc:");
-		estoc=t.nextInt();
+		estoc=teclat.nextInt();
 		while (op<=1 && op>=6) {
 			System.out.println("Selecciona el tipus de hardware:");
 			System.out.println("1- Case,  2-CPU,  3-HDD, 4-MoBo, 5-PSU, 6-RAM");
-			op=t.nextInt();
+			op=teclat.nextInt();
 			switch (op) {
 			case 1:{
-				tipus=tipus_hardware.Case;
+				tipus=Tipus_hardware.Case;
 			}break;
 			case 2:{
-				tipus=tipus_hardware.CPU;
+				tipus=Tipus_hardware.CPU;
 			}break;
 			case 3:{
-				tipus=tipus_hardware.HDD;
+				tipus=Tipus_hardware.HDD;
 			}break;
 			case 4:{
-				tipus=tipus_hardware.MoBo;
+				tipus=Tipus_hardware.MoBo;
 			}break;
 			case 5:{
-				tipus=tipus_hardware.PSU;
+				tipus=Tipus_hardware.PSU;
 			}break;
 			case 6:{
-				tipus=tipus_hardware.RAM;
+				tipus=Tipus_hardware.RAM;
 			}break;
 
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
 		}
-		t.close();
-		return(new hardware(nom, preu, estoc, tipus));
+		teclat.close();
+		return(new Hardware(nom, preu, estoc, tipus));
 	}
 	
 	
-	public static configuracio afegirConfiguracio() {
-		
+	public static Configuracio afegirConfiguracio() {
+		return new Configuracio("nom", 23, 32);
 	}
 	
 	public static void modificarEstoc (LlistaProductes l) {
-		Scanner t=new Scanner (System.in);
+
 		int i, nouEstoc;
 		System.out.println(l.toString());
 		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
-		i=t.nextInt();
+		i=teclat.nextInt();
 		System.out.println("Quin es el nou estoc d'aquest producte?");
-		nouEstoc=t.nextInt();
+		nouEstoc=teclat.nextInt();
 		if (l.modificarEstoc(i, nouEstoc)==true) {
 			System.out.println("S'ha modificat correctament l'estoc a:"+nouEstoc);
 		}else {
 			System.out.println("No s'ha realitzat l'operacio");
 		}
-		t.close();
 	}
 	
 	public static String productesEstoc(LlistaProductes l) {
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
-			if (!(l.getLlista()[i] instanceof configuracio)) {
+			if (!(l.getLlista()[i] instanceof Configuracio)) {
 				aux=aux+l.getLlista()[i].toString();
 			}
 		}
@@ -197,7 +211,7 @@ public class mainBotiga {
 	public static String productesConfiguracio(LlistaProductes l) {
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
-			if (l.getLlista()[i] instanceof configuracio) {
+			if (l.getLlista()[i] instanceof Configuracio) {
 				aux=aux+l.getLlista()[i].toString();
 			}
 			i++;
@@ -207,13 +221,13 @@ public class mainBotiga {
 	
 	
 	public static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
-		Scanner t= new Scanner(System.in);
+	
 		int op=0;
 		
 		while (!(op==1 || op==2)) {
 			System.out.println("De quina llista vols veure els elements?");
 			System.out.println("1- Llista de productes,  2- Llista de clients");
-			op=t.nextInt();
+			op=teclat.nextInt();
 			switch (op) {
 			case 1:{
 				System.out.println(lp.toString());
@@ -226,6 +240,5 @@ public class mainBotiga {
 				System.out.println("Has introduït un numero erroni!Prova un altre numeo");
 			}
 		}
-		t.close();
 	}
 }
