@@ -1,5 +1,7 @@
 package controladors;
+
 import java.io.FileInputStream;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,22 +16,36 @@ public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
 
-	public static void main(String[] args) {
-		LlistaProductes llista_p=new LlistaProductes();
-		int op=0;
+	public static void main(String[] args) throws FileNotFoundException {
+		LlistaClients llista_clients = new LlistaClients();
+		LlistaProductes llista_productes = new LlistaProductes();
+		LlistaComandes llista_comandes = new LlistaComandes();
+		//llegirFitxerClients(llista_clients);
 		
-		menu();
-		op=teclat.nextInt();
-		while (op!=12) {
+		int op=0;
+		String dni, correu, adresa;
+		do {
+			menu();
+			op=teclat.nextInt();
 			switch (op) {
 			case 1:{
-				
 			}break;
 			case 2:{
 			}break;
 			case 3:{
 			}break;
 			case 4:{
+				System.out.println("Has es escollit donar d'alta un client.");
+				System.out.println("Introdueix DNI:");
+				//teclat.hasNextLine();	// netejar buffer
+				dni = teclat.nextLine();
+				System.out.println("Introdueix correu electronic:");
+				correu = teclat.nextLine();
+				System.out.println("Introdueix adreça:");
+				adresa = teclat.nextLine();
+				llista_clients.afegirClient(new Client(dni, correu, adresa));
+				llista_clients.toString();
+				
 			}break;
 			case 5:{
 			}break;
@@ -48,14 +64,24 @@ public class mainBotiga {
 			case 12:{
 				System.out.println("Has decidit sortir del programa. \nAdeu i fins aviat!");
 			}break;
-			default:{
-				System.out.println("Vigila! Has introduit un numero erròni");
+			default: System.out.println("Vigila! Has introduit un numero erroni\n");
 			}
-			}
+		}while (op != 12);
+		System.out.println("Vols guardar tota la informacio als fitxers?(0 = NO	1 = SI)");
+		if (teclat.nextInt() == 1) {
+			guardarFitxers(llista_clients, llista_productes, llista_comandes);
 		}
+		else {
+			System.out.println("bye bye");
+		}
+		System.exit(0);
 		teclat.close();
 	}
 	
+	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) {
+		
+	}
+
 	private static void llegirFitxerClients(LlistaClients llista) throws FileNotFoundException {
 		String result="";
 		Scanner f=new Scanner(new File("clients.txt"));
@@ -75,13 +101,13 @@ public class mainBotiga {
 			result= f.nextLine();
 			String[] separador = result.split("\\*");
 			//switch llista.afegirHardware, etc.
-		//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
+			//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
 		}
 		f.close();
 	}	
-	
+
 	public static void menu () {
-		System.out.println("Benvingut a la botiga! Que vols fer?");
+		System.out.println("\nBenvingut a la botiga! Que vols fer?");
 		System.out.println("1-Afegir un producte de software");
 		System.out.println("2-Afegir un producte de hardware");
 		System.out.println("3-Afegir una configuració completa");
@@ -95,15 +121,15 @@ public class mainBotiga {
 		System.out.println("11-Consultar tots els elements d'una llista");
 		System.out.println("12-Sortir");
 	}
-	
+
 	public static Software afegirSoftware () {
-		
+
 		String nom;
 		float preu;
 		int estoc, op=2;
 		SO sist=SO.Windows;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-		
-		
+
+
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
@@ -132,16 +158,16 @@ public class mainBotiga {
 		teclat.close();
 		return(new Software(nom, preu, estoc, sist));
 	}
-	
-	
+
+
 	public static Hardware afegirHardware () {
-		
+
 		String nom;
 		float preu;
 		int estoc, op=2;
 		Tipus_hardware tipus=Tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-		
-		
+
+
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
@@ -179,12 +205,12 @@ public class mainBotiga {
 		teclat.close();
 		return(new Hardware(nom, preu, estoc, tipus));
 	}
-	
-	
+
+
 	public static Configuracio afegirConfiguracio() {
 		return new Configuracio("nom", 23, 32);
 	}
-	
+
 	public static void modificarEstoc (LlistaProductes l) {
 
 		int i, nouEstoc;
@@ -199,7 +225,7 @@ public class mainBotiga {
 			System.out.println("No s'ha realitzat l'operacio");
 		}
 	}
-	
+
 	public static String productesEstoc(LlistaProductes l) {
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
@@ -209,7 +235,7 @@ public class mainBotiga {
 		}
 		return aux;
 	}
-	
+
 	public static String productesConfiguracio(LlistaProductes l) {
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
@@ -220,12 +246,12 @@ public class mainBotiga {
 		}
 		return aux;
 	}
-	
-	
+
+
 	public static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
-	
+
 		int op=0;
-		
+
 		while (!(op==1 || op==2)) {
 			System.out.println("De quina llista vols veure els elements?");
 			System.out.println("1- Llista de productes,  2- Llista de clients");
@@ -243,42 +269,42 @@ public class mainBotiga {
 			}
 		}
 	}
-	
-/**
- * Funció per a escriure en una llista en format serialitzable 	
- * @param llista
- */
-public static void guardarDataSerialitzable (LlistaComandes llista) {
-	ObjectOutputStream gfitxer;
-	try {
-		gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
-		gfitxer.writeObject(llista);
-		gfitxer.close();
-	} catch (IOException e){
-		System.out.println("Error a l'hora d'escriure al fitxer");
-	}
-}
-/**
- * Funció per a llegir una llista que esta guardada en format serialitzable
- * @param llista
- */
-public static void llegirDataSerialitzable (LlistaComandes llista) {
-	ObjectInputStream lfitxer;
-	try {
-		lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
-		for (int i=0; i<llista.getnumElem(); i++) {
-			llista=(LlistaComandes)lfitxer.readObject();
+
+	/**
+	 * Funció per a escriure en una llista en format serialitzable 	
+	 * @param llista
+	 */
+	public static void guardarDataSerialitzable (LlistaComandes llista) {
+		ObjectOutputStream gfitxer;
+		try {
+			gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
+			gfitxer.writeObject(llista);
+			gfitxer.close();
+		} catch (IOException e){
+			System.out.println("Error a l'hora d'escriure al fitxer");
 		}
-		lfitxer.close();
-	} catch (IOException e) {
-		System.out.println ("Error a l'hora de llegir l'arxiu");
-	} catch (ClassNotFoundException e) {
-		System.out.println ("Error a l'hora de buscar la llista de Comandes");
-	} catch (ClassCastException e) {
-		System.out.println ("Error, el format de l'arxiu no és correcte per poder-lo obrir i llegir-lo");	
 	}
-	
+	/**
+	 * Funció per a llegir una llista que esta guardada en format serialitzable
+	 * @param llista
+	 */
+	public static void llegirDataSerialitzable (LlistaComandes llista) {
+		ObjectInputStream lfitxer;
+		try {
+			lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
+			for (int i=0; i<llista.getnumElem(); i++) {
+				llista=(LlistaComandes)lfitxer.readObject();
+			}
+			lfitxer.close();
+		} catch (IOException e) {
+			System.out.println ("Error a l'hora de llegir l'arxiu");
+		} catch (ClassNotFoundException e) {
+			System.out.println ("Error a l'hora de buscar la llista de Comandes");
+		} catch (ClassCastException e) {
+			System.out.println ("Error, el format de l'arxiu no és correcte per poder-lo obrir i llegir-lo");	
+		}
+
+	}
 }
-}
-	
+
 

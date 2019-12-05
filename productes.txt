@@ -1,0 +1,3 @@
+producte1*32.49*10
+producte2*10.99*25
+producte3*778.999*5

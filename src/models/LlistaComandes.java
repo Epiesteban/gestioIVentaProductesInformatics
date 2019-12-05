@@ -1,7 +1,5 @@
 package models;
 
-import models.*;
-
 public class LlistaComandes {
 
 		private Comanda [] llista; 
@@ -108,7 +106,7 @@ public class LlistaComandes {
 	 * @param identificador
 	 * @return
 	 */
-	public LlistaComandes eliminarComanda2 (String identificador){
+	public LlistaComandes eliminarComandes (String identificador){
 		LlistaComandes llistaAux=new LlistaComandes();
 		for (int i=0; i<numElem; i++) {
 			if (llista[i].getIdentificador().substring(0,9).equals(identificador)){
