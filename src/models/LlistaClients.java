@@ -95,7 +95,7 @@ public class LlistaClients {
 	 * @param client
 	 */
 	public void afegirClient(Client client) {
-		boolean trobat = false;
+/*		boolean trobat = false;
 		int i = 0;
 		if(mida>nClients) {
 			while (( i<nClients) &&(!trobat)) {
@@ -103,10 +103,10 @@ public class LlistaClients {
 				i++;
 			}
 			if (trobat) {
-			llista[nClients] = client;
+			*/llista[nClients] = client.copia();
 			nClients++;
-			}
-		}
+			//}
+		//}
 	}
 	
 	/**

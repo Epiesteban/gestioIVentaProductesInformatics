@@ -20,10 +20,9 @@ public class mainBotiga {
 		LlistaClients llista_clients = new LlistaClients();
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
-		//llegirFitxerClients(llista_clients);
-		
+		llegirFitxerClients(llista_clients);
+
 		int op=0;
-		String dni, correu, adresa;
 		do {
 			menu();
 			op=teclat.nextInt();
@@ -35,19 +34,10 @@ public class mainBotiga {
 			case 3:{
 			}break;
 			case 4:{
-				System.out.println("Has es escollit donar d'alta un client.");
-				System.out.println("Introdueix DNI:");
-				//teclat.hasNextLine();	// netejar buffer
-				dni = teclat.nextLine();
-				System.out.println("Introdueix correu electronic:");
-				correu = teclat.nextLine();
-				System.out.println("Introdueix adreça:");
-				adresa = teclat.nextLine();
-				llista_clients.afegirClient(new Client(dni, correu, adresa));
-				llista_clients.toString();
-				
+				opcio4(llista_clients);
 			}break;
 			case 5:{
+				opcio5(llista_clients, llista_comandes);
 			}break;
 			case 6:{
 			}break;
@@ -62,7 +52,7 @@ public class mainBotiga {
 			case 11:{
 			}break;
 			case 12:{
-				System.out.println("Has decidit sortir del programa. \nAdeu i fins aviat!");
+				System.out.println("Has decidit sortir del programa.");
 			}break;
 			default: System.out.println("Vigila! Has introduit un numero erroni\n");
 			}
@@ -71,9 +61,7 @@ public class mainBotiga {
 		if (teclat.nextInt() == 1) {
 			guardarFitxers(llista_clients, llista_productes, llista_comandes);
 		}
-		else {
-			System.out.println("bye bye");
-		}
+		System.out.println("Adeu, fins aviat!");
 		System.exit(0);
 		teclat.close();
 	}
@@ -105,9 +93,9 @@ public class mainBotiga {
 		}
 		f.close();
 	}	
-
+	
 	public static void menu () {
-		System.out.println("\nBenvingut a la botiga! Que vols fer?");
+		System.out.println("\nBENVINGUT A LA BOTIGA! QUE VOLS FER?\n");
 		System.out.println("1-Afegir un producte de software");
 		System.out.println("2-Afegir un producte de hardware");
 		System.out.println("3-Afegir una configuració completa");
@@ -211,6 +199,30 @@ public class mainBotiga {
 		return new Configuracio("nom", 23, 32);
 	}
 
+	private static void opcio4(LlistaClients llista_clients) {
+		String dni, correu, adresa; // atributs per client
+
+		System.out.println("Has es escollit donar d'alta un client.");
+		System.out.println("Introdueix DNI:");
+		dni = teclat.nextLine();
+		System.out.println("Introdueix correu electronic:");
+		correu = teclat.nextLine();
+		System.out.println("Introdueix adreça:");
+		adresa = teclat.nextLine();
+
+		llista_clients.afegirClient(new Client(dni, correu, adresa));
+		llista_clients.toString();
+	}
+	
+	private static void opcio5(LlistaClients llista_clients, LlistaComandes llista_comandes) {
+		String dni;
+		System.out.println("Has escollit donar de baixa un client.");
+		System.out.println("Introdueix el DNI:");
+		dni = teclat.nextLine();
+		llista_clients.eliminarClient(dni);
+		llista_comandes.eliminarComandes(dni);		
+	}
+	
 	public static void modificarEstoc (LlistaProductes l) {
 
 		int i, nouEstoc;

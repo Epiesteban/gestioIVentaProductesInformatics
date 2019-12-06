@@ -82,7 +82,6 @@ public class LlistaProductes {
 	public String toString() {
 		if (nElem==0) {
 			return ("");
-		
 		}else {
 			String frase= "";
 			for (int i=0; i<nElem; i++) {
