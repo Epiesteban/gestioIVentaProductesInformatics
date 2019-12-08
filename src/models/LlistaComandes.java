@@ -1,6 +1,5 @@
 package models;
 
-import models.*;
 
 /**
  * LLISTA COMANDA 
@@ -92,36 +91,46 @@ public class LlistaComandes {
 	 * 3. Elimina comanda en la llista
 	 * @param identificador : on s'introdueix l'identificador per poder eliminar la comanda 
 	 */
-	public void eliminarComanda (String identificador) {
-		for (int i=0 ; i<numElem; i++) {
-			if (llista[i].getIdentificador().equals(identificador)) {
-				posBorrar=i;
-				trobat=true; 
+	
+	public void eliminaComanda (String Identificador) {
+		for (int i = 0 ; i<numElem; i++) {
+			if (llista[i].getIdentificador().equals(Identificador)) {
+				posBorrar = i;
+				trobat = true; /**Quan trobi la posicio, marcara la i, que es l'element que estem buscant com a posicio que s'ha d'esborrar**/
 			}
 		}
-		if (trobat==true) {
+		if (trobat == true) {
 			numElem--;  
-			for (int i=posBorrar; i<numElem; i++) {
-				llista[i]=llista[i+1]; //Canvi de posició
+			for (int i = posBorrar; i<numElem; i++) {
+				llista[i] = llista[i+1]; /**Quan l'eliminem, adelantem les posicions del darrere a la posicio que hem borrat per a no tenir espais buits**/
 				nEspais++; 
 			}
 		}
-	}
+	}	
 	
 	/**
-	 * 4. Elimina TOTES les comandes
-	 * @param identificador :  on s'introdueix l'identificador per poder eliminar totes les comandes que té
-	 * @return --> elimina totes les comandes de un identificador específic
+	 * 4. Elimina totes les comandes d'un mateix dni en la llista
+	 * @param dni : on s'introdueix el dni per poder eliminar totes les comandes d'aquest
 	 */
-	public LlistaComandes eliminarComanda2 (String identificador){
-		LlistaComandes llistaAux=new LlistaComandes();
-		for (int i=0; i<numElem; i++) {
-			if (llista[i].getIdentificador().substring(0,9).equals(identificador)){
-				llistaAux.afegirComanda(llista[i]);;
+	public void eliminarComandes (String dni){
+		int i = 0;
+		while (i < llista.length) {/**Busquem la posicio i anem borrant comanda a comanda mentre el for va trobat comandes fetes amb el dni (i marca TRUE)**/
+			for (int j = 0; j<numElem; j++) {
+				if (llista[j].getIdentificador().substring(0,9).equals(dni)) { /**Diem al programa que el dni va de la posició 0 a la 8 (exemple :12345678X hi ha 
+																					9 elements a la String agafem de la posició 0 a la 8, que és com la 1 fins la 9)**/
+					posBorrar = j;
+					trobat = true;
+				}
+				if (trobat == true) {
+					numElem--;
+					for (int k = posBorrar; k<numElem; k++) {
+						llista[k] = llista[k+1];
+						nEspais++;
+					}
+				}
 			}
 		}
-		return llistaAux;
-	}
+	}	
 
 	/**
 	 * 5. Busca una comanda en la llista
