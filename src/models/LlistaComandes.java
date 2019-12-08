@@ -2,6 +2,11 @@ package models;
 
 import models.*;
 
+/**
+ * LLISTA COMANDA 
+ * @author Xènia Fuentes Font 
+ *
+ */
 public class LlistaComandes {
 
 		private Comanda [] llista; 
@@ -30,14 +35,14 @@ public class LlistaComandes {
  */
 	/**
 	 * Setter nElem
-	 * @param numElem
+	 * @param numElem --> per poder canviar el numero d'elements que es guarden a la llista 
 	 */
 	public void setNElem (int numElem) {
 		this.numElem = numElem;
 	}
 	/**
-	 * Setter llitsa
-	 * @param llista
+	 * Setter llista
+	 * @param llista --> per poder canviar els elements de la llista 
 	 */
 	public void setLlista (Comanda[] llista) {
 		this.llista = llista;
@@ -47,14 +52,14 @@ public class LlistaComandes {
  */
 	/**
 	 * Getter llista
-	 * @return
+	 * @return --> per poder aconseguir els elements que hi ha guardats a la llista
 	 */
 	public Comanda[] getLlista () {
 		return llista;
 	}
 	/**
 	 * Getter nElem
-	 * @return
+	 * @return --> per poder aconseguir el numero d'elements que hi ha guardats a la llista
 	 */
 	public int getnumElem () {
 		return numElem;
@@ -64,18 +69,18 @@ public class LlistaComandes {
  * MÈTODES
  */
 	/**
-	 * 1.
-	 * @param index
-	 * @return
+	 * 1. Retorna l'element i de la llista 
+	 * @param index: on s'introdueix per paràmetre la posició per cercar l'element i de la llista 
+	 * @return --> l'element que hi ha a la posició index
 	 */
-	public Comanda i (int index) { //Retorna l'element i de la llista i així podem accedir als elements d'aquesta
+	public Comanda buscarElement (int index) { 
 		return llista[index];
 	}
 	
 
 	/**
-	 * 2.
-	 * @param v
+	 * 2. Afegeix una comanda en la llista 
+	 * @param v : on s'introdueix la comanda per poder-la guardar en la llista 
 	 */
 	public void afegirComanda(Comanda v) {
 		llista[numElem] = v;
@@ -84,8 +89,8 @@ public class LlistaComandes {
 	}
 
 	/**
-	 * 3.
-	 * @param identificador
+	 * 3. Elimina comanda en la llista
+	 * @param identificador : on s'introdueix l'identificador per poder eliminar la comanda 
 	 */
 	public void eliminarComanda (String identificador) {
 		for (int i=0 ; i<numElem; i++) {
@@ -104,9 +109,9 @@ public class LlistaComandes {
 	}
 	
 	/**
-	 * 4.
-	 * @param identificador
-	 * @return
+	 * 4. Elimina TOTES les comandes
+	 * @param identificador :  on s'introdueix l'identificador per poder eliminar totes les comandes que té
+	 * @return --> elimina totes les comandes de un identificador específic
 	 */
 	public LlistaComandes eliminarComanda2 (String identificador){
 		LlistaComandes llistaAux=new LlistaComandes();
@@ -119,9 +124,9 @@ public class LlistaComandes {
 	}
 
 	/**
-	 * 5.
-	 * @param v
-	 * @return
+	 * 5. Busca una comanda en la llista
+	 * @param v : on s'introdueix la comanda que estas buscant en la llista 
+	 * @return --> retorna si s'ha trobat la comanda demanada (TRUE)
 	 */
 	public boolean buscarComanda (Comanda v) {
 		for (int i=0; i<numElem;i++) {
