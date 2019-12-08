@@ -94,7 +94,7 @@ public class mainBotiga {
 		f.close();
 	}	
 	
-	public static void menu () {
+	private static void menu () {
 		System.out.println("\nBENVINGUT A LA BOTIGA! QUE VOLS FER?\n");
 		System.out.println("1-Afegir un producte de software");
 		System.out.println("2-Afegir un producte de hardware");
@@ -105,12 +105,12 @@ public class mainBotiga {
 		System.out.println("7-Modificar l'estoc");
 		System.out.println("8-Visualitzar els productes que estan en estoc");
 		System.out.println("9-Visualitzar els productes que formen part d'una configuració");
-		System.out.println("10-Mostrar el producte amb més comandes");
+		System.out.println("10-Mostrar el producte amb més comandes"); 
 		System.out.println("11-Consultar tots els elements d'una llista");
 		System.out.println("12-Sortir");
 	}
 
-	public static Software afegirSoftware () {
+	private static Software afegirSoftware () {
 
 		String nom;
 		float preu;
@@ -148,7 +148,7 @@ public class mainBotiga {
 	}
 
 
-	public static Hardware afegirHardware () {
+	private static Hardware afegirHardware () {
 
 		String nom;
 		float preu;
@@ -195,13 +195,13 @@ public class mainBotiga {
 	}
 
 
-	public static Configuracio afegirConfiguracio() {
+	private static Configuracio afegirConfiguracio() {
 		return new Configuracio("nom", 23, 32);
 	}
 
 	private static void opcio4(LlistaClients llista_clients) {
+		teclat.nextLine();
 		String dni, correu, adresa; // atributs per client
-
 		System.out.println("Has es escollit donar d'alta un client.");
 		System.out.println("Introdueix DNI:");
 		dni = teclat.nextLine();
@@ -209,9 +209,9 @@ public class mainBotiga {
 		correu = teclat.nextLine();
 		System.out.println("Introdueix adreça:");
 		adresa = teclat.nextLine();
-
+		teclat.nextLine();
 		llista_clients.afegirClient(new Client(dni, correu, adresa));
-		llista_clients.toString();
+		System.out.println(llista_clients.toString());
 	}
 	
 	private static void opcio5(LlistaClients llista_clients, LlistaComandes llista_comandes) {
@@ -223,7 +223,7 @@ public class mainBotiga {
 		llista_comandes.eliminarComandes(dni);		
 	}
 	
-	public static void modificarEstoc (LlistaProductes l) {
+	private static void modificarEstoc (LlistaProductes l) {
 
 		int i, nouEstoc;
 		System.out.println(l.toString());
@@ -238,7 +238,7 @@ public class mainBotiga {
 		}
 	}
 
-	public static String productesEstoc(LlistaProductes l) {
+	private static String productesEstoc(LlistaProductes l) {
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
 			if (!(l.getLlista()[i] instanceof Configuracio)) {
@@ -248,7 +248,7 @@ public class mainBotiga {
 		return aux;
 	}
 
-	public static String productesConfiguracio(LlistaProductes l) {
+	private static String productesConfiguracio(LlistaProductes l) {
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
 			if (l.getLlista()[i] instanceof Configuracio) {
@@ -260,7 +260,7 @@ public class mainBotiga {
 	}
 
 
-	public static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
+	private static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
 
 		int op=0;
 
@@ -286,7 +286,7 @@ public class mainBotiga {
 	 * Funció per a escriure en una llista en format serialitzable 	
 	 * @param llista
 	 */
-	public static void guardarDataSerialitzable (LlistaComandes llista) {
+	private static void guardarDataSerialitzable (LlistaComandes llista) {
 		ObjectOutputStream gfitxer;
 		try {
 			gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
@@ -300,7 +300,7 @@ public class mainBotiga {
 	 * Funció per a llegir una llista que esta guardada en format serialitzable
 	 * @param llista
 	 */
-	public static void llegirDataSerialitzable (LlistaComandes llista) {
+	private static void llegirDataSerialitzable (LlistaComandes llista) {
 		ObjectInputStream lfitxer;
 		try {
 			lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
