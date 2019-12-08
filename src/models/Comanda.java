@@ -2,6 +2,11 @@ package models;
 
 import java.util.Calendar;
 
+/**
+ * CLASSE COMANDA 
+ * @author Xènia Fuentes Font
+ *
+ */
 public class Comanda {
 	private Calendar data= Calendar.getInstance();
 	private int dia, mes, any;
@@ -14,11 +19,11 @@ public class Comanda {
 
 /**
  * Constructor 
- * @param producte
- * @param nComandes
- * @param dni
+ * @param producte : producte de la comanda
+ * @param nComandes : numero de comandes 
+ * @param dni : dni del client que realitza una comanda 
  */
-	public Comanda (Producte producte, int nComandes, String dni){ //??????
+	public Comanda (Producte producte, int nComandes, String dni){ 
 		this.dia=data.get(Calendar.DATE);
 		this.mes=data.get(Calendar.MONTH);
 		this.any=data.get(Calendar.YEAR);
@@ -42,35 +47,35 @@ public class Comanda {
  */
 	/**
 	 * Getter data
-	 * @return
+	 * @return --> retorna la data en que s'ha fet la comanda  (dia/mes/any)
 	 */
 	public Calendar getData () {
 		return data;
 	}
 	/**
 	 * Getter dia
-	 * @return
+	 * @return --> retorna el dia en que s'ha fet la comanda 
 	 */
 	public int dia () {
 		return dia;
 	}
 	/**
 	 * Getter mes
-	 * @return
+	 * @return --> retorna el mes en que s'ha fet la comanda 
 	 */
 	public int mes () {
 		return mes;
 	}
 	/**
 	 * Getter any
-	 * @return
+	 * @return --> 
 	 */
 	public int any() {
 		return any;
 	}
 	/**
 	 * Getter producte
-	 * @return
+	 * @return --> 
 	 */
 	public Producte getProducte() {
 		return producte;
