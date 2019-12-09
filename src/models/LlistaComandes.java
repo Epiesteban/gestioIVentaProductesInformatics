@@ -115,7 +115,7 @@ public class LlistaComandes {
 
 	public void eliminarComandes (String dni){
 		int i = 0;
-		while (i < llista.length) {/**Busquem la posicio i anem borrant comanda a comanda mentre el for va trobat comandes fetes amb el dni (i marca TRUE)**/
+		while (i < llista.length) { /**Busquem la posicio i anem borrant comanda a comanda mentre el for va trobat comandes fetes amb el dni (i marca TRUE)**/
 			for (int j = 0; j<numElem; j++) {
 				if (llista[j].getIdentificador().substring(0,9).equals(dni)) { /**Diem al programa que el dni va de la posició 0 a la 8 (exemple :12345678X hi ha 
 																					9 elements a la String agafem de la posició 0 a la 8, que és com la 1 fins la 9)**/

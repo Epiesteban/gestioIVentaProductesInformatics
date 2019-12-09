@@ -1,27 +1,19 @@
 package controladors;
 
-import java.io.FileInputStream;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import models.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		LlistaClients llista_clients = new LlistaClients();
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 		llegirFitxerClients(llista_clients);
-		
+
 		int op=0;
 		do {
 			menu();
@@ -30,15 +22,15 @@ public class mainBotiga {
 			switch (op) {
 			case 1:{
 				System.out.println("\nHas escollit: afegir un producte de software ");
-				afegirSoftware();
+				afegirSoftware(llista_productes);
 			}break;
 			case 2:{
 				System.out.println("\nHas escollit: afegir un producte de hardware");
-				afegirHardware();
+				afegirHardware(llista_productes);
 			}break;
 			case 3:{
 				System.out.println("\nHas escollit: afegir una configuració completa");
-				afegirConfiguracio();
+				afegirConfiguracio(llista_productes);
 			}break;
 			case 4:{
 				System.out.println("\nHas escollit: donar d'alta un client");
@@ -46,7 +38,7 @@ public class mainBotiga {
 			}break;
 			case 5:{
 				System.out.println("\nHas escollit: donar de baixa a un client");
-				baixaClient();
+				baixaClient(llista_clients, llista_comandes);
 			}break;
 			case 6:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen alguna comanda (amb les dades del client) ");
@@ -71,7 +63,7 @@ public class mainBotiga {
 			case 11:{
 				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
 				consultarLlistes(llista_productes, llista_comandes, llista_clients);
-				
+
 
 			}break;
 			case 12:{
@@ -93,9 +85,19 @@ public class mainBotiga {
 	 * @param llista_clients
 	 * @param llista_productes
 	 * @param llista_comandes
+	 * @throws IOException 
 	 */
-	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) {
-
+	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) throws IOException  {
+		BufferedWriter cl=new BufferedWriter(new FileWriter("clients_test.txt"));
+		//BufferedWriter p=new BufferedWriter(new FileWriter("productes.txt"));
+		String frase = "";
+		Client aux;
+		for (int i = 0; i < llista_clients.getnClients();i++) {
+			aux =  llista_clients.getLlista()[i];
+			frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
+			cl.write(frase);
+		}
+		cl.close();
 	}
 	/**
 	 * FUNCIONS PER LLEGIR I ESCRIURE FITXERS 
@@ -200,12 +202,11 @@ public class mainBotiga {
 	 * CASE 1
 	 * @return --> 
 	 */
-	private static Software afegirSoftware () {
+	private static void afegirSoftware (LlistaProductes llista_p) {
 		String nom;
 		float preu;
-		int estoc, op=2;
-		SO sist=SO.Windows;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-
+		int estoc, op=0;
+		SO sist = null;
 
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
@@ -213,7 +214,7 @@ public class mainBotiga {
 		preu=teclat.nextFloat();
 		System.out.println("Introdueix l'estoc:");
 		estoc=teclat.nextInt();
-		while (op<=1 && op>=3) {
+		do {
 			System.out.println("Selecciona el sistema operatiu:");
 			System.out.println("1- Windows,  2-MacOS,  3-Linux");
 			op=teclat.nextInt();
@@ -231,21 +232,19 @@ public class mainBotiga {
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
-		}
-		teclat.close();
-		return(new Software(nom, preu, estoc, sist));
+
+		}while (op < 1 || op > 3);
+		llista_p.afegirProducte(new Software(nom, preu, estoc, sist));
 	}
 
 	/**
 	 * CASE 2
-	 * @return -->
 	 */
-	private static Hardware afegirHardware () {
+	private static void afegirHardware (LlistaProductes llista_p) {
 		String nom;
 		float preu;
 		int estoc, op=2;
-		Tipus_hardware tipus=Tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-
+		Tipus_hardware tipus= null;
 
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
@@ -281,23 +280,21 @@ public class mainBotiga {
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
 		}
-		teclat.close();
-		return(new Hardware(nom, preu, estoc, tipus));
+		llista_p.afegirProducte(new Hardware(nom, preu, estoc, tipus));
 	}
 
 	/**
 	 * CASE 3
-	 * @return -->
 	 */
-	private static Configuracio afegirConfiguracio() {
-		return new Configuracio("nom", 23, 32);
+	private static void afegirConfiguracio(LlistaProductes llista_p) {
+		llista_p.afegirProducte(new Configuracio("nom", 23, 32));
 	}
 
 	/**
 	 * CASE 4
 	 */
 	private static void altaClient (LlistaClients llista_cl) {
-			
+
 		System.out.println("Introdueix el dni del client:");
 		teclat.nextLine();
 		String dni = teclat.nextLine();
@@ -312,10 +309,8 @@ public class mainBotiga {
 	/**
 	 * CASE 5
 	 */
-	private static void baixaClient () {
+	private static void baixaClient (LlistaClients llista_cl, LlistaComandes llista_c) {
 		String dni;
-		LlistaClients  llista_cl = new LlistaClients();
-		LlistaComandes llista_c = new LlistaComandes();
 
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		dni = teclat.nextLine();
