@@ -131,7 +131,7 @@ public class LlistaClients {
 	 */
 	private int buscarClient_id(String dni) {
 		for(int i = 0;i < nClients;i++) {
-			if(dni.equals(llista[i].getDni())) return i;
+			if(dni.equalsIgnoreCase(llista[i].getDni())) return i;
 		}
 		return -1;
 	}

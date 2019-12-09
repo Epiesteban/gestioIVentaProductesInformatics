@@ -85,7 +85,7 @@ public class Client {
 	 */
 	@Override
 	public String toString() {
-		return "Clients [dni=" + dni + ", correu=" + correu + ", adresa=" + adresa + "]";
+		return "Client [dni=" + dni + ", correu=" + correu + ", adresa=" + adresa + "]";
 	}
 	
 }

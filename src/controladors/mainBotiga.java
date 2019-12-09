@@ -20,14 +20,13 @@ public class mainBotiga {
 		LlistaClients llista_clients = new LlistaClients();
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
-			llegirFitxerClients(llista_clients);
+		llegirFitxerClients(llista_clients);
 		
-
 		int op=0;
 		do {
 			menu();
 			op = teclat.nextInt();
-			
+
 			switch (op) {
 			case 1:{
 				System.out.println("\nHas escollit: afegir un producte de software ");
@@ -43,7 +42,7 @@ public class mainBotiga {
 			}break;
 			case 4:{
 				System.out.println("\nHas escollit: donar d'alta un client");
-				altaClient();
+				altaClient(llista_clients);
 			}break;
 			case 5:{
 				System.out.println("\nHas escollit: donar de baixa a un client");
@@ -71,7 +70,9 @@ public class mainBotiga {
 			}break;
 			case 11:{
 				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
-				consultarLlistes();
+				consultarLlistes(llista_productes, llista_comandes, llista_clients);
+				
+
 			}break;
 			case 12:{
 				System.out.println("\nHas decidit sortir del programa.");
@@ -86,7 +87,7 @@ public class mainBotiga {
 		System.exit(0);
 		teclat.close();
 	}
-	
+
 	/**
 	 * GUARDAR FITXERS
 	 * @param llista_clients
@@ -94,11 +95,11 @@ public class mainBotiga {
 	 * @param llista_comandes
 	 */
 	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) {
-		
+
 	}
-/**
- * FUNCIONS PER LLEGIR I ESCRIURE FITXERS 
- */
+	/**
+	 * FUNCIONS PER LLEGIR I ESCRIURE FITXERS 
+	 */
 	/**
 	 * 
 	 * @param llista
@@ -132,15 +133,15 @@ public class mainBotiga {
 		}
 		f.close();
 	}
-	
-/**
- * FUNCIONS PER LLEGIR/ESCRIURE FITXERS DE LLISTACOMANDES
- */
+
+	/**
+	 * FUNCIONS PER LLEGIR/ESCRIURE FITXERS DE LLISTACOMANDES
+	 */
 	/**
 	 * Funció per a escriure en una llista en format serialitzable 	
 	 * @param llista
 	 */
-	public static void guardarDataSerialitzable (LlistaComandes llista) {
+	private static void guardarDataSerialitzable (LlistaComandes llista) {
 		ObjectOutputStream gfitxer;
 		try {
 			gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
@@ -150,12 +151,12 @@ public class mainBotiga {
 			System.out.println("Error a l'hora d'escriure al fitxer");
 		}
 	}
-	
+
 	/**
 	 * Funció per a llegir una llista que esta guardada en format serialitzable
 	 * @param llista
 	 */
-	public static void llegirDataSerialitzable (LlistaComandes llista) {
+	private static void llegirDataSerialitzable (LlistaComandes llista) {
 		ObjectInputStream lfitxer;
 		try {
 			lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
@@ -170,12 +171,12 @@ public class mainBotiga {
 		} catch (ClassCastException e) {
 			System.out.println ("Error, el format de l'arxiu no és correcte per poder-lo obrir i llegir-lo");	
 		}
-		
+
 	}
-	
-/**
- * MENU		
- */
+
+	/**
+	 * MENU		
+	 */
 	private static void menu () {
 		System.out.println("\nBENVINGUT A LA BOTIGA! QUE VOLS FER?\n");
 		System.out.println("1. Afegir un producte de software");
@@ -191,15 +192,15 @@ public class mainBotiga {
 		System.out.println("11. Consultar tots els elements d'una llista");
 		System.out.println("12. Sortir");
 	}	
-	
-/**
- * FUNCIONS DEL MENU	
- */
+
+	/**
+	 * FUNCIONS DEL MENU	
+	 */
 	/**
 	 * CASE 1
 	 * @return --> 
 	 */
-	public static Software afegirSoftware () {
+	private static Software afegirSoftware () {
 		String nom;
 		float preu;
 		int estoc, op=2;
@@ -234,12 +235,12 @@ public class mainBotiga {
 		teclat.close();
 		return(new Software(nom, preu, estoc, sist));
 	}
-	
+
 	/**
 	 * CASE 2
 	 * @return -->
 	 */
-	public static Hardware afegirHardware () {
+	private static Hardware afegirHardware () {
 		String nom;
 		float preu;
 		int estoc, op=2;
@@ -283,62 +284,57 @@ public class mainBotiga {
 		teclat.close();
 		return(new Hardware(nom, preu, estoc, tipus));
 	}
-	
+
 	/**
 	 * CASE 3
 	 * @return -->
 	 */
-	public static Configuracio afegirConfiguracio() {
+	private static Configuracio afegirConfiguracio() {
 		return new Configuracio("nom", 23, 32);
 	}
-	
+
 	/**
 	 * CASE 4
 	 */
-	public static void altaClient () {
-		String dni = ""; 
-		String correu = "";
-		String direccio = "";
-		LlistaClients  llista_cl = new LlistaClients();
-	
-			Client client;
-		
+	private static void altaClient (LlistaClients llista_cl) {
+			
 		System.out.println("Introdueix el dni del client:");
-		dni = teclat.nextLine();
+		teclat.nextLine();
+		String dni = teclat.nextLine();
 		System.out.println("Introdueix el correu electronic del client:");
-		correu = teclat.nextLine();
+		String correu = teclat.nextLine();
 		System.out.println("\nIntrodueix la direccio del client:");
-		direccio = teclat.nextLine();
-			client = new Client (dni, correu, direccio);
-			llista_cl.afegirClient(client);	
+		String direccio = teclat.nextLine();
+		llista_cl.afegirClient(new Client (dni, correu, direccio));	
+		System.out.println(llista_cl);
 	}
-	
+
 	/**
 	 * CASE 5
 	 */
-	public static void baixaClient () {
+	private static void baixaClient () {
 		String dni;
 		LlistaClients  llista_cl = new LlistaClients();
 		LlistaComandes llista_c = new LlistaComandes();
-		
+
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		dni = teclat.nextLine();
-			llista_c.eliminaComanda(dni);
-			llista_cl.eliminarClient(dni);
+		llista_c.eliminarComandes(dni);
+		llista_cl.eliminarClient(dni);
 	}
-	
+
 	/**
 	 * CASE 6
 	 */
-	public static void prodComanda () {
+	private static void prodComanda () {
 		boolean comandafeta = false;
 		int posicio = -1;
 		int j = 0;
 		LlistaProductes llista_p =new LlistaProductes();
 		LlistaComandes llista_c = new LlistaComandes();
 		LlistaClients llista_cl = new LlistaClients();
-		
-		
+
+
 		for (int i=0;i<llista_p.getnElem();i++) {
 			for (j=0;j<llista_c.getnumElem();j++) {
 				if (llista_p.getLlista()[i].equals(llista_c.getLlista()[j].getProducte())) {
@@ -353,12 +349,12 @@ public class mainBotiga {
 			}
 		}
 	}
-	
+
 	/**
 	 * CASE 7
 	 * @param l --> 
 	 */
-	public static void modificarEstoc (LlistaProductes l) {
+	private static void modificarEstoc (LlistaProductes l) {
 		int i, nouEstoc;
 		System.out.println(l.toString());
 		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
@@ -377,7 +373,7 @@ public class mainBotiga {
 	 * @param l :
 	 * @return-->
 	 */
-	public static String productesEstoc(LlistaProductes l) {
+	private static String productesEstoc(LlistaProductes l) {
 
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
@@ -393,7 +389,7 @@ public class mainBotiga {
 	 * @param l :
 	 * @return-->
 	 */
-	public static String productesConfiguracio(LlistaProductes l) {
+	private static String productesConfiguracio(LlistaProductes l) {
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
 			if (l.getLlista()[i] instanceof Configuracio) {
@@ -407,20 +403,20 @@ public class mainBotiga {
 	/**
 	 * CASE 1O
 	 */
-	public static void mesComandes () {
+	private static void mesComandes () {
 		int posicio = -1;
 		int nComandes = 0;
 		int max = 0;
 		LlistaProductes llista_p =new LlistaProductes();
 		LlistaComandes llista_c = new LlistaComandes();
-		
+
 		for (int i=0;i<llista_p.getnElem();i++) {
 			for (int j=0;j<llista_c.getnumElem();j++) {
 				if (llista_p.getLlista()[i].equals(llista_c.getLlista()[j].getProducte())){
 					nComandes++;
 				}
 			}
-			
+
 			if (max < nComandes) {
 				posicio = i;
 				max = nComandes;
@@ -431,24 +427,19 @@ public class mainBotiga {
 		System.out.println(llista_p.getLlista()[posicio].toString());
 		System.out.println("amb un total de "+max+" comandes.");
 	}
-	
+
 	/**
 	 * CASE 11
 	 */
-	public static void consultarLlistes () {
+	private static void consultarLlistes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		int op;
-		
-		LlistaProductes llista_p =new LlistaProductes();
-		LlistaComandes llista_c = new LlistaComandes();
-		LlistaClients  llista_cl = new LlistaClients();
-		
 		System.out.println("\n1. Lista de productes");
 		System.out.println("\n2. Lista de clients");
 		System.out.println("\n3. Lista de comandes");
 		System.out.println("\n4. Tornar al menu principal");
 		System.out.println("\nQuina opcio vols escollir?:");
-			op = teclat.nextInt();
-			
+		op = teclat.nextInt();
+
 		switch (op) {
 		case 1:{
 			System.out.println("\nLlISTA DE PORDUCTES:");
@@ -470,7 +461,6 @@ public class mainBotiga {
 			System.out.println("\nError! Introdueix un numero correcte.");
 			break;
 		}
-
 	}
 }
 
