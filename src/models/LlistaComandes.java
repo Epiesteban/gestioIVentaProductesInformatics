@@ -14,21 +14,7 @@ public class LlistaComandes {
 		private int posBorrar; 
 		private boolean trobat;
 		 
-	
 
-
-/**
- * Constructor per defecte
- */
-	
-	public LlistaComandes() {
-		this.llista = new Comanda [1000];
-		this.numElem = 0;
-		this.nEspais = 1000; 
-		this.posBorrar = 0;
-		this.trobat = false;
-		
-	}
 /**
  * SETTERS
  */
@@ -115,6 +101,7 @@ public class LlistaComandes {
 
 	public void eliminarComandes (String dni){
 		int i = 0;
+		
 		while (i < llista.length) { /**Busquem la posicio i anem borrant comanda a comanda mentre el for va trobat comandes fetes amb el dni (i marca TRUE)**/
 			for (int j = 0; j<numElem; j++) {
 				if (llista[j].getIdentificador().substring(0,9).equals(dni)) { /**Diem al programa que el dni va de la posició 0 a la 8 (exemple :12345678X hi ha 

@@ -1,6 +1,9 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * CLASSE COMANDA 
@@ -8,13 +11,12 @@ import java.util.Calendar;
  *
  */
 public class Comanda {
-	private Calendar data= Calendar.getInstance();
-	private int dia, mes, any;
-	private Producte producte;
+	private Date data;
+	private LlistaProductes llista_p;
 	private int nComandes;
 	private String identificador;
 	
-	private static int numCorrelatiu = 0;
+	private static int numCorrelatiu = 1;
 	
 
 /**
@@ -23,24 +25,17 @@ public class Comanda {
  * @param nComandes : numero de comandes 
  * @param dni : dni del client que realitza una comanda 
  */
-	public Comanda (Producte producte, int nComandes, String dni){ 
-		this.dia=data.get(Calendar.DATE);
-		this.mes=data.get(Calendar.MONTH);
-		this.any=data.get(Calendar.YEAR);
-		this.producte = producte;
-		this.nComandes = nComandes;
+	public Comanda (String dni){ 
+		this.llista_p= new LlistaProductes();
+		this.data =  Calendar.getInstance().getTime();
+		this.nComandes = 0;
 		this.identificador = dni + numCorrelatiu;
 		numCorrelatiu++;
-	}
-/**
- * Constructor buit	
- */
-	public Comanda () {
 		
 	}
 	
 	public Comanda copia () {
-		return (new Comanda (producte, nComandes, identificador));
+		return (new Comanda (identificador)); //no estará bien
 }
 /**
  * GETTERS
@@ -49,36 +44,16 @@ public class Comanda {
 	 * Getter data
 	 * @return --> retorna la data en que s'ha fet la comanda  (dia/mes/any)
 	 */
-	public Calendar getData () {
+	public Date getData () {
 		return data;
 	}
-	/**
-	 * Getter dia
-	 * @return --> retorna el dia en que s'ha fet la comanda 
-	 */
-	public int dia () {
-		return dia;
-	}
-	/**
-	 * Getter mes
-	 * @return --> retorna el mes en que s'ha fet la comanda 
-	 */
-	public int mes () {
-		return mes;
-	}
-	/**
-	 * Getter any
-	 * @return --> 
-	 */
-	public int any() {
-		return any;
-	}
+	
 	/**
 	 * Getter producte
 	 * @return --> 
 	 */
-	public Producte getProducte() {
-		return producte;
+	public LlistaProductes getLlistaProductes() {
+		return llista_p;
 	}
 	/**
 	 * Getter identificador
@@ -108,36 +83,15 @@ public class Comanda {
 	 * Setter data 
 	 * @return
 	 */
-	public void setData (Calendar data) {
+	public void setData (Date data) {
 		this.data = data;
-	}
-	/**
-	 * Setter dia
-	 * @return
-	 */
-	public void setDia (int dia) {
-		this.dia = dia;
-	}
-	/**
-	 * Setter mes
-	 * @return
-	 */
-	public void setMes (int mes) {
-		this.mes = mes;
-	}
-	/**
-	 * Setter any
-	 * @return
-	 */
-	public void setAny(int any) {
-		this.any = any;
 	}
 	/**
 	 * Setter producte
 	 * @return
 	 */
-	public void setProducte(Producte producte) {
-		this.producte = producte;
+	public void setLlistaProductes(LlistaProductes llista_p) {
+		this.llista_p = llista_p;
 	}
 	/**
 	 * Setter identificador
@@ -163,8 +117,9 @@ public class Comanda {
 	
 	@Override
 	public String toString() {
-		return "\nData de la reserva: " +dia+"/"+mes+"/"+any+ 
-				"\nProducte: " + producte.toString() +
+	DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+		return "\nData de la reserva: " +dateformat.format(data)+ 
+				//"\nProducte: " + producte.toString() +
 				"\nComanda: " + nComandes + 
 				"\nIdentificador: " + identificador;
 	}

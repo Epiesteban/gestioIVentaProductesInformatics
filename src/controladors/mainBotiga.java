@@ -1,7 +1,9 @@
 package controladors;
 
 import java.io.*;
+
 import models.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class mainBotiga {
@@ -13,11 +15,17 @@ public class mainBotiga {
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 		llegirFitxerClients(llista_clients);
-
+		Comanda comanda=new Comanda(null, 0, "");
+		System.out.println(comanda);
 		int op=0;
 		do {
 			menu();
-			op = teclat.nextInt();
+			try {
+				op = teclat.nextInt();
+			} catch (InputMismatchException e) {
+				op = -1;
+				teclat.nextLine();		//limpiar buffer
+			}
 
 			switch (op) {
 			case 1:{
@@ -69,15 +77,25 @@ public class mainBotiga {
 			case 12:{
 				System.out.println("\nHas decidit sortir del programa.");
 			}break;
+			default: System.out.println("Escriu una opcio valida.");
 			}
 		} while (op != 12);
-		System.out.println("\nVols guardar tota la informacio als fitxers?(0 = NO	1 = SI)");
-		if (teclat.nextInt() == 1) {
-			guardarFitxers(llista_clients, llista_productes, llista_comandes);
-		}
+
+		do {
+			System.out.println("\nVols guardar tota la informacio als fitxers?(0 = NO	1 = SI)");
+			try {
+				op = teclat.nextInt();
+			} catch (InputMismatchException e) {
+				op = -1;
+				teclat.nextLine();	//limpiar buffer
+			}
+
+		}while(op != 0 && op != 1);
+
+		if (op == 1) guardarFitxers(llista_clients, llista_productes, llista_comandes);
 		System.out.println("\nAdeu, fins aviat!");
-		System.exit(0);
 		teclat.close();
+		System.exit(0);
 	}
 
 	/**
@@ -88,7 +106,7 @@ public class mainBotiga {
 	 * @throws IOException 
 	 */
 	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) throws IOException  {
-		BufferedWriter cl=new BufferedWriter(new FileWriter("clients_test.txt"));
+		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
 		//BufferedWriter p=new BufferedWriter(new FileWriter("productes.txt"));
 		String frase = "";
 		Client aux;
@@ -108,15 +126,20 @@ public class mainBotiga {
 	 * @throws FileNotFoundException
 	 */
 
-	private static void llegirFitxerClients(LlistaClients llista) throws FileNotFoundException {
+	private static void llegirFitxerClients(LlistaClients llista) {
 		String result="";
-		Scanner f=new Scanner(new File("clients.txt"));
-		while (f.hasNextLine()) {
-			result= f.nextLine();
-			String[] separador = result.split("\\*");
-			llista.afegirClient(new Client(separador[0], separador[1], separador[2]));
+		try {
+			Scanner f=new Scanner(new File("clients.txt"));
+			while (f.hasNextLine()) {
+				result= f.nextLine();
+				String[] separador = result.split("\\*");
+				llista.afegirClient(new Client(separador[0], separador[1], separador[2]));
+			}
+			f.close();
+		}catch (FileNotFoundException e) {
+			System.out.println("No existeix el fitxer.");		
 		}
-		f.close();
+
 	}
 
 	/**
@@ -303,7 +326,6 @@ public class mainBotiga {
 		System.out.println("\nIntrodueix la direccio del client:");
 		String direccio = teclat.nextLine();
 		llista_cl.afegirClient(new Client (dni, correu, direccio));	
-		System.out.println(llista_cl);
 	}
 
 	/**
@@ -311,11 +333,12 @@ public class mainBotiga {
 	 */
 	private static void baixaClient (LlistaClients llista_cl, LlistaComandes llista_c) {
 		String dni;
-
+		
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
+		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
-		llista_c.eliminarComandes(dni);
 		llista_cl.eliminarClient(dni);
+		llista_c.eliminarComandes(dni);
 	}
 
 	/**
@@ -372,8 +395,8 @@ public class mainBotiga {
 
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
-			if (!(l.getLlista()[i] instanceof Configuracio)) {
-				aux=aux+l.getLlista()[i].toString();
+			if (l.getLlista()[i].getEstoc() >= 1) {
+				aux+=l.getLlista()[i].toString()+"\n";
 			}
 		}
 		return aux;
@@ -388,9 +411,8 @@ public class mainBotiga {
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
 			if (l.getLlista()[i] instanceof Configuracio) {
-				aux=aux+l.getLlista()[i].toString();
+				aux+=l.getLlista()[i].toString()+"\n";
 			}
-			i++;
 		}
 		return aux;
 	}
