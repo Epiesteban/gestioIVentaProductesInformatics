@@ -7,32 +7,32 @@ package models;
 
 public class LlistaClients {
 
-	private int nClients;
+	private int nClient;
 	private Client [] llista;
 	private final int mida = 500;
-	
+
 	/**
 	 * Metode constructor classe LlistaClients
 	 */
 	public LlistaClients() {
-		nClients = 0;
+		nClient = 0;
 		llista = new Client [mida];
 	}
 
 	/**
-	 * getter nClients
-	 * @return nClients
+	 * getter nClient
+	 * @return nClient
 	 */
-	public int getnClients() {
-		return nClients;
+	public int getnClient() {
+		return nClient;
 	}
 
 	/**
 	 * setter nClients
 	 * @param nClients
 	 */
-	public void setnClients(int nClients) {
-		this.nClients = nClients;
+	public void setnClient(int nClient) {
+		this.nClient = nClient;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class LlistaClients {
 	 * @param llista
 	 */
 	public void setLlista(Client[] llista) {
-		nClients = 0;
+		nClient = 0;
 		for (int i = 0; (i < this.llista.length) && (i < llista.length) && (llista[i] != null); i++) {
 			this.afegirClient(llista[i]); 
 		}
@@ -61,23 +61,23 @@ public class LlistaClients {
 	public int getMida() {
 		return mida;
 	}
-	
+
 	/**
 	 * Metode que retorna totes les dades de cada client emmagatzemat a la LlistaClients.
 	 * @return frase de tipus String.
 	 */
 	public String toString() {
-		if (nClients == 0) {
+		if (nClient == 0) {
 			return "";
 		}else {
-			String frase="numero de clients = "+nClients+"\n";
-			for (int i=0;i<nClients;i++) {
+			String frase="numero de client = "+nClient+"\n";
+			for (int i=0;i<nClient;i++) {
 				frase+=llista[i].toString()+"\n";
 			}
 			return frase;
 		}
 	}
-	
+
 	/**
 	 * Metode que retorna un client de la llista a partir del DNI
 	 * Si no el troba retorna (null)
@@ -89,26 +89,26 @@ public class LlistaClients {
 		if (i != -1) return llista[i];
 		else return null;
 	}
-	
+
 	/**
 	 * Metode que afegeix un client a la llista(Comprova duplicats)
 	 * @param client
 	 */
 	public void afegirClient(Client client) {
-/*		boolean trobat = false;
+		boolean trobat = false;
 		int i = 0;
-		if(mida>nClients) {
-			while (( i<nClients) &&(!trobat)) {
+		if(mida>nClient) {
+			while (( i<nClient) &&(!trobat)) {
 				if(llista[i].getDni() != client.getDni()) trobat = true;
 				i++;
 			}
 			if (trobat) {
-			*/llista[nClients] = client.copia();
-			nClients++;
-			//}
-		//}
+				llista[nClient] = client.copia();
+				nClient++;
+			}
+		}
 	}
-	
+
 	/**
 	 * Metode que elimina un Client de la LlistaClients a partir del DNI
 	 * @param dni
@@ -116,13 +116,13 @@ public class LlistaClients {
 	public void eliminarClient(String dni) {
 		int aux = buscarClient_id(dni);
 		if (aux != -1) {
-			for(int i=aux;i<nClients-1;i++) {
+			for(int i=aux;i<nClient-1;i++) {
 				llista[i]=llista[i+1];
 			}
-			nClients--;
+			nClient--;
 		}
 	}
-	
+
 	/**
 	 * Metode que retorna la posicio 'i' de la LlistaClients d'un client a partir del DNI.
 	 * Si no el troba retorna (-1)
@@ -130,7 +130,7 @@ public class LlistaClients {
 	 * @return
 	 */
 	private int buscarClient_id(String dni) {
-		for(int i = 0;i < nClients;i++) {
+		for(int i = 0;i < nClient;i++) {
 			if(dni.equalsIgnoreCase(llista[i].getDni())) return i;
 		}
 		return -1;

@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+import models.Client;
 /**
  * CLASSE COMANDA 
  * @author Xènia Fuentes Font
@@ -13,33 +13,30 @@ import java.util.Date;
 public class Comanda {
 	private Date data;
 	private LlistaProductes llista_p;
-	private int nComandes;
 	private String identificador;
-	
+	private Client client;
 	private static int numCorrelatiu = 1;
-	
 
-/**
- * Constructor 
- * @param producte : producte de la comanda
- * @param nComandes : numero de comandes 
- * @param dni : dni del client que realitza una comanda 
- */
-	public Comanda (String dni){ 
+
+	/**
+	 * Constructor 
+	 * @param producte : producte de la comanda
+	 * @param dni : dni del client que realitza una comanda 
+	 */
+	public Comanda (Client client){ 
 		this.llista_p= new LlistaProductes();
 		this.data =  Calendar.getInstance().getTime();
-		this.nComandes = 0;
-		this.identificador = dni + numCorrelatiu;
+		this.identificador = client.getDni() + numCorrelatiu;
 		numCorrelatiu++;
-		
+
 	}
-	
+
 	public Comanda copia () {
-		return (new Comanda (identificador)); //no estará bien
-}
-/**
- * GETTERS
- */
+		return (new Comanda (client)); //no estará bien
+	}
+	/**
+	 * GETTERS
+	 */
 	/**
 	 * Getter data
 	 * @return --> retorna la data en que s'ha fet la comanda  (dia/mes/any)
@@ -47,7 +44,7 @@ public class Comanda {
 	public Date getData () {
 		return data;
 	}
-	
+
 	/**
 	 * Getter producte
 	 * @return --> 
@@ -62,13 +59,7 @@ public class Comanda {
 	public String getIdentificador() {
 		return identificador;
 	}
-	/**
-	 * Getter nComandes
-	 * @return
-	 */
-	public int getNComandes() {
-		return nComandes;
-	}
+
 	/**
 	 * Getter numero correlatiu
 	 * @return
@@ -76,9 +67,9 @@ public class Comanda {
 	public static int getNumCorrelatiu () {
 		return numCorrelatiu;
 	}
-/**
- * SETTERS
- */
+	/**
+	 * SETTERS
+	 */
 	/**
 	 * Setter data 
 	 * @return
@@ -100,13 +91,7 @@ public class Comanda {
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
-	/**
-	 * Setter nComandes
-	 * @return
-	 */
-	public void setNComandes(int nComandes) {
-		this.nComandes = nComandes;
-	}
+
 	/**
 	 * Setter numero correlatiu
 	 * @return
@@ -115,13 +100,16 @@ public class Comanda {
 		Comanda.numCorrelatiu = numCorrelatiu;
 	}
 	
+	public void afegirProducteComanda (Producte producte) {
+		llista_p.afegirProducte(producte);
+	}
+
 	@Override
 	public String toString() {
-	DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 		return "\nData de la reserva: " +dateformat.format(data)+ 
 				//"\nProducte: " + producte.toString() +
-				"\nComanda: " + nComandes + 
 				"\nIdentificador: " + identificador;
 	}
-	
+
 }

@@ -15,7 +15,7 @@ public class mainBotiga {
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 		llegirFitxerClients(llista_clients);
-		Comanda comanda=new Comanda(null, 0, "");
+		Comanda comanda=new Comanda(llista_clients.getLlista()[0]);
 		System.out.println(comanda);
 		int op=0;
 		do {
@@ -50,7 +50,7 @@ public class mainBotiga {
 			}break;
 			case 6:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen alguna comanda (amb les dades del client) ");
-				prodComanda();
+				//prodComanda();
 			}break;
 			case 7:{
 				System.out.println("\nHas escollit: modificar l'estoc de qualsevol dels productes que s'han donat d'alta a partir del seu identificador");
@@ -66,7 +66,7 @@ public class mainBotiga {
 			}break;
 			case 10:{
 				System.out.println("\nHas escollit: mostrar el producte del qual s'han fet més comandes i indicar el numero d'aquestes");
-				mesComandes();
+				//mesComandes();
 			}break;
 			case 11:{
 				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
@@ -110,7 +110,7 @@ public class mainBotiga {
 		//BufferedWriter p=new BufferedWriter(new FileWriter("productes.txt"));
 		String frase = "";
 		Client aux;
-		for (int i = 0; i < llista_clients.getnClients();i++) {
+		for (int i = 0; i < llista_clients.getnClient();i++) {
 			aux =  llista_clients.getLlista()[i];
 			frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
 			cl.write(frase);
@@ -344,7 +344,7 @@ public class mainBotiga {
 	/**
 	 * CASE 6
 	 */
-	private static void prodComanda () {
+/*	private static void prodComanda () {
 		boolean comandafeta = false;
 		int posicio = -1;
 		int j = 0;
@@ -367,36 +367,33 @@ public class mainBotiga {
 			}
 		}
 	}
-
+*/
 	/**
 	 * CASE 7
-	 * @param l --> 
+	 * @param llista --> 
 	 */
-	private static void modificarEstoc (LlistaProductes l) {
+	private static void modificarEstoc (LlistaProductes llista) {
 		int i, nouEstoc;
-		System.out.println(l.toString());
+		System.out.println(llista.toString());
 		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
 		i=teclat.nextInt();
 		System.out.println("Quin es el nou estoc d'aquest producte?");
 		nouEstoc=teclat.nextInt();
-		if (l.modificarEstoc(i, nouEstoc)==true) {
-			System.out.println("S'ha modificat correctament l'estoc a:"+nouEstoc);
-		}else {
-			System.out.println("No s'ha realitzat l'operacio");
+		llista.getLlista()[i].setEstoc(nouEstoc);
+			System.out.println("L'estoc actual es: "+nouEstoc);
 		}
-	}
 
 	/**
 	 * CASE 8
 	 * @param l :
 	 * @return-->
 	 */
-	private static String productesEstoc(LlistaProductes l) {
+	private static String productesEstoc(LlistaProductes llista) {
 
 		String aux="";
-		for (int i=0; i<l.getnElem();i++) {
-			if (l.getLlista()[i].getEstoc() >= 1) {
-				aux+=l.getLlista()[i].toString()+"\n";
+		for (int i=0; i<llista.getnElem();i++) {
+			if (llista.getLlista()[i].getEstoc() >= 1) {
+				aux+=llista.getLlista()[i].toString()+"\n";
 			}
 		}
 		return aux;
@@ -407,11 +404,11 @@ public class mainBotiga {
 	 * @param l :
 	 * @return-->
 	 */
-	private static String productesConfiguracio(LlistaProductes l) {
+	private static String productesConfiguracio(LlistaProductes llista) {
 		String aux="";
-		for (int i=0;i<l.getnElem();i++) {
-			if (l.getLlista()[i] instanceof Configuracio) {
-				aux+=l.getLlista()[i].toString()+"\n";
+		for (int i=0;i<llista.getnElem();i++) {
+			if (llista.getLlista()[i] instanceof Configuracio) {
+				aux+=llista.getLlista()[i].toString()+"\n";
 			}
 		}
 		return aux;
@@ -420,7 +417,7 @@ public class mainBotiga {
 	/**
 	 * CASE 1O
 	 */
-	private static void mesComandes () {
+/*	private static void mesComandes () {
 		int posicio = -1;
 		int nComandes = 0;
 		int max = 0;
@@ -444,7 +441,7 @@ public class mainBotiga {
 		System.out.println(llista_p.getLlista()[posicio].toString());
 		System.out.println("amb un total de "+max+" comandes.");
 	}
-
+*/
 	/**
 	 * CASE 11
 	 */

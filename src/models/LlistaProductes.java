@@ -65,17 +65,11 @@ public class LlistaProductes {
 		return j;
 	}
 	
-	
-	/*Modificar estoc*/
-	public boolean modificarEstoc (int i, int e) {
-		boolean realitzat=false;
-		if (e>=0) {
-			llista[i].setEstoc(e);
-			realitzat=true;
+	public void buidarLlista() {
+		for(int i =0; i < nElem;i++) {
+			llista[i].setEstoc(llista[i].getEstoc()+1);
 		}
-		return realitzat;
 	}
-	
 	/**ToString
 	 * 
 	 */

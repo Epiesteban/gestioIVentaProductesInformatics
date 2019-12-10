@@ -4,11 +4,11 @@ public class Producte {
 // pare
 	/** declaracio de variables*/
 	
-	public String nom;
-	public float preu;
-	public int estoc;
-	public int id;
-	public static int cont_id;
+	private String nom;
+	private float preu;
+	private int estoc;
+	private int id;
+	private static int cont_id;
 	
 	
 	/** constructor
@@ -42,7 +42,7 @@ public class Producte {
 	}
 
 	public void setEstoc(int estoc) {
-		this.estoc = estoc;
+		if (estoc >= 0) this.estoc = estoc;
 	}
 
 	public int getId() {
