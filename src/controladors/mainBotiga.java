@@ -1,7 +1,6 @@
 package controladors;
 
 import java.io.*;
-
 import models.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,8 +14,8 @@ public class mainBotiga {
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 		llegirFitxerClients(llista_clients);
-		Comanda comanda=new Comanda(llista_clients.getLlista()[0]);
-		System.out.println(comanda);
+		//Comanda comanda=new Comanda(llista_clients.getLlista()[0]);
+		//	System.out.println(comanda);
 		int op=0;
 		do {
 			menu();
@@ -185,7 +184,7 @@ public class mainBotiga {
 		ObjectInputStream lfitxer;
 		try {
 			lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
-			for (int i=0; i<llista.getnumElem(); i++) {
+			for (int i=0; i<llista.getnComanda(); i++) {
 				llista=(LlistaComandes)lfitxer.readObject();
 			}
 			lfitxer.close();
@@ -229,7 +228,7 @@ public class mainBotiga {
 		String nom;
 		float preu;
 		int estoc, op=0;
-		SO sist = null;
+		String sist = "";
 
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
@@ -239,19 +238,18 @@ public class mainBotiga {
 		estoc=teclat.nextInt();
 		do {
 			System.out.println("Selecciona el sistema operatiu:");
-			System.out.println("1- Windows,  2-MacOS,  3-Linux");
+			System.out.println("1- WINDOWS,  2-MACOS,  3-LINUX");
 			op=teclat.nextInt();
 			switch (op) {
-			case 1:{
-				sist=SO.Windows;
-			}break;
-			case 2:{
-				sist=SO.MacOS;
-			}break;
-			case 3:{
-				sist=SO.Linux;
-			}break;
-
+			case 1:
+				sist= "WINDOWS";
+				break;
+			case 2:
+				sist= "MASOS";
+				break;
+			case 3:
+				sist= "LINUX";
+				break;
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
@@ -267,7 +265,7 @@ public class mainBotiga {
 		String nom;
 		float preu;
 		int estoc, op=2;
-		Tipus_hardware tipus= null;
+		String tipus= "";
 
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
@@ -275,34 +273,34 @@ public class mainBotiga {
 		preu=teclat.nextFloat();
 		System.out.println("Introdueix l'estoc:");
 		estoc=teclat.nextInt();
-		while (op<=1 && op>=6) {
+
+		do {
 			System.out.println("Selecciona el tipus de hardware:");
-			System.out.println("1- Case,  2-CPU,  3-HDD, 4-MoBo, 5-PSU, 6-RAM");
+			System.out.println("1- CPU,  2-MB,  3-HDD, 4-RAM, 5-GPU, 6-PERIFERIC");
 			op=teclat.nextInt();
 			switch (op) {
-			case 1:{
-				tipus=Tipus_hardware.Case;
-			}break;
-			case 2:{
-				tipus=Tipus_hardware.CPU;
-			}break;
-			case 3:{
-				tipus=Tipus_hardware.HDD;
-			}break;
-			case 4:{
-				tipus=Tipus_hardware.MoBo;
-			}break;
-			case 5:{
-				tipus=Tipus_hardware.PSU;
-			}break;
-			case 6:{
-				tipus=Tipus_hardware.RAM;
-			}break;
-
+			case 1: 
+				tipus = "CPU";
+				break;
+			case 2:
+				tipus = "MB";
+				break;
+			case 3:
+				tipus = "HDD";
+				break;
+			case 4:
+				tipus = "RAM";
+				break;
+			case 5:
+				tipus = "GPU";
+				break;
+			case 6:
+				tipus = "PERIFERIC";
+				break;
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
-		}
+		}while(op<1 || op>6);
 		llista_p.afegirProducte(new Hardware(nom, preu, estoc, tipus));
 	}
 
@@ -333,7 +331,7 @@ public class mainBotiga {
 	 */
 	private static void baixaClient (LlistaClients llista_cl, LlistaComandes llista_c) {
 		String dni;
-		
+
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
@@ -344,7 +342,7 @@ public class mainBotiga {
 	/**
 	 * CASE 6
 	 */
-/*	private static void prodComanda () {
+	/*	private static void prodComanda () {
 		boolean comandafeta = false;
 		int posicio = -1;
 		int j = 0;
@@ -367,7 +365,7 @@ public class mainBotiga {
 			}
 		}
 	}
-*/
+	 */
 	/**
 	 * CASE 7
 	 * @param llista --> 
@@ -380,8 +378,8 @@ public class mainBotiga {
 		System.out.println("Quin es el nou estoc d'aquest producte?");
 		nouEstoc=teclat.nextInt();
 		llista.getLlista()[i].setEstoc(nouEstoc);
-			System.out.println("L'estoc actual es: "+nouEstoc);
-		}
+		System.out.println("L'estoc actual es: "+nouEstoc);
+	}
 
 	/**
 	 * CASE 8
@@ -417,7 +415,7 @@ public class mainBotiga {
 	/**
 	 * CASE 1O
 	 */
-/*	private static void mesComandes () {
+	/*	private static void mesComandes () {
 		int posicio = -1;
 		int nComandes = 0;
 		int max = 0;
@@ -441,7 +439,7 @@ public class mainBotiga {
 		System.out.println(llista_p.getLlista()[posicio].toString());
 		System.out.println("amb un total de "+max+" comandes.");
 	}
-*/
+	 */
 	/**
 	 * CASE 11
 	 */

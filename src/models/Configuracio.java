@@ -4,7 +4,7 @@ public class Configuracio extends Producte {
 	//classe filla de productes
 	
 	/**
-	 * DEclaració de variables
+	 * Declaració de variables
 	 */
 	
 	private final int mida = 500;
@@ -48,6 +48,6 @@ public class Configuracio extends Producte {
 	 * ToSTring
 	 */
 	public String toString() {
-		return ("nom:"+nom+ "\nPreu:"+preu+ "\nEstoc:"+ estoc+ "\nId:"+id+ "\nSoftware: "+softwares+ "\nHadware:"+ hardwares+ "\n");
+		return ("nom:"+super.getNom()+ "\nPreu:"+super.getPreu()+ "\nEstoc:"+ super.getEstoc()+ "\nId:"+super.getId()+ "\nSoftware: "+softwares+ "\nHadware:"+ hardwares+ "\n");
 	}
 }

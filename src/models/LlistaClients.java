@@ -97,12 +97,12 @@ public class LlistaClients {
 	public void afegirClient(Client client) {
 		boolean trobat = false;
 		int i = 0;
-		if(mida>nClient) {
-			while (( i<nClient) &&(!trobat)) {
-				if(llista[i].getDni() != client.getDni()) trobat = true;
+		if(nClient <  mida) {
+			while (i < nClient && !trobat) {
+				if(llista[i].getDni().equalsIgnoreCase(client.getDni())) trobat = true;
 				i++;
 			}
-			if (trobat) {
+			if (!trobat) {
 				llista[nClient] = client.copia();
 				nClient++;
 			}

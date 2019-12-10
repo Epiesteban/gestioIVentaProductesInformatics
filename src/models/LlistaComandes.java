@@ -59,7 +59,7 @@ public class LlistaComandes {
 	/**
 
 	/**
-	 * 2. Afegeix una comanda en la llista 
+	 * 1. Afegeix una comanda en la llista 
 	 * @param v : on s'introdueix la comanda per poder-la guardar en la llista 
 	 */
 	public void afegirComanda(Comanda v) {
@@ -70,7 +70,7 @@ public class LlistaComandes {
 	}
 
 	/**
-	 * 3. Elimina comanda en la llista
+	 * 2. Elimina comanda en la llista
 	 * @param identificador : on s'introdueix l'identificador per poder eliminar la comanda 
 	 */
 
@@ -88,44 +88,17 @@ public class LlistaComandes {
 	}	
 
 	/**
-	 * 4. Elimina totes les comandes d'un mateix dni en la llista
+	 * 3. Elimina totes les comandes d'un mateix dni en la llista
 	 * @param dni : on s'introdueix el dni per poder eliminar totes les comandes d'aquest
 	 */
 
 	public void eliminarComandes (String dni){
-		int i = 0;
-
-		while (i < llista.length) { /**Busquem la posicio i anem borrant comanda a comanda mentre el for va trobat comandes fetes amb el dni (i marca TRUE)**/
-			for (int j = 0; j<nComanda; j++) {
-				if (llista[j].getIdentificador().substring(0,9).equals(dni)) { /**Diem al programa que el dni va de la posició 0 a la 8 (exemple :12345678X hi ha 
-																					9 elements a la String agafem de la posició 0 a la 8, que és com la 1 fins la 9)**/
-					posBorrar = j;
-					trobat = true;
-				}
-				if (trobat == true) {
-					nComanda--;
-					for (int k = posBorrar; k<nComanda; k++) {
-						llista[k] = llista[k+1];
-						nEspais++;
-					}
-				}
+		for (int i = 0; i < nComanda; i++) {
+			if (llista[i].getClient().getDni().equalsIgnoreCase(dni)) {
+				eliminaComanda(llista[i].getIdentificador());
 			}
 		}
 	}	
-
-	/**
-	 * 5. Busca una comanda en la llista
-	 * @param v : on s'introdueix la comanda que estas buscant en la llista 
-	 * @return --> retorna si s'ha trobat la comanda demanada (TRUE)
-	 */
-	public boolean buscarComanda (Comanda v) {
-		for (int i=0; i<nComanda;i++) {
-			if (llista[i].getIdentificador().equals(v.getIdentificador())) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	/**
 	 * TOSTRING!!!

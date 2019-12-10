@@ -2,20 +2,16 @@ package models;
 
 public class Hardware extends Producte{
 	//filla
+	public enum Tipus_hardware {CPU, MB, HDD, RAM, GPU, PERIFERIC};
 	private Tipus_hardware tipus;
-	
-	public Hardware (String nom, float preu, int estoc,Tipus_hardware tipus) {
+
+	public Hardware (String nom, float preu, int estoc, String tipus) {
 		super(nom, preu, estoc);
-		this.tipus= tipus;
-		
-		
-		
+		this.tipus= Tipus_hardware.valueOf(tipus);
 	}
 	/**
 	 * Getters i setters
 	 */
-	
-
 	public Tipus_hardware getTipus() {
 		return tipus;
 	}
@@ -23,11 +19,11 @@ public class Hardware extends Producte{
 	public void setTipus(Tipus_hardware tipus) {
 		this.tipus = tipus;
 	}
-	
+
 	/**
 	 * ToString
 	 */
 	public String toString() {
-		return ("nom:"+nom+ "\nPreu:"+preu+ "\nEstoc:"+ estoc+ "\nTipus de hardware:"+tipus+ "\n");
+		return ("nom:"+super.getNom()+ "\nPreu:"+super.getPreu()+ "\nEstoc:"+ super.getEstoc()+"\nId: "+super.getId()+ "\nTipus de hardware:"+tipus+ "\n");
 	}
 }

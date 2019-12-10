@@ -44,25 +44,13 @@ public class LlistaProductes {
 	}
 	
 	/**
-	 * llistat de tots els productes amb
-	 *  alguna comanda mostrant dades del client
-	 */
-	public LlistaProductes algunaComanda (int comandes) {
-		return null;
-	}
-	/**
 	 * buscar algun producte per el seu id i retorna posicio 
 	 */
 	public int buscarProductes(int id) {
-		int i=0, j=0;
-		boolean trobat= false;
-		while (i<nElem && !trobat) {
-			if(llista[i].getId()== id) {
-				j=i;
-				trobat= true;
-			}
+		for(int i = 0;i < nElem;i++) {
+			if(llista[i].getId()== id) return i;
 		}
-		return j;
+		return -1;
 	}
 	
 	public void buidarLlista() {

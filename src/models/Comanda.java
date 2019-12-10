@@ -44,7 +44,13 @@ public class Comanda {
 	public Date getData () {
 		return data;
 	}
-
+	/**
+	 * GETTER CLIENT
+	 * @return client
+	 */
+	public Client getClient() {
+		return client;
+	}
 	/**
 	 * Getter producte
 	 * @return --> 
