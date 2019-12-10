@@ -14,15 +14,7 @@ public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
 
-<<<<<<< HEAD
-	public static void main(String[] args) {
-		LlistaProductes llista_p=new LlistaProductes();
-		int op=0;
-		
-		menu();
-		op=teclat.nextInt();
-		while (op!=12) {
-=======
+
 	public static void main(String[] args) throws FileNotFoundException {
 		LlistaClients llista_clients = new LlistaClients();
 		LlistaProductes llista_productes = new LlistaProductes();
@@ -34,7 +26,6 @@ public class mainBotiga {
 			menu();
 			op = teclat.nextInt();
 
->>>>>>> 098c3e4... master: arreglando cosas...
 			switch (op) {
 			case 1:{
 				
@@ -44,11 +35,8 @@ public class mainBotiga {
 			case 3:{
 			}break;
 			case 4:{
-<<<<<<< HEAD
-=======
 				System.out.println("\nHas escollit: donar d'alta un client");
 				altaClient(llista_clients);
->>>>>>> 098c3e4... master: arreglando cosas...
 			}break;
 			case 5:{
 			}break;
@@ -63,13 +51,6 @@ public class mainBotiga {
 			case 10:{
 			}break;
 			case 11:{
-<<<<<<< HEAD
-=======
-				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
-				consultarLlistes(llista_productes, llista_comandes, llista_clients);
-				
-
->>>>>>> 098c3e4... master: arreglando cosas...
 			}break;
 			case 12:{
 				System.out.println("Has decidit sortir del programa. \nAdeu i fins aviat!");
@@ -79,11 +60,10 @@ public class mainBotiga {
 			}
 			}
 		}
+		while (op!=12);
+	
 		teclat.close();
 	}
-<<<<<<< HEAD
-	
-=======
 
 	/**
 	 * GUARDAR FITXERS
@@ -103,10 +83,10 @@ public class mainBotiga {
 	 * @throws FileNotFoundException
 	 */
 
->>>>>>> 098c3e4... master: arreglando cosas...
 	private static void llegirFitxerClients(LlistaClients llista) throws FileNotFoundException {
 		String result="";
 		Scanner f=new Scanner(new File("clients.txt"));
+		
 		while (f.hasNextLine()) {
 			result= f.nextLine();
 			String[] separador = result.split("\\*");
@@ -120,34 +100,41 @@ public class mainBotiga {
 		String result="";
 		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
-			result= f.nextLine();
-			String[] separador = result.split("\\*");
-			//switch llista.afegirHardware, etc.
-		//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
+			result=f.next();
+			Scanner sc= new Scanner(result);
+			sc.useDelimiter("*");
+				if(sc.next()=="S") {
+					String nom=sc.next();
+					float preu=Float.parseFloat(sc.next());
+					int estoc=Integer.parseInt(sc.next());
+					SO sist=mirarSO(sc.next());
+					Software aux_s=new Software(nom, preu, estoc, sist);
+					llista.afegirProducte(aux_s);//Al afegir producte, no hem de posar instanceof per a que ho guardi depenent el tipus que sigui?
+				}else if (sc.next()=="H") {
+					String nom=sc.next();
+					float preu=Float.parseFloat(sc.next());
+					int estoc=Integer.parseInt(sc.next());
+					Tipus_hardware tipus=mirarTipusHardware(sc.next());
+					Hardware aux_h=new Hardware(nom, preu, estoc, tipus);
+					llista.afegirProducte(aux_h);
+				}else {
+					String nom=sc.next();
+					float preu=Float.parseFloat(sc.next());
+					int estoc=Integer.parseInt(sc.next());
+					Tipus_hardware[] llista_h= new Tipus_hardware[50];
+					SO[] llista_s=new SO[50];
+					int aux=Integer.parseInt(sc.next());
+					for (int i=0;i<aux;i++) {
+						llista_h[i]=mirarTipusHardware(sc.next());
+					}
+					for(int i=0;i<aux;i++) {
+						llista_s[i]=mirarSO(sc.next());
+					}
+					/*Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);*/
+				}
+				sc.close();
 		}
 		f.close();
-<<<<<<< HEAD
-	}	
-	
-	public static void menu () {
-		System.out.println("Benvingut a la botiga! Que vols fer?");
-		System.out.println("1-Afegir un producte de software");
-		System.out.println("2-Afegir un producte de hardware");
-		System.out.println("3-Afegir una configuració completa");
-		System.out.println("4-Donar d'alta un client");
-		System.out.println("5-Donar de baixa un client");
-		System.out.println("6-Visualitzar els productes que tenen alguna comanda");
-		System.out.println("7-Modificar l'estoc");
-		System.out.println("8-Visualitzar els productes que estan en estoc");
-		System.out.println("9-Visualitzar els productes que formen part d'una configuració");
-		System.out.println("10-Mostrar el producte amb més comandes");
-		System.out.println("11-Consultar tots els elements d'una llista");
-		System.out.println("12-Sortir");
-	}
-	
-	public static Software afegirSoftware () {
-		
-=======
 	}
 
 	/**
@@ -189,6 +176,48 @@ public class mainBotiga {
 		}
 
 	}
+	/**
+	 * Metode auxiliar per determinar mitjançant un String quin tipus de hardware
+	 * és aquest String
+	 * @param x
+	 * @return
+	 */
+	private static Tipus_hardware mirarTipusHardware (String x) {
+		Tipus_hardware aux=Tipus_hardware.CPU;
+		if (x.equalsIgnoreCase("CPU")) {
+			aux=Tipus_hardware.CPU;
+		}else if (x.equalsIgnoreCase("Case")) {
+			aux=Tipus_hardware.Case;
+		}else if (x.equalsIgnoreCase("Hdd")){
+			aux=Tipus_hardware.HDD;
+		}else if (x.equalsIgnoreCase("MoBo")) {
+			aux=Tipus_hardware.MoBo;
+		}else if (x.equalsIgnoreCase("Psu")) {
+			aux=Tipus_hardware.PSU;
+		}else {
+			aux=Tipus_hardware.RAM;
+		}
+		return aux;
+	}
+	
+	
+	/**
+	 * Metode auxiliar per determinar mitjançant un String quin sistema operaitu
+	 * és aquest String
+	 * @param x
+	 * @return
+	 */
+	private static SO mirarSO(String x) {
+		SO aux=SO.Linux;
+		if (x.equalsIgnoreCase("Windows")) {
+			aux=SO.Windows;
+		}else if (x.equalsIgnoreCase("Linux")) {
+			aux=SO.Linux;
+		}else {
+			aux=SO.MacOS;
+		}
+		return aux;
+	}
 
 	/**
 	 * MENU		
@@ -217,7 +246,6 @@ public class mainBotiga {
 	 * @return --> 
 	 */
 	private static Software afegirSoftware () {
->>>>>>> 098c3e4... master: arreglando cosas...
 		String nom;
 		float preu;
 		int estoc, op=2;
@@ -252,19 +280,13 @@ public class mainBotiga {
 		teclat.close();
 		return(new Software(nom, preu, estoc, sist));
 	}
-<<<<<<< HEAD
-	
-	
-	public static Hardware afegirHardware () {
-		
-=======
+
 
 	/**
 	 * CASE 2
 	 * @return -->
 	 */
 	private static Hardware afegirHardware () {
->>>>>>> 098c3e4... master: arreglando cosas...
 		String nom;
 		float preu;
 		int estoc, op=2;
@@ -308,16 +330,6 @@ public class mainBotiga {
 		teclat.close();
 		return(new Hardware(nom, preu, estoc, tipus));
 	}
-<<<<<<< HEAD
-	
-	
-	public static Configuracio afegirConfiguracio() {
-		return new Configuracio("nom", 23, 32);
-	}
-	
-	public static void modificarEstoc (LlistaProductes l) {
-
-=======
 
 	/**
 	 * CASE 3
@@ -389,7 +401,6 @@ public class mainBotiga {
 	 * @param l --> 
 	 */
 	private static void modificarEstoc (LlistaProductes l) {
->>>>>>> 098c3e4... master: arreglando cosas...
 		int i, nouEstoc;
 		System.out.println(l.toString());
 		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
@@ -402,10 +413,6 @@ public class mainBotiga {
 			System.out.println("No s'ha realitzat l'operacio");
 		}
 	}
-<<<<<<< HEAD
-	
-	public static String productesEstoc(LlistaProductes l) {
-=======
 
 	/**
 	 * CASE 8
@@ -413,8 +420,6 @@ public class mainBotiga {
 	 * @return-->
 	 */
 	private static String productesEstoc(LlistaProductes l) {
-
->>>>>>> 098c3e4... master: arreglando cosas...
 		String aux="";
 		for (int i=0; i<l.getnElem();i++) {
 			if (!(l.getLlista()[i] instanceof Configuracio)) {
@@ -423,10 +428,6 @@ public class mainBotiga {
 		}
 		return aux;
 	}
-<<<<<<< HEAD
-	
-	public static String productesConfiguracio(LlistaProductes l) {
-=======
 
 	/**
 	 * CASE 9
@@ -434,7 +435,6 @@ public class mainBotiga {
 	 * @return-->
 	 */
 	private static String productesConfiguracio(LlistaProductes l) {
->>>>>>> 098c3e4... master: arreglando cosas...
 		String aux="";
 		for (int i=0;i<l.getnElem();i++) {
 			if (l.getLlista()[i] instanceof Configuracio) {
@@ -444,28 +444,7 @@ public class mainBotiga {
 		}
 		return aux;
 	}
-<<<<<<< HEAD
-	
-	
-	public static void mostrarLlista (LlistaProductes lp, LlistaClients lc) {
-	
-		int op=0;
-		
-		while (!(op==1 || op==2)) {
-			System.out.println("De quina llista vols veure els elements?");
-			System.out.println("1- Llista de productes,  2- Llista de clients");
-			op=teclat.nextInt();
-			switch (op) {
-			case 1:{
-				System.out.println(lp.toString());
-			}break;
-			case 2:{
-				System.out.println(lc.toString());
-			}break;
 
-			default:
-				System.out.println("Has introduït un numero erroni!Prova un altre numeo");
-=======
 
 	/**
 	 * CASE 1O
@@ -487,45 +466,10 @@ public class mainBotiga {
 			if (max < nComandes) {
 				posicio = i;
 				max = nComandes;
->>>>>>> 098c3e4... master: arreglando cosas...
 			}
 		}
 	}
-<<<<<<< HEAD
-	
-/**
- * Funció per a escriure en una llista en format serialitzable 	
- * @param llista
- */
-public static void guardarDataSerialitzable (LlistaComandes llista) {
-	ObjectOutputStream gfitxer;
-	try {
-		gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
-		gfitxer.writeObject(llista);
-		gfitxer.close();
-	} catch (IOException e){
-		System.out.println("Error a l'hora d'escriure al fitxer");
-	}
-}
-/**
- * Funció per a llegir una llista que esta guardada en format serialitzable
- * @param llista
- */
-public static void llegirDataSerialitzable (LlistaComandes llista) {
-	ObjectInputStream lfitxer;
-	try {
-		lfitxer = new ObjectInputStream (new FileInputStream("nomfitxer.ser"));
-		for (int i=0; i<llista.getnumElem(); i++) {
-			llista=(LlistaComandes)lfitxer.readObject();
-		}
-		lfitxer.close();
-	} catch (IOException e) {
-		System.out.println ("Error a l'hora de llegir l'arxiu");
-	} catch (ClassNotFoundException e) {
-		System.out.println ("Error a l'hora de buscar la llista de Comandes");
-	} catch (ClassCastException e) {
-		System.out.println ("Error, el format de l'arxiu no és correcte per poder-lo obrir i llegir-lo");	
-=======
+
 
 	/**
 	 * CASE 11
@@ -560,10 +504,9 @@ public static void llegirDataSerialitzable (LlistaComandes llista) {
 			System.out.println("\nError! Introdueix un numero correcte.");
 			break;
 		}
->>>>>>> 098c3e4... master: arreglando cosas...
 	}
 	
 }
-}
+
 	
 

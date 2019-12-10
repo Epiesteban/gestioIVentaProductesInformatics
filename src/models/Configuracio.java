@@ -4,7 +4,7 @@ public class Configuracio extends Producte {
 	//classe filla de productes
 	
 	/**
-	 * DEclaració de variables
+	 * Declaració de variables
 	 */
 	
 	private final int mida = 500;
