@@ -20,7 +20,7 @@ public class mainBotiga {
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 		llegirFitxerClients(llista_clients);
-		
+		llegirFitxerProductes(llista_productes);
 		int op=0;
 		do {
 			menu();
@@ -121,16 +121,21 @@ public class mainBotiga {
 					String nom=sc.next();
 					float preu=Float.parseFloat(sc.next());
 					int estoc=Integer.parseInt(sc.next());
-					Tipus_hardware[] llista_h= new Tipus_hardware[50];
-					SO[] llista_s=new SO[50];
+					Hardware[] llista_h= new Hardware[100];
+					Software[] llista_s=new Software[100];
 					int aux=Integer.parseInt(sc.next());
+					int loc;
 					for (int i=0;i<aux;i++) {
-						llista_h[i]=mirarTipusHardware(sc.next());
+						loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+						llista_h[i]=(Hardware)llista.getLlista()[loc];
 					}
+					aux=Integer.parseInt(sc.next());
 					for(int i=0;i<aux;i++) {
-						llista_s[i]=mirarSO(sc.next());
+						loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+						llista_s[i]=(Software)llista.getLlista()[loc];
 					}
-					/*Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);*/
+					Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
+					llista.afegirProducte(aux_c);
 				}
 				sc.close();
 		}
