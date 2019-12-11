@@ -28,7 +28,7 @@ public class mainBotiga {
 
 			switch (op) {
 			case 1:{
-				
+
 			}break;
 			case 2:{
 			}break;
@@ -61,7 +61,7 @@ public class mainBotiga {
 			}
 		}
 		while (op!=12);
-	
+
 		teclat.close();
 	}
 
@@ -86,7 +86,7 @@ public class mainBotiga {
 	private static void llegirFitxerClients(LlistaClients llista) throws FileNotFoundException {
 		String result="";
 		Scanner f=new Scanner(new File("clients.txt"));
-		
+
 		while (f.hasNextLine()) {
 			result= f.nextLine();
 			String[] separador = result.split("\\*");
@@ -103,41 +103,41 @@ public class mainBotiga {
 			result=f.next();
 			Scanner sc= new Scanner(result);
 			sc.useDelimiter("*");
-				if(sc.next()=="S") {
-					String nom=sc.next();
-					float preu=Float.parseFloat(sc.next());
-					int estoc=Integer.parseInt(sc.next());
-					SO sist=mirarSO(sc.next());
-					Software aux_s=new Software(nom, preu, estoc, sist);
-					llista.afegirProducte(aux_s);//Al afegir producte, no hem de posar instanceof per a que ho guardi depenent el tipus que sigui?
-				}else if (sc.next()=="H") {
-					String nom=sc.next();
-					float preu=Float.parseFloat(sc.next());
-					int estoc=Integer.parseInt(sc.next());
-					Tipus_hardware tipus=mirarTipusHardware(sc.next());
-					Hardware aux_h=new Hardware(nom, preu, estoc, tipus);
-					llista.afegirProducte(aux_h);
-				}else {
-					String nom=sc.next();
-					float preu=Float.parseFloat(sc.next());
-					int estoc=Integer.parseInt(sc.next());
-					Hardware[] llista_h= new Hardware[100];
-					Software[] llista_s=new Software[100];
-					int aux=Integer.parseInt(sc.next());
-					int loc;
-					for (int i=0;i<aux;i++) {
-						loc=llista.buscarProductes(Integer.parseInt(sc.next()));
-						llista_h[i]=(Hardware)llista.getLlista()[loc];
-					}
-					aux=Integer.parseInt(sc.next());
-					for(int i=0;i<aux;i++) {
-						loc=llista.buscarProductes(Integer.parseInt(sc.next()));
-						llista_s[i]=(Software)llista.getLlista()[loc];
-					}
-					Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
-					llista.afegirProducte(aux_c);
+			if(sc.next()=="S") {
+				String nom=sc.next();
+				float preu=Float.parseFloat(sc.next());
+				int estoc=Integer.parseInt(sc.next());
+				SO sist=mirarSO(sc.next());
+				Software aux_s=new Software(nom, preu, estoc, sist);
+				llista.afegirProducte(aux_s);//Al afegir producte, no hem de posar instanceof per a que ho guardi depenent el tipus que sigui?
+			}else if (sc.next()=="H") {
+				String nom=sc.next();
+				float preu=Float.parseFloat(sc.next());
+				int estoc=Integer.parseInt(sc.next());
+				Tipus_hardware tipus=mirarTipusHardware(sc.next());
+				Hardware aux_h=new Hardware(nom, preu, estoc, tipus);
+				llista.afegirProducte(aux_h);
+			}else {
+				String nom=sc.next();
+				float preu=Float.parseFloat(sc.next());
+				int estoc=Integer.parseInt(sc.next());
+				Hardware[] llista_h= new Hardware[100];
+				Software[] llista_s=new Software[100];
+				int aux=Integer.parseInt(sc.next());
+				int loc;
+				for (int i=0;i<aux;i++) {
+					loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+					llista_h[i]=(Hardware)llista.getLlista()[loc];
 				}
-				sc.close();
+				aux=Integer.parseInt(sc.next());
+				for(int i=0;i<aux;i++) {
+					loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+					llista_s[i]=(Software)llista.getLlista()[loc];
+				}
+				Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
+				llista.afegirProducte(aux_c);
+			}
+			sc.close();
 		}
 		f.close();
 	}
@@ -204,8 +204,8 @@ public class mainBotiga {
 		}
 		return aux;
 	}
-	
-	
+
+
 	/**
 	 * Metode auxiliar per determinar mitjançant un String quin sistema operaitu
 	 * és aquest String
@@ -255,8 +255,8 @@ public class mainBotiga {
 		float preu;
 		int estoc, op=2;
 		SO sist=SO.Windows;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-		
-		
+
+
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
@@ -296,8 +296,8 @@ public class mainBotiga {
 		float preu;
 		int estoc, op=2;
 		Tipus_hardware tipus=Tipus_hardware.CPU;//S'HA D'INICIALITZAR AMB QUALSEVOL ENUM?
-		
-		
+
+
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
@@ -348,7 +348,7 @@ public class mainBotiga {
 	 * CASE 4
 	 */
 	private static void altaClient (LlistaClients llista_cl) {
-			
+
 		System.out.println("Introdueix el dni del client:");
 		teclat.nextLine();
 		String dni = teclat.nextLine();
@@ -510,8 +510,8 @@ public class mainBotiga {
 			break;
 		}
 	}
-	
+
 }
 
-	
+
 
