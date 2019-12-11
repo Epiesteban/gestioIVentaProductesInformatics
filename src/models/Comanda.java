@@ -114,7 +114,7 @@ public class Comanda {
 	public String toString() {
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 		return "\nData de la reserva: " +dateformat.format(data)+ 
-				//"\nProducte: " + producte.toString() +
+				"\nProductes: " + llista_p.toString() +
 				"\nIdentificador: " + identificador;
 	}
 

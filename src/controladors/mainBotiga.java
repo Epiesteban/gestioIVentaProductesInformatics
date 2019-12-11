@@ -1,5 +1,4 @@
 package controladors;
-
 import java.io.*;
 import models.*;
 import java.util.InputMismatchException;
