@@ -8,8 +8,7 @@ public class Producte {
 	private float preu;
 	private int estoc;
 	private int id;
-	private static int cont_id;
-	
+	private static int cont_id=0;
 	
 	/** constructor
 	 * 
@@ -18,7 +17,7 @@ public class Producte {
 		this.nom= nom;
 		this.preu= preu;
 		this.estoc= estoc;
-		id=cont_id++;
+		this.id=cont_id++;
 	}
 
 	public String getNom() {

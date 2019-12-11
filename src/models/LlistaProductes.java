@@ -5,8 +5,8 @@ public class LlistaProductes {
 	 * Declaracio de variables
 	 */
 	private final int mida = 500;
-	public int nElem; //controlem elements correctes de la llista
-	public Producte[] llista;
+	private int nElem; //controlem elements correctes de la llista
+	private Producte[] llista;
 	
 	/**
 	 * constructor
@@ -39,6 +39,7 @@ public class LlistaProductes {
 	 */
 	
 	public void afegirProducte(Producte p) {
+		//comprobar repetidos
 		llista[nElem]=p;
 		nElem++;
 	}

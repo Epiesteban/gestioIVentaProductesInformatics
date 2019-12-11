@@ -12,9 +12,13 @@ public class mainBotiga {
 		LlistaClients llista_clients = new LlistaClients();
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
+
+		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
+
 		llegirFitxerClients(llista_clients);
-		//Comanda comanda=new Comanda(llista_clients.getLlista()[0]);
-		//	System.out.println(comanda);
+		//llegirFitxerProductes(llista_productes);
+		//llegirDataSerialitzable(llista_comandes);
+
 		int op=0;
 		do {
 			menu();
@@ -52,15 +56,16 @@ public class mainBotiga {
 			}break;
 			case 7:{
 				System.out.println("\nHas escollit: modificar l'estoc de qualsevol dels productes que s'han donat d'alta a partir del seu identificador");
-				modificarEstoc(null); //????????
+				modificarEstoc(llista_productes);
 			}break;
 			case 8:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen estic >= 1, indicant el seu estoc");
-				productesEstoc(null); //????????
+				System.out.println(productesEstoc(llista_productes)); 
 			}break;
 			case 9:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que formen part d'alguna configuracio");
-				productesConfiguracio(null); //????????
+				//excepcio llista buida 
+				System.out.println(productesConfiguracio(llista_productes));
 			}break;
 			case 10:{
 				System.out.println("\nHas escollit: mostrar el producte del qual s'han fet més comandes i indicar el numero d'aquestes");
@@ -90,40 +95,26 @@ public class mainBotiga {
 
 		}while(op != 0 && op != 1);
 
-		if (op == 1) guardarFitxers(llista_clients, llista_productes, llista_comandes);
+		if (op == 1) {
+			guardarFitxerClients(llista_clients);
+			// guardarFitxerProductes(llista_productes);
+			//guardarDataSerialitzable(llista_comandes);
+		}
 		System.out.println("\nAdeu, fins aviat!");
 		teclat.close();
 		System.exit(0);
 	}
 
-	/**
-	 * GUARDAR FITXERS
-	 * @param llista_clients
-	 * @param llista_productes
-	 * @param llista_comandes
-	 * @throws IOException 
-	 */
-	private static void guardarFitxers(LlistaClients llista_clients, LlistaProductes llista_productes, LlistaComandes llista_comandes) throws IOException  {
-		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
-		//BufferedWriter p=new BufferedWriter(new FileWriter("productes.txt"));
-		String frase = "";
-		Client aux;
-		for (int i = 0; i < llista_clients.getnClient();i++) {
-			aux =  llista_clients.getLlista()[i];
-			frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
-			cl.write(frase);
-		}
-		cl.close();
-	}
-	/**
+
+	/*
 	 * FUNCIONS PER LLEGIR I ESCRIURE FITXERS 
 	 */
+
 	/**
-	 * 
+	 * Llegir fitxer clients
 	 * @param llista
 	 * @throws FileNotFoundException
 	 */
-
 	private static void llegirFitxerClients(LlistaClients llista) {
 		String result="";
 		try {
@@ -137,15 +128,31 @@ public class mainBotiga {
 		}catch (FileNotFoundException e) {
 			System.out.println("No existeix el fitxer.");		
 		}
-
 	}
 
 	/**
-	 * 
+	 * Funcio per guardar Fitxer Clients
+	 * @param llista_clients
+	 * @throws IOException 
+	 */
+	private static void guardarFitxerClients(LlistaClients llista_clients) throws IOException  {
+		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
+		String frase = "";
+		Client aux;
+		for (int i = 0; i < llista_clients.getnClient();i++) {
+			aux =  llista_clients.getLlista()[i];
+			frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
+			cl.write(frase);
+		}
+		cl.close();
+	}
+
+	/**
+	 * Funcio per llegir fitxer Productes
 	 * @param llista
 	 * @throws FileNotFoundException
 	 */
-	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
+	/*private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
 		String result="";
 		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
@@ -155,11 +162,16 @@ public class mainBotiga {
 			//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
 		}
 		f.close();
-	}
+	}*/
 
 	/**
-	 * FUNCIONS PER LLEGIR/ESCRIURE FITXERS DE LLISTACOMANDES
+	 * Funcio per guardar fitxer productes
+	 * @param llista_p
 	 */
+	private static void guardarFitxerProductes(LlistaProductes llista_p) {
+
+	}
+
 	/**
 	 * Funció per a escriure en una llista en format serialitzable 	
 	 * @param llista
@@ -235,7 +247,8 @@ public class mainBotiga {
 		preu=teclat.nextFloat();
 		System.out.println("Introdueix l'estoc:");
 		estoc=teclat.nextInt();
-		do {
+		op = 0;
+		while (op < 1 || op > 3) {
 			System.out.println("Selecciona el sistema operatiu:");
 			System.out.println("1- WINDOWS,  2-MACOS,  3-LINUX");
 			op=teclat.nextInt();
@@ -244,7 +257,7 @@ public class mainBotiga {
 				sist= "WINDOWS";
 				break;
 			case 2:
-				sist= "MASOS";
+				sist= "MACOS";
 				break;
 			case 3:
 				sist= "LINUX";
@@ -252,8 +265,7 @@ public class mainBotiga {
 			default:
 				System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
-
-		}while (op < 1 || op > 3);
+		}
 		llista_p.afegirProducte(new Software(nom, preu, estoc, sist));
 	}
 
@@ -307,6 +319,7 @@ public class mainBotiga {
 	 * CASE 3
 	 */
 	private static void afegirConfiguracio(LlistaProductes llista_p) {
+		//haced cosas
 		llista_p.afegirProducte(new Configuracio("nom", 23, 32));
 	}
 
@@ -339,32 +352,24 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 6
+	 * CASE 6: 	Treure un llistat de tots els productes que tenen alguna comanda, mostrant les dades del client
+						que l’han fet.
 	 */
-	/*	private static void prodComanda () {
-		boolean comandafeta = false;
-		int posicio = -1;
-		int j = 0;
-		LlistaProductes llista_p =new LlistaProductes();
-		LlistaComandes llista_c = new LlistaComandes();
-		LlistaClients llista_cl = new LlistaClients();
+	private static void prodComanda (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
+		//FALTA ACABAR (JOEL)
+		LlistaProductes llista_aux = new LlistaProductes();
+		for (int i = 0; i < llista_c.getnComanda(); i++) {
+			for (int j = 0; j < llista_c.getLlista()[i].getLlistaProductes().getnElem(); j++) {
+				for (int k = 0; k < llista_aux.getnElem(); k++) {
 
-
-		for (int i=0;i<llista_p.getnElem();i++) {
-			for (j=0;j<llista_c.getnumElem();j++) {
-				if (llista_p.getLlista()[i].equals(llista_c.getLlista()[j].getProducte())) {
-					if (!comandafeta) {
-						comandafeta = false;
-						System.out.println("No hi ha cap comanda feta en ");	
-					}else {
-						comandafeta = true;  
-						System.out.println("-"+ llista_cl.getLlista()[posicio].toString());
-					}
+					if ( llista_c.getLlista()[i].getLlistaProductes().getLlista()[j].getId() != llista_aux.getLlista()[k].getId()) {
+						llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
+					}	
 				}
 			}
 		}
 	}
-	 */
+
 	/**
 	 * CASE 7
 	 * @param llista --> 
@@ -382,7 +387,7 @@ public class mainBotiga {
 
 	/**
 	 * CASE 8
-	 * @param l :
+	 * @param llista :
 	 * @return-->
 	 */
 	private static String productesEstoc(LlistaProductes llista) {
@@ -398,7 +403,7 @@ public class mainBotiga {
 
 	/**
 	 * CASE 9
-	 * @param l :
+	 * @param llista :
 	 * @return-->
 	 */
 	private static String productesConfiguracio(LlistaProductes llista) {
@@ -412,33 +417,12 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 1O
+	 * CASE 1O FALTA HACER (XENIA)  
 	 */
-	/*	private static void mesComandes () {
-		int posicio = -1;
-		int nComandes = 0;
-		int max = 0;
-		LlistaProductes llista_p =new LlistaProductes();
-		LlistaComandes llista_c = new LlistaComandes();
-
-		for (int i=0;i<llista_p.getnElem();i++) {
-			for (int j=0;j<llista_c.getnumElem();j++) {
-				if (llista_p.getLlista()[i].equals(llista_c.getLlista()[j].getProducte())){
-					nComandes++;
-				}
-			}
-
-			if (max < nComandes) {
-				posicio = i;
-				max = nComandes;
-			}
-			nComandes = 0;
-		}
-		System.out.println("El producte amb mes comandes es:");
-		System.out.println(llista_p.getLlista()[posicio].toString());
-		System.out.println("amb un total de "+max+" comandes.");
+	private static Producte mesComandes () {
+		return null;
 	}
-	 */
+
 	/**
 	 * CASE 11
 	 */

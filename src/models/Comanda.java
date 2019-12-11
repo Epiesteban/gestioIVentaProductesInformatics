@@ -15,8 +15,7 @@ public class Comanda {
 	private LlistaProductes llista_p;
 	private String identificador;
 	private Client client;
-	private static int numCorrelatiu = 1;
-
+	private static int numCorrelatiu = 0;
 
 	/**
 	 * Constructor 
@@ -108,6 +107,7 @@ public class Comanda {
 	
 	public void afegirProducteComanda (Producte producte) {
 		llista_p.afegirProducte(producte);
+		producte.setEstoc(producte.getEstoc()-1);
 	}
 
 	@Override

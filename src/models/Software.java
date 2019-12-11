@@ -3,7 +3,7 @@ package models;
 public class Software extends Producte {
 	//filla
 
-	public enum SO {Windows, MacOS, Linux};
+	public enum SO {WINDOWS, MACOS, LINUX};
 	private SO sistema_operatiu;
 
 	public Software (String nom, float preu, int estoc, String sistema_operatiu) {
@@ -26,6 +26,6 @@ public class Software extends Producte {
 	 * To string
 	 */
 	public String toString() {
-		return ( "nom:"+super.getNom()+"\nPreu:"+super.getPreu()+ "\nEstoc:"+super.getEstoc()+ "\nSistema operatiu:"+sistema_operatiu+ "\n");
+		return ( "nom:"+super.getNom()+"\nPreu:"+super.getPreu()+ "\nEstoc:"+super.getEstoc()+ "\nSistema operatiu:"+sistema_operatiu+ "\nIdentificador: "+super.getId());
 	}
 }
