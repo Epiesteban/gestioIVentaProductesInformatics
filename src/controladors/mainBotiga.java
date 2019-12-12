@@ -13,9 +13,19 @@ public class mainBotiga {
 		LlistaProductes llista_productes = new LlistaProductes();
 		LlistaComandes llista_comandes = new LlistaComandes();
 
-		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
-
 		llegirFitxerClients(llista_clients);
+
+		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
+		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
+		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
+
+	/*	llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[2]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+*/
+
 		//llegirFitxerProductes(llista_productes);
 		//llegirDataSerialitzable(llista_comandes);
 
@@ -52,7 +62,7 @@ public class mainBotiga {
 			}break;
 			case 6:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen alguna comanda (amb les dades del client) ");
-				//prodComanda();
+				prodComanda(llista_productes, llista_comandes, llista_clients);
 			}break;
 			case 7:{
 				System.out.println("\nHas escollit: modificar l'estoc de qualsevol dels productes que s'han donat d'alta a partir del seu identificador");
@@ -69,7 +79,7 @@ public class mainBotiga {
 			}break;
 			case 10:{
 				System.out.println("\nHas escollit: mostrar el producte del qual s'han fet més comandes i indicar el numero d'aquestes");
-				//mesComandes();
+				System.out.println(mesComandes(llista_productes, llista_comandes, llista_clients));
 			}break;
 			case 11:{
 				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
@@ -358,13 +368,15 @@ public class mainBotiga {
 	private static void prodComanda (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		//FALTA ACABAR (JOEL)
 		LlistaProductes llista_aux = new LlistaProductes();
+
 		for (int i = 0; i < llista_c.getnComanda(); i++) {
 			for (int j = 0; j < llista_c.getLlista()[i].getLlistaProductes().getnElem(); j++) {
 				for (int k = 0; k < llista_aux.getnElem(); k++) {
-
 					if ( llista_c.getLlista()[i].getLlistaProductes().getLlista()[j].getId() != llista_aux.getLlista()[k].getId()) {
 						llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
+						System.out.println(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
 					}	
+					System.out.println(llista_c.getLlista()[i].getClient());
 				}
 			}
 		}
@@ -417,11 +429,36 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 1O FALTA HACER (XENIA)  
+	 * CASE 1O: Mostrar el producte del qual s’han fet més comandes i indicar el número d’aquestes.   
 	 */
-	private static Producte mesComandes () {
-		return null;
+	private static Producte mesComandes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
+		LlistaProductes llista_aux = new LlistaProductes();
+		int aux[] = new int [llista_p.getnElem()];
+		boolean trobat = false;
+		int indexGran = 0, k = 0;
+		for (int i = 0; i < llista_c.getnComanda(); i++) {
+			for (int j = 0; j < llista_c.getLlista()[i].getLlistaProductes().getnElem(); j++) {
+				for (k = 0; k < llista_aux.getnElem() && !trobat; k++) {
+
+					if ( llista_c.getLlista()[i].getLlistaProductes().getLlista()[j].getId() == llista_aux.getLlista()[k].getId()) trobat = true;
+				}
+				if (!trobat) {
+					aux[llista_aux.getnElem()]++;
+					llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
+				}
+				else {
+					aux[k-1]++;
+					
+				}
+				trobat = false;
+			}
+		}
+		for (int i = 1; i < aux.length; i++) {
+			if(aux[i]>aux[indexGran]) indexGran = i;
+		}
+		return llista_aux.getLlista()[indexGran];
 	}
+
 
 	/**
 	 * CASE 11
