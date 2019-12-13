@@ -23,6 +23,7 @@ public class Comanda {
 	 * @param dni : dni del client que realitza una comanda 
 	 */
 	public Comanda (Client client){ 
+		this.client = client;
 		this.llista_p= new LlistaProductes();
 		this.data =  Calendar.getInstance().getTime();
 		this.identificador = client.getDni() + numCorrelatiu;
@@ -108,6 +109,20 @@ public class Comanda {
 	public void afegirProducteComanda (Producte producte) {
 		llista_p.afegirProducte(producte);
 		producte.setEstoc(producte.getEstoc()-1);
+	}
+	
+	/**
+	 *	Funcio per comprovar si existeix un producte a una comanda
+	 * @param producte
+	 * @return existeix
+	 */
+	public boolean existeixProducte(Producte producte) {
+		for (int i = 0; i < llista_p.getnElem(); i++) {
+			if(llista_p.getLlista()[i].getId()==producte.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
