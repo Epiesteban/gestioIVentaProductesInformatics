@@ -84,11 +84,11 @@ public class LlistaProductes {
 	 */
 	public String toString() {
 		if (nElem==0) {
-			return ("");
+			return ("No hi ha elements a la llista de productes.\n");
 		}else {
 			String frase= "";
 			for (int i=0; i<nElem; i++) {
-				frase= i+"-"+frase+llista[i].toString()+ "\n";
+				frase += llista[i].toString()+ "\n";
 			}
 			return frase;
 		}

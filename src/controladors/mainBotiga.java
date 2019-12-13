@@ -14,20 +14,19 @@ public class mainBotiga {
 		LlistaComandes llista_comandes = new LlistaComandes();
 
 		llegirFitxerClients(llista_clients);
+		llegirFitxerProductes(llista_productes);
+		//llegirDataSerialitzable(llista_comandes);
 
-		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
+		/*llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
-		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
+		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));*/
 
-	/*	llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
+		/*	llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-*/
-
-		//llegirFitxerProductes(llista_productes);
-		//llegirDataSerialitzable(llista_comandes);
+		 */
 
 		int op=0;
 		do {
@@ -162,17 +161,21 @@ public class mainBotiga {
 	 * @param llista
 	 * @throws FileNotFoundException
 	 */
-	/*private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
+	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
 		String result="";
 		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
 			result= f.nextLine();
 			String[] separador = result.split("\\*");
-			//switch llista.afegirHardware, etc.
-			//	llista.afegirProducte(new Producte(separador[0], separador[1], Float.parseFloat(separador[2]), Integer.parseInt(separador[3]), Integer.parseInt(separador[4])));
+			if (separador[3].equals("WINDOWS") || separador[3].equals("LINUX") || separador[3].equals("MACOS")) {
+				llista.afegirProducte(new Software(separador[0], Float.parseFloat(separador[1]), Integer.parseInt(separador[2]), separador[3]));
+			}
+			else {
+				llista.afegirProducte(new Hardware(separador[0], Float.parseFloat(separador[1]), Integer.parseInt(separador[2]), separador[3]));
+			}
 		}
 		f.close();
-	}*/
+	}
 
 	/**
 	 * Funcio per guardar fitxer productes
@@ -448,7 +451,7 @@ public class mainBotiga {
 				}
 				else {
 					aux[k-1]++;
-					
+
 				}
 				trobat = false;
 			}
