@@ -68,7 +68,7 @@ public class LlistaClients {
 	 */
 	public String toString() {
 		if (nClient == 0) {
-			return "";
+			return "No hi ha elements a la llista de clients.\n";
 		}else {
 			String frase="numero de client = "+nClient+"\n";
 			for (int i=0;i<nClient;i++) {

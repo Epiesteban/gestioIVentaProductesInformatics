@@ -44,6 +44,7 @@ public class Configuracio extends Producte {
 		this.hardwares = hardwares;
 	}
 	
+	
 	/**
 	 * ToSTring
 	 */

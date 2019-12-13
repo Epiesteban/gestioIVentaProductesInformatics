@@ -1,7 +1,4 @@
-SOFTWARE
-producte1*32.49*10*Windows
-HARDWARE
-producte2*10.99*25*CPU
-producte3*778.999*5*SSD
-CONFIGURACIO
-bla bla bla
+producte1*12.4*10*LINUX
+producte2*10.5*25*WINDOWS
+producte3*78.8*50*CPU
+producte4*90.6*5*HDD

@@ -8,7 +8,7 @@ public class Producte {
 	private float preu;
 	private int estoc;
 	private int id;
-	private static int cont_id=0;
+	private static int cont_id=1;
 	
 	/** constructor
 	 * 
@@ -48,11 +48,11 @@ public class Producte {
 		return id;
 	}
 
-	
-	/**To string
-	 * 
+	/**
+	 * To string 
 	 */
+	@Override
 	public String toString() {
-		return ("nom= "+nom+ ", preu=" +preu+ ", estoc= "+ estoc+ ", id= "+id);
+		return "Producte [Nom= " + nom + ", Preu= " + preu + ", Estoc= " + estoc + ", Identificador= " + id + "]";
 	}
 }

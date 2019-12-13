@@ -26,6 +26,6 @@ public class Software extends Producte {
 	 * To string
 	 */
 	public String toString() {
-		return ( "nom:"+super.getNom()+"\nPreu:"+super.getPreu()+ "\nEstoc:"+super.getEstoc()+ "\nSistema operatiu:"+sistema_operatiu+ "\nIdentificador: "+super.getId());
+		return ( "Software [Nom: "+super.getNom()+", Preu: "+super.getPreu()+ ", Estoc: "+super.getEstoc()+ ", Sistema operatiu: "+sistema_operatiu+ ", Identificador: "+super.getId()+"]");
 	}
 }

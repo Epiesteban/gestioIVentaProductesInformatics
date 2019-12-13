@@ -15,7 +15,7 @@ public class Comanda {
 	private LlistaProductes llista_p;
 	private String identificador;
 	private Client client;
-	private static int numCorrelatiu = 0;
+	private static int numCorrelatiu = 1;
 
 	/**
 	 * Constructor 

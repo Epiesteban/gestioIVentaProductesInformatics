@@ -24,6 +24,6 @@ public class Hardware extends Producte{
 	 * ToString
 	 */
 	public String toString() {
-		return ("nom:"+super.getNom()+ "\nPreu:"+super.getPreu()+ "\nEstoc:"+ super.getEstoc()+"\nTipus de hardware:"+tipus+"\nId: "+super.getId()+ "\n");
+		return ("Hardware [Nom: "+super.getNom()+ ", Preu: "+super.getPreu()+ ", Estoc: "+ super.getEstoc()+", Tipus de hardware: "+tipus+", Identificador: "+super.getId()+ "]");
 	}
 }

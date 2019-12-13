@@ -7,7 +7,7 @@ public class LlistaProductes {
 	private final int mida = 500;
 	private int nElem; //controlem elements correctes de la llista
 	private Producte[] llista;
-	
+
 	/**
 	 * constructor
 	 */
@@ -15,7 +15,7 @@ public class LlistaProductes {
 		nElem=0;
 		llista= new Producte [mida];
 	}
-	
+
 	/**
 	 * Setter i getters
 	 */
@@ -34,16 +34,36 @@ public class LlistaProductes {
 	public void setLlista(Producte[] llista) {
 		this.llista = llista;
 	}
+
 	/**
-	 * afegri producte
+	 * afegir producte no Repetits
 	 */
-	
-	public void afegirProducte(Producte p) {
+	public void afegirProducteNoRepetit(Producte p) {
 		//comprobar repetidos
-		llista[nElem]=p;
-		nElem++;
+		boolean trobat = false;
+		int i = 0;
+		if(nElem <  mida) {
+			while (i < nElem && !trobat) {
+				if(llista[i].getId()==p.getId()) trobat = true;
+				i++;
+			}
+			if (!trobat) {
+				llista[nElem] = p;
+				nElem++;
+			}
+		}
 	}
-	
+
+	/**
+	 * Afegir producte a comanda
+	 */
+	public void afegirProducte(Producte p) {
+		if(nElem <  mida) {
+			llista[nElem] = p;
+			nElem++;
+		}
+	}
+
 	/**
 	 * buscar algun producte per el seu id i retorna posicio 
 	 */
@@ -53,7 +73,7 @@ public class LlistaProductes {
 		}
 		return -1;
 	}
-	
+
 	public void buidarLlista() {
 		for(int i =0; i < nElem;i++) {
 			llista[i].setEstoc(llista[i].getEstoc()+1);
@@ -64,11 +84,11 @@ public class LlistaProductes {
 	 */
 	public String toString() {
 		if (nElem==0) {
-			return ("");
+			return ("No hi ha elements a la llista de productes.\n");
 		}else {
 			String frase= "";
 			for (int i=0; i<nElem; i++) {
-				frase= i+"-"+frase+llista[i].toString()+ "\n";
+				frase += llista[i].toString()+ "\n";
 			}
 			return frase;
 		}
