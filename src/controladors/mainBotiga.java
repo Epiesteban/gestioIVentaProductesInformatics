@@ -69,7 +69,8 @@ public class mainBotiga {
 			}break;
 			case 8:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen estic >= 1, indicant el seu estoc");
-				System.out.println(productesEstoc(llista_productes)); 
+				if (!productesEstoc(llista_productes).equals("")) System.out.println(productesEstoc(llista_productes));
+				else System.out.println("No hi ha cap producte amb estoc >= 1.");
 			}break;
 			case 9:{
 				System.out.println("\nHas escollit: treure un llistat de tots els productes que formen part d'alguna configuracio");
@@ -254,9 +255,10 @@ public class mainBotiga {
 	/**
 	 * FUNCIONS DEL MENU	
 	 */
+	
 	/**
-	 * CASE 1
-	 * @return --> 
+	 * CASE 1: Afegir Software
+	 * @param llista_p
 	 */
 	private static void afegirSoftware (LlistaProductes llista_p) {
 		String nom;
@@ -293,7 +295,8 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 2
+	 * CASE 2: Afegir un Hardware
+	 * @param llista_p
 	 */
 	private static void afegirHardware (LlistaProductes llista_p) {
 		String nom;
@@ -339,7 +342,8 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 3
+	 * CASE 3: Afegir una nova configuracio
+	 * @param llista_p
 	 */
 	private static void afegirConfiguracio(LlistaProductes llista_p) {
 		//haced cosas
@@ -347,7 +351,8 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 4
+	 * CASE 4: Donar de alta a un client.
+	 * @param llista_cl
 	 */
 	private static void altaClient (LlistaClients llista_cl) {
 
@@ -362,24 +367,28 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 5
+	 * CASE 5: donar de baixa a un client
+	 * @param llista_cl
+	 * @param llista_c
 	 */
 	private static void baixaClient (LlistaClients llista_cl, LlistaComandes llista_c) {
-		String dni;
-
+		String dni="";
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
 		llista_cl.eliminarClient(dni);
 		llista_c.eliminarComandes(dni);
 	}
-
+	
 	/**
-	 * CASE 6: 	Treure un llistat de tots els productes que tenen alguna comanda, mostrant les dades del client
-						que l’han fet.
+	 * CASE 6: Treure un llistat de tots els productes que tenen alguna comanda, mostrant les dades del client
+	 *					que l’han fet.
+	 * @param llista_p
+	 * @param llista_c
+	 * @param llista_cl
 	 */
 	private static void prodComanda (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
-		//FALTA ACABAR (JOEL)
+		//FALTA ACABAR (XENIA)
 		LlistaProductes llista_aux = new LlistaProductes();
 
 		for (int i = 0; i < llista_c.getnComanda(); i++) {
@@ -396,24 +405,29 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 7
-	 * @param llista --> 
+	 * CASE 7: Modificar l'estoc de qualsevol producte a partir del seu idenntificador.
+	 * @param llista
 	 */
 	private static void modificarEstoc (LlistaProductes llista) {
 		int i, nouEstoc;
 		System.out.println(llista.toString());
 		System.out.println("Introdueix el numero del producte del qual vols modificar l'estoc:");
+		try {
 		i=teclat.nextInt();
 		System.out.println("Quin es el nou estoc d'aquest producte?");
 		nouEstoc=teclat.nextInt();
 		llista.getLlista()[i].setEstoc(nouEstoc);
 		System.out.println("L'estoc actual es: "+nouEstoc);
+		}
+		catch(InputMismatchException e) {
+			System.out.println("Has introduit un valor incorrecte.");
+		}
 	}
 
 	/**
-	 * CASE 8
-	 * @param llista :
-	 * @return-->
+	 * CASE 8: Treure un llistat de tots el productes que tenen estoc>=1, indicant el seu estoc.
+	 * @param llista 
+	 * @return aux 
 	 */
 	private static String productesEstoc(LlistaProductes llista) {
 
@@ -427,9 +441,9 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 9
-	 * @param llista :
-	 * @return-->
+	 * CASE 9: Treure un llistat de tots els productes que formen part d’alguna configuració.
+	 * @param llista 
+	 * @return aux 
 	 */
 	private static String productesConfiguracio(LlistaProductes llista) {
 		String aux="";
@@ -442,7 +456,11 @@ public class mainBotiga {
 	}
 
 	/**
-	 * CASE 1O: Mostrar el producte del qual s’han fet més comandes i indicar el número d’aquestes.   
+	 * CASE 1O: Mostrar el producte del qual s’han fet més comandes i indicar el número d’aquestes.
+	 * @param llista_p
+	 * @param llista_c
+	 * @param llista_cl
+	 * @return Producte 
 	 */
 	private static Producte mesComandes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		LlistaProductes llista_aux = new LlistaProductes();
@@ -460,8 +478,7 @@ public class mainBotiga {
 					llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
 				}
 				else {
-					aux[k-1]++;
-
+					aux[k-1]++;	// para que no se salga del array (!trobat) para descontarlo del for
 				}
 				trobat = false;
 			}
@@ -474,7 +491,10 @@ public class mainBotiga {
 
 
 	/**
-	 * CASE 11
+	 * CASE 10: Mostrar elements de qualsevol llista
+	 * @param llista_p
+	 * @param llista_c
+	 * @param llista_cl
 	 */
 	private static void consultarLlistes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		int op;
