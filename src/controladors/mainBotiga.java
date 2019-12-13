@@ -122,7 +122,6 @@ public class mainBotiga {
 	/**
 	 * Llegir fitxer clients
 	 * @param llista
-	 * @throws FileNotFoundException
 	 */
 	private static void llegirFitxerClients(LlistaClients llista) {
 		String result="";
@@ -134,8 +133,12 @@ public class mainBotiga {
 				llista.afegirClient(new Client(separador[0], separador[1], separador[2]));
 			}
 			f.close();
-		}catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			System.out.println("No existeix el fitxer.");		
+		}
+		catch(Exception e) {
+			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
 		}
 	}
 
@@ -163,6 +166,7 @@ public class mainBotiga {
 	 */
 	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
 		String result="";
+		try {
 		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
 			result= f.nextLine();
@@ -175,6 +179,13 @@ public class mainBotiga {
 			}
 		}
 		f.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("No existeix el fitxer.");
+		}
+		catch(Exception e) {
+			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
+		}
 	}
 
 	/**
@@ -182,7 +193,7 @@ public class mainBotiga {
 	 * @param llista_p
 	 */
 	private static void guardarFitxerProductes(LlistaProductes llista_p) {
-
+			
 	}
 
 	/**
