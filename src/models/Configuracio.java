@@ -8,8 +8,8 @@ public class Configuracio extends Producte {
 	 */
 	
 	private final int mida = 500;
-	public Software[] softwares;
-	public Hardware[] hardwares;
+	private Software softwares[];
+	private Hardware hardwares[];
 	
 	/*Constructor buit*/
 	public Configuracio (String nom, float preu, int estoc) {
@@ -49,6 +49,6 @@ public class Configuracio extends Producte {
 	 * ToSTring
 	 */
 	public String toString() {
-		return ("nom:"+super.getNom()+ "\nPreu:"+super.getPreu()+ "\nEstoc:"+ super.getEstoc()+ "\nId:"+super.getId()+ "\nSoftware: "+softwares+ "\nHadware:"+ hardwares+ "\n");
+		return ("Configuracio=\t[nom: "+super.getNom()+ ", Preu: "+super.getPreu()+ ", Estoc: "+ super.getEstoc()+ ", Id: "+super.getId()+ ", Software: "+softwares+ ", Hadware: "+ hardwares+ "]");
 	}
 }

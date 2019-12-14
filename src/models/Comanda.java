@@ -15,6 +15,7 @@ public class Comanda {
 	private LlistaProductes llista_p;
 	private String identificador;
 	private Client client;
+	private float preuComanda;
 	private static int numCorrelatiu = 1;
 
 	/**
@@ -23,6 +24,8 @@ public class Comanda {
 	 * @param dni : dni del client que realitza una comanda 
 	 */
 	public Comanda (Client client){ 
+		this.client = client;
+		this.preuComanda = 0;
 		this.llista_p= new LlistaProductes();
 		this.data =  Calendar.getInstance().getTime();
 		this.identificador = client.getDni() + numCorrelatiu;
@@ -73,6 +76,13 @@ public class Comanda {
 		return numCorrelatiu;
 	}
 	/**
+	 * 	Getter preuComanda
+	 * @return preuComanda
+	 */
+	public float getPreuComanda() {
+		return preuComanda;
+	}
+	/**
 	 * SETTERS
 	 */
 	/**
@@ -104,10 +114,44 @@ public class Comanda {
 	public static void setNumCorrelatiu (int numCorrelatiu) {
 		Comanda.numCorrelatiu = numCorrelatiu;
 	}
+	/**
+	 * Setter preuComanda
+	 * @param preuComanda
+	 */
+	public void setPreuComanda(float preuComanda) {
+		this.preuComanda = preuComanda;
+	}
 	
+	//METODES
+	/**
+	 * Funcio per afegir un producte a la llista de productes de la comanda
+	 * @param producte
+	 */
 	public void afegirProducteComanda (Producte producte) {
 		llista_p.afegirProducte(producte);
 		producte.setEstoc(producte.getEstoc()-1);
+	}
+	
+	/**
+	 *	Funcio per comprovar si existeix un producte a una comanda
+	 * @param producte
+	 * @return existeix
+	 */
+	public boolean existeixProducte(Producte producte) {
+		for (int i = 0; i < llista_p.getnElem(); i++) {
+			if(llista_p.getLlista()[i].getId()==producte.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public float calculaPreuComanda() {
+		preuComanda=0;
+		for (int i = 0; i < llista_p.getnElem(); i++) {
+			preuComanda += llista_p.getLlista()[i].getPreu()*llista_p.getLlista()[i].getEstoc();
+		}
+		return preuComanda;
 	}
 
 	@Override
@@ -115,7 +159,8 @@ public class Comanda {
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 		return "\nData de la reserva: " +dateformat.format(data)+ 
 				"\nProductes: " + llista_p.toString() +
-				"\nIdentificador: " + identificador;
+				"\nIdentificador: " + identificador+
+				"\nPreuComanda: "+preuComanda;
 	}
 
 }
