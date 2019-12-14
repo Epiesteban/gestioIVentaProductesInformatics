@@ -17,7 +17,7 @@ public class mainBotiga {
 		llegirFitxerProductes(llista_productes);
 		//llegirDataSerialitzable(llista_comandes);
 		
-		/* Creacio d'instancies per comprovar que els metodes funcionen correctament.
+		/*// Creacio d'instancies per comprovar que els metodes funcionen correctament.
 		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
 		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
@@ -34,6 +34,7 @@ public class mainBotiga {
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
 		*/
+	
 		int op=0;
 		do {
 			menu();
@@ -352,8 +353,25 @@ public class mainBotiga {
 	 * @param llista_p
 	 */
 	private static void afegirConfiguracio(LlistaProductes llista_p) {
-		//haced cosas
-		llista_p.afegirProducte(new Configuracio("nom", 23, 32));
+		Hardware hardwares[];
+		Software softwares[];
+		String nom;
+		Float preu;
+		int estoc;
+		System.out.println("Introdueix el nom:");
+		nom=teclat.next();
+		System.out.println("Introdueix el preu:");
+		preu=teclat.nextFloat();
+		System.out.println("Introdueix l'estoc:");
+		estoc=teclat.nextInt();
+		System.out.println("Aquests son els softwares que pots introduir: ");
+		for (int i = 0; i < llista_p.getnElem(); i++) {
+			if(llista_p.getLlista()[i] instanceof Software)
+			System.out.println(i+"- "+llista_p.getLlista()[i]);
+		}
+		System.out.println();
+		//llista_p.afegirProducte(new Configuracio("Configuracio1", preu, estoc, softwares, hardwares));
+	//	llista_p.getLlista()[llista_p.getnElem()].
 	}
 
 	/**
@@ -525,15 +543,15 @@ public class mainBotiga {
 
 		switch (op) {
 		case 1:{
-			System.out.println("\nLlISTA DE PORDUCTES:");
+			System.out.println("\nLLISTA DE PRODUCTES:");
 			System.out.println("\n"+llista_p.toString());
 		}break;
 		case 2:{
-			System.out.println("\nLlISTA DE CLIENTS:");
+			System.out.println("\nLLISTA DE CLIENTS:");
 			System.out.println("\n"+llista_cl.toString());
 		}break;
 		case 3:{
-			System.out.println("\nLlISTA DE COMANDES:");
+			System.out.println("\nLLISTA DE COMANDES:");
 			System.out.println("\n"+llista_c.toString());
 		}break;
 		case 4:{
