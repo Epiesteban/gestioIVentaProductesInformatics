@@ -14,30 +14,26 @@ public class mainBotiga {
 		LlistaComandes llista_comandes = new LlistaComandes();
 
 		llegirFitxerClients(llista_clients);
-		//llegirFitxerProductes(llista_productes);
+		llegirFitxerProductes(llista_productes);
 		//llegirDataSerialitzable(llista_comandes);
-
+		
+		/* Creacio d'instancies per comprovar que els metodes funcionen correctament.
 		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
 		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
 
 		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
-		
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
-		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[2]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
 		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
 
 		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-
-		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[2]));
-		llista_comandes.getLlista()[2].afegirProducteComanda(llista_productes.getLlista()[0]);
-		llista_comandes.getLlista()[2].afegirProducteComanda(llista_productes.getLlista()[1]);
-		llista_comandes.getLlista()[2].afegirProducteComanda(llista_productes.getLlista()[2]);
-
+		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
+		*/
 		int op=0;
 		do {
 			menu();
