@@ -16,8 +16,8 @@ public class mainBotiga {
 		llegirFitxerClients(llista_clients);
 		llegirFitxerProductes(llista_productes);
 		//llegirDataSerialitzable(llista_comandes);
-		
-		/*// Creacio d'instancies per comprovar que els metodes funcionen correctament.
+
+		// Creacio d'instancies per comprovar que els metodes funcionen correctament.
 		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
 		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
@@ -33,71 +33,74 @@ public class mainBotiga {
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
-		*/
-	
+		
 		int op=0;
 		do {
 			menu();
 			try {
 				op = teclat.nextInt();
 			} catch (InputMismatchException e) {
-				op = -1;
+				op = -1;				// nou valor enter de op per impedir entrar al bucle
 				teclat.nextLine();		//limpiar buffer
 			}
 
 			switch (op) {
-			case 1:{
-				System.out.println("\nHas escollit: afegir un producte de software ");
-				afegirSoftware(llista_productes);
-			}break;
-			case 2:{
-				System.out.println("\nHas escollit: afegir un producte de hardware");
-				afegirHardware(llista_productes);
-			}break;
-			case 3:{
-				System.out.println("\nHas escollit: afegir una configuració completa");
-				afegirConfiguracio(llista_productes);
-			}break;
-			case 4:{
-				System.out.println("\nHas escollit: donar d'alta un client");
-				altaClient(llista_clients);
-			}break;
-			case 5:{
-				System.out.println("\nHas escollit: donar de baixa a un client");
-				baixaClient(llista_clients, llista_comandes);
-			}break;
-			case 6:{
-				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen alguna comanda (amb les dades del client) ");
-				prodComanda(llista_productes, llista_comandes, llista_clients);
-			}break;
-			case 7:{
-				System.out.println("\nHas escollit: modificar l'estoc de qualsevol dels productes que s'han donat d'alta a partir del seu identificador");
-				modificarEstoc(llista_productes);
-			}break;
-			case 8:{
-				System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen estic >= 1, indicant el seu estoc");
-				if (!productesEstoc(llista_productes).equals("")) System.out.println(productesEstoc(llista_productes));
-				else System.out.println("No hi ha cap producte amb estoc >= 1.");
-			}break;
-			case 9:{
-				System.out.println("\nHas escollit: treure un llistat de tots els productes que formen part d'alguna configuracio");
-				//excepcio llista buida 
-				System.out.println(productesConfiguracio(llista_productes));
-			}break;
-			case 10:{
-				System.out.println("\nHas escollit: mostrar el producte del qual s'han fet més comandes i indicar el numero d'aquestes");
-				System.out.println(mesComandes(llista_productes, llista_comandes, llista_clients));
-			}break;
-			case 11:{
-				System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
-				consultarLlistes(llista_productes, llista_comandes, llista_clients);
+				case 1:{
+					System.out.println("\nHas escollit: afegir un producte de software ");
+					afegirSoftware(llista_productes);
+				}break;
+				case 2:{
+					System.out.println("\nHas escollit: afegir un producte de hardware");
+					afegirHardware(llista_productes);
+				}break;
+				case 3:{
+					System.out.println("\nHas escollit: afegir una configuració completa");
+					afegirConfiguracio(llista_productes);
+				}break;
+				case 4:{
+					System.out.println("\nHas escollit: donar d'alta un client");
+					altaClient(llista_clients);
+				}break;
+				case 5:{
+					System.out.println("\nHas escollit: donar de baixa a un client");
+					baixaClient(llista_clients, llista_comandes);
+				}break;
+				case 6:{
+					System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen alguna comanda (amb les dades del client) ");
+					prodComanda(llista_productes, llista_comandes, llista_clients);
+				}break;
+				case 7:{
+					System.out.println("\nHas escollit: modificar l'estoc de qualsevol dels productes que s'han donat d'alta a partir del seu identificador");
+					modificarEstoc(llista_productes);
+				}break;
+				case 8:{
+					System.out.println("\nHas escollit: treure un llistat de tots els productes que tenen estic >= 1, indicant el seu estoc");
+					if (!productesEstoc(llista_productes).equals("")) System.out.println(productesEstoc(llista_productes));
+					else System.out.println("No hi ha cap producte amb estoc >= 1.");
+				}break;
+				case 9:{
+					System.out.println("\nHas escollit: treure un llistat de tots els productes que formen part d'alguna configuracio");
+					if (!productesConfiguracio(llista_productes).equals("")) { 
+					System.out.println(productesConfiguracio(llista_productes));
+					}
+					else {
+					System.out.println("No hi ha cap producte que formi part d'una configuració");	
+					}
+				}break;
+				case 10:{
+					System.out.println("\nHas escollit: mostrar el producte del qual s'han fet més comandes i indicar el numero d'aquestes");
+					mesComandes(llista_productes, llista_comandes, llista_clients);
+				}break;
+				case 11:{
+					System.out.println("\nHas escollit: consultar tots els elements de qualsevol llista que tingueu definida");
+					consultarLlistes(llista_productes, llista_comandes, llista_clients);
 
 
-			}break;
-			case 12:{
-				System.out.println("\nHas decidit sortir del programa.");
-			}break;
-			default: System.out.println("Escriu una opcio valida.");
+				}break;
+				case 12:{
+					System.out.println("\nHas decidit sortir del programa.");
+				}break;
+				default: System.out.println("Escriu una opcio valida.");
 			}
 		} while (op != 12);
 
@@ -210,7 +213,7 @@ public class mainBotiga {
 	private static void guardarDataSerialitzable (LlistaComandes llista) {
 		ObjectOutputStream gfitxer;
 		try {
-			gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.txt"));
+			gfitxer = new ObjectOutputStream (new FileOutputStream("nomfitxer.ser"));
 			gfitxer.writeObject(llista);
 			gfitxer.close();
 		} catch (IOException e){
@@ -273,32 +276,38 @@ public class mainBotiga {
 		int estoc, op=0;
 		String sist = "";
 
-		System.out.println("Introdueix el nom:");
-		nom=teclat.next();
-		System.out.println("Introdueix el preu:");
-		preu=teclat.nextFloat();
-		System.out.println("Introdueix l'estoc:");
-		estoc=teclat.nextInt();
-		op = 0;
-		while (op < 1 || op > 3) {
-			System.out.println("Selecciona el sistema operatiu:");
-			System.out.println("1- WINDOWS,  2-MACOS,  3-LINUX");
-			op=teclat.nextInt();
-			switch (op) {
-			case 1:
-				sist= "WINDOWS";
-				break;
-			case 2:
-				sist= "MACOS";
-				break;
-			case 3:
-				sist= "LINUX";
-				break;
-			default:
-				System.out.println("Has introduit un nombre erroni! Torna a provar");
+		try {
+			System.out.println("Introdueix el nom:");
+			nom=teclat.next();
+			System.out.println("Introdueix el preu:");
+			preu=teclat.nextFloat();
+			System.out.println("Introdueix l'estoc:");
+			estoc=teclat.nextInt();
+
+			op = 0;
+			while (op < 1 || op > 3) {
+				System.out.println("Selecciona el sistema operatiu:");
+				System.out.println("1- WINDOWS,  2-MACOS,  3-LINUX");
+				op=teclat.nextInt();
+				switch (op) {
+					case 1:
+						sist= "WINDOWS";
+						break;
+					case 2:
+						sist= "MACOS";
+						break;
+					case 3:
+						sist= "LINUX";
+						break;
+					default:
+						System.out.println("Has introduit un nombre erroni! Torna a provar");
+				}
+
 			}
-		}
-		llista_p.afegirProducte(new Software(nom, preu, estoc, sist));
+			llista_p.afegirProducte(new Software(nom, preu, estoc, sist));
+		}catch(InputMismatchException e){
+			System.out.println("Nom/preu/estoc incorrecte");
+			teclat.nextLine();		}
 	}
 
 	/**
@@ -310,7 +319,9 @@ public class mainBotiga {
 		float preu;
 		int estoc, op=2;
 		String tipus= "";
-
+		
+		try {
+			
 		System.out.println("Introdueix el nom:");
 		nom=teclat.next();
 		System.out.println("Introdueix el preu:");
@@ -323,29 +334,33 @@ public class mainBotiga {
 			System.out.println("1- CPU,  2-MB,  3-HDD, 4-RAM, 5-GPU, 6-PERIFERIC");
 			op=teclat.nextInt();
 			switch (op) {
-			case 1: 
-				tipus = "CPU";
-				break;
-			case 2:
-				tipus = "MB";
-				break;
-			case 3:
-				tipus = "HDD";
-				break;
-			case 4:
-				tipus = "RAM";
-				break;
-			case 5:
-				tipus = "GPU";
-				break;
-			case 6:
-				tipus = "PERIFERIC";
-				break;
-			default:
-				System.out.println("Has introduit un nombre erroni! Torna a provar");
+				case 1: 
+					tipus = "CPU";
+					break;
+				case 2:
+					tipus = "MB";
+					break;
+				case 3:
+					tipus = "HDD";
+					break;
+				case 4:
+					tipus = "RAM";
+					break;
+				case 5:
+					tipus = "GPU";
+					break;
+				case 6:
+					tipus = "PERIFERIC";
+					break;
+				default:
+					System.out.println("Has introduit un nombre erroni! Torna a provar");
 			}
 		}while(op<1 || op>6);
 		llista_p.afegirProducte(new Hardware(nom, preu, estoc, tipus));
+		} catch(InputMismatchException e) {
+			System.out.println("Dades introduides erronies, torni a escollir una opcio");
+			teclat.nextLine();
+		}
 	}
 
 	/**
@@ -367,11 +382,11 @@ public class mainBotiga {
 		System.out.println("Aquests son els softwares que pots introduir: ");
 		for (int i = 0; i < llista_p.getnElem(); i++) {
 			if(llista_p.getLlista()[i] instanceof Software)
-			System.out.println(i+"- "+llista_p.getLlista()[i]);
+				System.out.println(i+"- "+llista_p.getLlista()[i]);
 		}
 		System.out.println();
 		//llista_p.afegirProducte(new Configuracio("Configuracio1", preu, estoc, softwares, hardwares));
-	//	llista_p.getLlista()[llista_p.getnElem()].
+		//	llista_p.getLlista()[llista_p.getnElem()].
 	}
 
 	/**
@@ -379,7 +394,7 @@ public class mainBotiga {
 	 * @param llista_cl
 	 */
 	private static void altaClient (LlistaClients llista_cl) {
-
+	
 		System.out.println("Introdueix el dni del client:");
 		teclat.nextLine();
 		String dni = teclat.nextLine();
@@ -387,7 +402,8 @@ public class mainBotiga {
 		String correu = teclat.nextLine();
 		System.out.println("\nIntrodueix la direccio del client:");
 		String direccio = teclat.nextLine();
-		llista_cl.afegirClient(new Client (dni, correu, direccio));	
+		llista_cl.afegirClient(new Client (dni, correu, direccio));
+		
 	}
 
 	/**
@@ -396,12 +412,17 @@ public class mainBotiga {
 	 * @param llista_c
 	 */
 	private static void baixaClient (LlistaClients llista_cl, LlistaComandes llista_c) {
+		
 		String dni="";
+		//try {
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
 		llista_cl.eliminarClient(dni);
 		llista_c.eliminarComandes(dni);
+		//}catch (clientInexistentException e) {
+			//inventar excepcio
+		//}
 	}
 
 	/**
@@ -412,31 +433,37 @@ public class mainBotiga {
 	 * @param llista_cl
 	 */
 	private static void prodComanda (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
-		//FALTA ACABAR (XENIA)
+
 		LlistaProductes llista_aux = new LlistaProductes();
 		boolean trobat = false;
-		for (int i = 0; i < llista_c.getnComanda(); i++) {
-			for (int j = 0; j < llista_c.getLlista()[i].getLlistaProductes().getnElem(); j++) {
-				for (int k = 0; k < llista_aux.getnElem() && !trobat; k++) {
-					if ( llista_c.getLlista()[i].getLlistaProductes().getLlista()[j].getId() == llista_aux.getLlista()[k].getId()) {
-						trobat=true;
-					}	
+		if (llista_c.getnComanda()!= 0) {
+
+			for (int i = 0; i < llista_c.getnComanda(); i++) {
+				for (int j = 0; j < llista_c.getLlista()[i].getLlistaProductes().getnElem(); j++) {
+					for (int k = 0; k < llista_aux.getnElem() && !trobat; k++) {
+						if ( llista_c.getLlista()[i].getLlistaProductes().getLlista()[j].getId() == llista_aux.getLlista()[k].getId()) {
+							trobat=true;
+						}	
+					}
+					if(!trobat) {
+						llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
+					}
+					trobat = false;
 				}
-				if(!trobat) {
-					llista_aux.afegirProducte(llista_c.getLlista()[i].getLlistaProductes().getLlista()[j]);
+			}
+
+			for (int i = 0; i < llista_aux.getnElem(); i++) {
+				System.out.println(llista_aux.getLlista()[i]);
+				for (int j = 0; j < llista_c.getnComanda(); j++) {
+					if(llista_c.getLlista()[j].existeixProducte(llista_aux.getLlista()[i])) {
+						System.out.println(llista_c.getLlista()[j].getClient());
+					}
 				}
-				trobat = false;
+				System.out.println("-----------------------------------------------");
 			}
 		}
-
-		for (int i = 0; i < llista_aux.getnElem(); i++) {
-			System.out.println(llista_aux.getLlista()[i]);
-			for (int j = 0; j < llista_c.getnComanda(); j++) {
-				if(llista_c.getLlista()[j].existeixProducte(llista_aux.getLlista()[i])) {
-					System.out.println(llista_c.getLlista()[j].getClient());
-				}
-			}
-			System.out.println("-----------------------------------------------");
+		else {
+			System.out.println("No hi ha cap comanda feta");
 		}
 	}
 
@@ -452,7 +479,7 @@ public class mainBotiga {
 			i=teclat.nextInt();
 			System.out.println("Quin es el nou estoc d'aquest producte?");
 			nouEstoc=teclat.nextInt();
-			llista.getLlista()[i].setEstoc(nouEstoc);
+			llista.getLlista()[i-1].setEstoc(nouEstoc);
 			System.out.println("L'estoc actual es: "+nouEstoc);
 		}
 		catch(InputMismatchException e) {
@@ -498,7 +525,7 @@ public class mainBotiga {
 	 * @param llista_cl
 	 * @return Producte 
 	 */
-	private static Producte mesComandes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
+	private static void mesComandes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		LlistaProductes llista_aux = new LlistaProductes();
 		int aux[] = new int [llista_p.getnElem()];
 		boolean trobat = false;
@@ -522,46 +549,54 @@ public class mainBotiga {
 		for (int i = 1; i < aux.length; i++) {
 			if(aux[i]>aux[indexGran]) indexGran = i;
 		}
-		return llista_aux.getLlista()[indexGran];
+		if(llista_aux.getLlista()[indexGran] != null) {
+		System.out.println(llista_aux.getLlista()[indexGran]);
+		System.out.println("El numero de comandes que s'han fet es: "+aux[indexGran]);
+		}
+		else {
+			System.out.println("No hi ha cap producte amb comandes.");
+		}
 	}
 
 
 	/**
-	 * CASE 10: Mostrar elements de qualsevol llista
+	 * CASE 11: Mostrar elements de qualsevol llista
 	 * @param llista_p
 	 * @param llista_c
 	 * @param llista_cl
 	 */
 	private static void consultarLlistes (LlistaProductes llista_p, LlistaComandes llista_c, LlistaClients llista_cl) {
 		int op;
+		do {
 		System.out.println("\n1. Lista de productes");
 		System.out.println("\n2. Lista de clients");
 		System.out.println("\n3. Lista de comandes");
-		System.out.println("\n4. Tornar al menu principal");
 		System.out.println("\nQuina opcio vols escollir?:");
-		op = teclat.nextInt();
+		try {
+			op = teclat.nextInt();
+		}catch (InputMismatchException e) {
+			op= -1; //canviem valor op per a que no entri en el bucle
+			teclat.nextLine();
+		}
 
 		switch (op) {
-		case 1:{
-			System.out.println("\nLLISTA DE PRODUCTES:");
-			System.out.println("\n"+llista_p.toString());
-		}break;
-		case 2:{
-			System.out.println("\nLLISTA DE CLIENTS:");
-			System.out.println("\n"+llista_cl.toString());
-		}break;
-		case 3:{
-			System.out.println("\nLLISTA DE COMANDES:");
-			System.out.println("\n"+llista_c.toString());
-		}break;
-		case 4:{
-			System.out.println("\nHas escollit tornar al menu principal.");
-			menu();
-		}break;
-		default:
-			System.out.println("\nError! Introdueix un numero correcte.");
-			break;
+			case 1:{
+				System.out.println("\nLLISTA DE PRODUCTES:");
+				System.out.println("\n"+llista_p.toString());
+			}break;
+			case 2:{
+				System.out.println("\nLLISTA DE CLIENTS:");
+				System.out.println("\n"+llista_cl.toString());
+			}break;
+			case 3:{
+				System.out.println("\nLLISTA DE COMANDES:");
+				System.out.println("\n"+llista_c.toString());
+			}break;
+			default:
+				System.out.println("\nOpcio no valida, introdueixi un enter");
+				break;
 		}
+		}while (op != 1 ||op != 2||op != 3);
 	}
 }
 

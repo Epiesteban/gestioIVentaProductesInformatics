@@ -70,7 +70,7 @@ public class LlistaClients {
 		if (nClient == 0) {
 			return "No hi ha elements a la llista de clients.\n";
 		}else {
-			String frase="numero de client = "+nClient+"\n";
+			String frase="numero de clients = "+nClient+"\n";
 			for (int i=0;i<nClient;i++) {
 				frase+=llista[i].toString()+"\n";
 			}
