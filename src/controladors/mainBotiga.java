@@ -1,11 +1,16 @@
 package controladors;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import models.*;
+
+import java.awt.peer.ScrollbarPeer;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -95,10 +100,14 @@ public class mainBotiga {
 		f.close();
 	}
 
-
+	/**
+	 * Mètode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
+	 * @param llista
+	 * @throws FileNotFoundException
+	 */
 	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
 		String result="";
-		Scanner f=new Scanner(new File("productes.txt"));
+		Scanner f=new Scanner(new File("'productes.txt"));
 		while (f.hasNextLine()) {
 			result=f.next();
 			String[] separador = result.split("\\*");
@@ -125,7 +134,6 @@ public class mainBotiga {
 				int aux=Integer.parseInt(separador[4]);
 				int loc, posicio=5;
 				for (int i=0;i<aux;i++) {
-					System.out.println(separador[posicio+1]);
 					loc=llista.buscarProductes(Integer.parseInt(separador[posicio+i]));
 					llista_h[i]=(Hardware)llista.getLlista()[loc];
 				}
@@ -143,6 +151,59 @@ public class mainBotiga {
 		f.close();
 	}
 
+	
+	private static void guardarFitxerProductes(LlistaProductes llista) {
+		try {
+			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
+			String nom;
+			float preu;
+			int estoc;
+			SO sist;
+			Tipus_hardware tipus;
+			
+			for (int i=0;i<llista.getnElem();i++) {
+				if (llista.getLlista()[i] instanceof Software) {
+					bw.write("S*");
+					bw.write(llista.getLlista()[i].getNom()+"*");;
+					bw.write(llista.getLlista()[i].getPreu()+"*");
+					bw.write(llista.getLlista()[i].getEstoc()+"*");
+					bw.write(((Software)llista.getLlista()[i]).getSOString());
+				}else if (llista.getLlista()[i] instanceof Hardware) {
+					bw.write("H*");
+					bw.write(llista.getLlista()[i].getNom()+"*");;
+					bw.write(llista.getLlista()[i].getPreu()+"*");
+					bw.write(llista.getLlista()[i].getEstoc()+"*");
+					bw.write(((Hardware)llista.getLlista()[i]).getTipusHardwareString());
+				}else {
+					bw.write("C*");
+					bw.write(llista.getLlista()[i].getNom()+"*");;
+					bw.write(llista.getLlista()[i].getPreu()+"*");
+					bw.write(llista.getLlista()[i].getEstoc()+"*");
+					int numElem=(((Configuracio)llista.getLlista()[i]).numElementsHardware());
+					System.out.println(numElem);
+					bw.write(numElem+"*");
+					for (int j=0;j<numElem;j++) {
+							bw.write(((Configuracio)llista.getLlista()[i]).getHardwares()[j].getId()+"*");
+					}
+					numElem=(((Configuracio)llista.getLlista()[i]).numElementsSoftware());
+					bw.write(numElem+"*");
+					for (int j=0;j<numElem;j++) {
+						if (j+1==numElem) {
+							bw.write(""+((Configuracio)llista.getLlista()[i]).getSoftwares()[j].getId());
+						}else {
+							bw.write(((Configuracio)llista.getLlista()[i]).getSoftwares()[j].getId()+"*");
+						}
+					}
+				}
+				if (i+1!=llista.getnElem()) {
+					bw.write("\n");
+				}
+			}
+			bw.close();
+		} catch (Exception e) {
+			System.out.println("Hi ha hagut un problema a l'escriure al fitxer!");
+		}
+	}
 	/**
 	 * FUNCIONS PER LLEGIR/ESCRIURE FITXERS DE LLISTACOMANDES
 	 */
@@ -224,6 +285,7 @@ public class mainBotiga {
 		}
 		return aux;
 	}
+	
 
 	/**
 	 * MENU		

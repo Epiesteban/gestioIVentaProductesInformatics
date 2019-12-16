@@ -44,6 +44,23 @@ public class Configuracio extends Producte {
 		this.hardwares = hardwares;
 	}
 	
+	public int numElementsHardware () {
+		int i=0;
+		while (hardwares[i]!=null) {
+			i++;
+		}
+		return i;
+	}
+	
+	
+	public int numElementsSoftware () {
+		int i=0;
+		while (softwares[i]!=null) {
+			i++;
+		}
+		return i;
+	}
+	
 	/**
 	 * ToSTring
 	 */
