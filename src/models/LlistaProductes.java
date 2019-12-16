@@ -61,6 +61,7 @@ public class LlistaProductes {
 				j=i;
 				trobat= true;
 			}
+			i++;
 		}
 		return j;
 	}

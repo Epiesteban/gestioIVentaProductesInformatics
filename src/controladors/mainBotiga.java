@@ -101,43 +101,44 @@ public class mainBotiga {
 		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
 			result=f.next();
-			Scanner sc= new Scanner(result);
-			sc.useDelimiter("*");
-			if(sc.next()=="S") {
-				String nom=sc.next();
-				float preu=Float.parseFloat(sc.next());
-				int estoc=Integer.parseInt(sc.next());
-				SO sist=mirarSO(sc.next());
+			String[] separador = result.split("\\*");
+			if(separador[0].equalsIgnoreCase("S")) {
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
+				SO sist=mirarSO(separador[4]);
 				Software aux_s=new Software(nom, preu, estoc, sist);
 				llista.afegirProducte(aux_s);//Al afegir producte, no hem de posar instanceof per a que ho guardi depenent el tipus que sigui?
-			}else if (sc.next()=="H") {
-				String nom=sc.next();
-				float preu=Float.parseFloat(sc.next());
-				int estoc=Integer.parseInt(sc.next());
-				Tipus_hardware tipus=mirarTipusHardware(sc.next());
+			}else if (separador[0].equalsIgnoreCase("H")) {
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
+				Tipus_hardware tipus=mirarTipusHardware(separador[4]);
 				Hardware aux_h=new Hardware(nom, preu, estoc, tipus);
 				llista.afegirProducte(aux_h);
 			}else {
-				String nom=sc.next();
-				float preu=Float.parseFloat(sc.next());
-				int estoc=Integer.parseInt(sc.next());
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
 				Hardware[] llista_h= new Hardware[100];
 				Software[] llista_s=new Software[100];
-				int aux=Integer.parseInt(sc.next());
-				int loc;
+				int aux=Integer.parseInt(separador[4]);
+				int loc, posicio=5;
 				for (int i=0;i<aux;i++) {
-					loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+					System.out.println(separador[posicio+1]);
+					loc=llista.buscarProductes(Integer.parseInt(separador[posicio+i]));
 					llista_h[i]=(Hardware)llista.getLlista()[loc];
 				}
-				aux=Integer.parseInt(sc.next());
+				posicio=posicio+aux;
+				aux=Integer.parseInt(separador[posicio]);
+				posicio=posicio+1;
 				for(int i=0;i<aux;i++) {
-					loc=llista.buscarProductes(Integer.parseInt(sc.next()));
+					loc=llista.buscarProductes(Integer.parseInt(separador[posicio+i]));
 					llista_s[i]=(Software)llista.getLlista()[loc];
 				}
 				Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
 				llista.afegirProducte(aux_c);
 			}
-			sc.close();
 		}
 		f.close();
 	}
@@ -370,7 +371,7 @@ public class mainBotiga {
 
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		dni = teclat.nextLine();
-		llista_c.eliminarComandes(dni);
+		//llista_c.eliminarComandes(dni);
 		llista_cl.eliminarClient(dni);
 	}
 
