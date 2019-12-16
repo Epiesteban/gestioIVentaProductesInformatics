@@ -17,7 +17,7 @@ public class mainBotiga {
 		llegirFitxerProductes(llista_productes);
 		//llegirDataSerialitzable(llista_comandes);
 		
-		/*// Creacio d'instancies per comprovar que els metodes funcionen correctament.
+		// Creacio d'instancies per comprovar que els metodes funcionen correctament.
 		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
 		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
@@ -33,7 +33,7 @@ public class mainBotiga {
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
 		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
-		*/
+		
 	
 		int op=0;
 		do {
