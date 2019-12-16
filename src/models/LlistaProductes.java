@@ -73,7 +73,10 @@ public class LlistaProductes {
 		}
 		return -1;
 	}
-
+	
+	/**
+	 * metode per buidar la llista de productes d'una comanda
+	 */
 	public void buidarLlista() {
 		for(int i =0; i < nElem;i++) {
 			llista[i].setEstoc(llista[i].getEstoc()+1);
