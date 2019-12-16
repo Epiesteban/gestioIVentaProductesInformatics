@@ -42,6 +42,7 @@ public class Hardware extends Producte{
 		this.tipus = tipus;
 	}
 	
+	
 	/**
 	 * ToString
 	 */

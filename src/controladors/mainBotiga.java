@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.xml.transform.Source;
+
 public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
@@ -38,6 +40,7 @@ public class mainBotiga {
 			case 2:{
 			}break;
 			case 3:{
+				afegirConfiguracio(llista_productes);
 			}break;
 			case 4:{
 				System.out.println("\nHas escollit: donar d'alta un client");
@@ -107,7 +110,7 @@ public class mainBotiga {
 	 */
 	private static void llegirFitxerProductes(LlistaProductes llista) throws FileNotFoundException {
 		String result="";
-		Scanner f=new Scanner(new File("'productes.txt"));
+		Scanner f=new Scanner(new File("productes.txt"));
 		while (f.hasNextLine()) {
 			result=f.next();
 			String[] separador = result.split("\\*");
@@ -152,6 +155,10 @@ public class mainBotiga {
 	}
 
 	
+	/**
+	 * Mètode per a guardar les dades de la llista de productes dins un fitxer de text
+	 * @param llista
+	 */
 	private static void guardarFitxerProductes(LlistaProductes llista) {
 		try {
 			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
@@ -403,8 +410,142 @@ public class mainBotiga {
 	 * CASE 3
 	 * @return -->
 	 */
-	private static Configuracio afegirConfiguracio() {
-		return new Configuracio("nom", 23, 32);
+	private static void afegirConfiguracio(LlistaProductes llista) {
+		Hardware[] llista_h=new Hardware[50];
+		Software[] llista_s=new Software[50];
+		System.out.println("Introdueix el nom de la configuracio:");
+		String nom=teclat.next();
+		System.out.println("Introdueix el preu de la configuracio:");
+		float preu=teclat.nextFloat();
+		System.out.println("Introdueix l'estoc del producte:");
+		int estoc=teclat.nextInt();
+		System.out.println("A continuacio es mostraran els components de Hardware,");
+		System.out.println("Escull un minim de 1 de cada tipus:");
+		System.out.println("Escull un component HDD:");
+		int op=0, j=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("HDD")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del HDD que vols:");
+			int pos=teclat.nextInt();
+			System.out.println(((Hardware)llista.getLlista()[pos]).getTipus().toString());
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent HDD?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		System.out.println("Escull un component Case:");
+		op=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("Case")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del Case que vols:");
+			int pos=teclat.nextInt();
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent Case?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		System.out.println("Escull un component RAM:");
+		op=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("RAM")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del RAM que vols:");
+			int pos=teclat.nextInt();
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent RAM?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		System.out.println("Escull un component MoBo:");
+		op=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("MoBo")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del MoBo que vols:");
+			int pos=teclat.nextInt();
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent MoBo?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		System.out.println("Escull un component CPU:");
+		op=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("CPU")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del CPU que vols:");
+			int pos=teclat.nextInt();
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent CPU?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		System.out.println("Escull un component PSU:");
+		op=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Hardware) {
+					if ((((Hardware)llista.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("PSU")) {
+						System.out.println(i+"-"+((Hardware)llista.getLlista()[i]).toString());
+					}
+				}
+			}
+			System.out.println("Intordueix el id del PSU que vols:");
+			int pos=teclat.nextInt();
+			llista_h[j]=((Hardware)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre compontent PSU?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		op=0;j=0;
+		while (op!=2) {
+			for (int i=0; i<llista.getnElem();i++) {
+				if ((llista.getLlista()[i])instanceof Software) {
+					System.out.println(i+"-"+((Software)llista.getLlista()[i]).toString());
+				}
+			}
+			System.out.println("Introdueix el id del SO que vols:");
+			int pos=teclat.nextInt();
+			llista_s[j]=((Software)llista.getLlista()[pos]);
+			j++;
+			System.out.println("Vols afegir un altre SO?");
+			System.out.println("1- Si    2- No");
+			op=teclat.nextInt();
+		}
+		llista.afegirProducte(new Configuracio(nom, preu, estoc, llista_s, llista_h));
 	}
 
 	/**

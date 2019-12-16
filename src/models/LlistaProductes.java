@@ -43,6 +43,7 @@ public class LlistaProductes {
 		nElem++;
 	}
 	
+	
 	/**
 	 * llistat de tots els productes amb
 	 *  alguna comanda mostrant dades del client
