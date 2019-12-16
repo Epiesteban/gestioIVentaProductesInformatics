@@ -130,6 +130,7 @@ public class Comanda {
 	public void afegirProducteComanda (Producte producte) {
 		llista_p.afegirProducte(producte);
 		producte.setEstoc(producte.getEstoc()-1);
+		preuComanda += producte.getPreu();
 	}
 	
 	/**
@@ -145,20 +146,12 @@ public class Comanda {
 		}
 		return false;
 	}
-	
-	public float calculaPreuComanda() {
-		preuComanda=0;
-		for (int i = 0; i < llista_p.getnElem(); i++) {
-			preuComanda += llista_p.getLlista()[i].getPreu()*llista_p.getLlista()[i].getEstoc();
-		}
-		return preuComanda;
-	}
 
 	@Override
 	public String toString() {
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
 		return "\nData de la reserva: " +dateformat.format(data)+ 
-				"\nProductes: " + llista_p.toString() +
+				"\nProductes: \n" + llista_p.toString() +
 				"\nIdentificador: " + identificador+
 				"\nPreuComanda: "+preuComanda;
 	}
