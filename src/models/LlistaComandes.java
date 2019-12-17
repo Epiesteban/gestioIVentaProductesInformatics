@@ -113,7 +113,7 @@ public class LlistaComandes implements Serializable {
 		}else {
 			String frase="";
 			for (int i=0;i<nComanda;i++) {
-				frase+=llista[i].toString()+"\n";
+				frase+=llista[i].toString()+"\n***************************************************************************************";
 			}
 			return frase;
 		}

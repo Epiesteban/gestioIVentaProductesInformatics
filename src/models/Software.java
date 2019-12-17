@@ -2,7 +2,6 @@ package models;
 
 public class Software extends Producte {
 	//filla
-
 	public enum SO {WINDOWS, MACOS, LINUX};
 	private SO sistema_operatiu;
 
