@@ -83,6 +83,7 @@ public class LlistaComandes {
 				for (int j = i;j< nComanda;j++) {
 					llista[i] = llista[i+1]; /**Quan l'eliminem, adelantem les posicions del darrere a la posicio que hem borrat per a no tenir espais buits**/
 				}
+				
 			}
 		}
 	}	

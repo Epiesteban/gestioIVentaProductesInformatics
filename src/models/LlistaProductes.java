@@ -38,22 +38,26 @@ public class LlistaProductes {
 	/**
 	 * afegir producte no Repetits
 	 */
-	public void afegirProducteNoRepetit(Producte p) {
+	/*public void afegirProducteNoRepetit(Producte p) {
 		//comprobar repetidos
 		boolean trobat = false;
 		int i = 0;
 		if(nElem <  mida) {
 			while (i < nElem && !trobat) {
-				if(llista[i].getId()==p.getId()) trobat = true;
+				if(llista[i].getId()==p.getId()) {
+					llista[i].setEstoc(llista[i].getEstoc()+p.getEstoc());
+					trobat = true;
+				}
 				i++;
 			}
 			if (!trobat) {
 				llista[nElem] = p;
 				nElem++;
 			}
+			
 		}
 	}
-
+*/
 	/**
 	 * Afegir producte a comanda
 	 */
@@ -73,7 +77,10 @@ public class LlistaProductes {
 		}
 		return -1;
 	}
-
+	
+	/**
+	 * metode per buidar la llista de productes d'una comanda
+	 */
 	public void buidarLlista() {
 		for(int i =0; i < nElem;i++) {
 			llista[i].setEstoc(llista[i].getEstoc()+1);
