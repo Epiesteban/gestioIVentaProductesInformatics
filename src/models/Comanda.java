@@ -1,79 +1,67 @@
 package models;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-public class Comanda {
-	private Calendar data= Calendar.getInstance();
-	private int dia, mes, any;
-	private Producte producte;
-	private int nComandes;
+import java.util.Date;
+import models.Client;
+/**
+ * CLASSE COMANDA 
+ * @author Xènia Fuentes Font
+ *
+ */
+public class Comanda implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private Date data;
+	private LlistaProductes llista_p;
 	private String identificador;
-	
-	private static int numCorrelatiu = 0;
-	
+	private Client client;
+	private float preuComanda;
+	private static int numCorrelatiu = 1;
 
-/**
- * Constructor 
- * @param producte
- * @param nComandes
- * @param dni
- */
-	public Comanda (Producte producte, int nComandes, String dni){ //??????
-		this.dia=data.get(Calendar.DATE);
-		this.mes=data.get(Calendar.MONTH);
-		this.any=data.get(Calendar.YEAR);
-		this.producte = producte;
-		this.nComandes = nComandes;
-		this.identificador = dni + numCorrelatiu;
+	/**
+	 * Constructor 
+	 * @param producte : producte de la comanda
+	 * @param dni : dni del client que realitza una comanda 
+	 */
+	public Comanda (Client client){ 
+		this.client = client;
+		this.preuComanda = 0;
+		this.llista_p= new LlistaProductes();
+		this.data =  Calendar.getInstance().getTime();
+		this.identificador = client.getDni() + numCorrelatiu;
 		numCorrelatiu++;
+
 	}
-/**
- * Constructor buit	
- */
-	public Comanda () {
-		
-	}
-	
+
 	public Comanda copia () {
-		return (new Comanda (producte, nComandes, identificador));
-}
-/**
- * GETTERS
- */
+		return (new Comanda (client)); //no estará bien
+	}
+	/**
+	 * GETTERS
+	 */
 	/**
 	 * Getter data
-	 * @return
+	 * @return --> retorna la data en que s'ha fet la comanda  (dia/mes/any)
 	 */
-	public Calendar getData () {
+	public Date getData () {
 		return data;
 	}
 	/**
-	 * Getter dia
-	 * @return
+	 * GETTER CLIENT
+	 * @return client
 	 */
-	public int dia () {
-		return dia;
-	}
-	/**
-	 * Getter mes
-	 * @return
-	 */
-	public int mes () {
-		return mes;
-	}
-	/**
-	 * Getter any
-	 * @return
-	 */
-	public int any() {
-		return any;
+	public Client getClient() {
+		return client;
 	}
 	/**
 	 * Getter producte
-	 * @return
+	 * @return --> 
 	 */
-	public Producte getProducte() {
-		return producte;
+	public LlistaProductes getLlistaProductes() {
+		return llista_p;
 	}
 	/**
 	 * Getter identificador
@@ -82,13 +70,7 @@ public class Comanda {
 	public String getIdentificador() {
 		return identificador;
 	}
-	/**
-	 * Getter nComandes
-	 * @return
-	 */
-	public int getNComandes() {
-		return nComandes;
-	}
+
 	/**
 	 * Getter numero correlatiu
 	 * @return
@@ -96,43 +78,29 @@ public class Comanda {
 	public static int getNumCorrelatiu () {
 		return numCorrelatiu;
 	}
-/**
- * SETTERS
- */
+	/**
+	 * 	Getter preuComanda
+	 * @return preuComanda
+	 */
+	public float getPreuComanda() {
+		return preuComanda;
+	}
+	/**
+	 * SETTERS
+	 */
 	/**
 	 * Setter data 
 	 * @return
 	 */
-	public void setData (Calendar data) {
+	public void setData (Date data) {
 		this.data = data;
-	}
-	/**
-	 * Setter dia
-	 * @return
-	 */
-	public void setDia (int dia) {
-		this.dia = dia;
-	}
-	/**
-	 * Setter mes
-	 * @return
-	 */
-	public void setMes (int mes) {
-		this.mes = mes;
-	}
-	/**
-	 * Setter any
-	 * @return
-	 */
-	public void setAny(int any) {
-		this.any = any;
 	}
 	/**
 	 * Setter producte
 	 * @return
 	 */
-	public void setProducte(Producte producte) {
-		this.producte = producte;
+	public void setLlistaProductes(LlistaProductes llista_p) {
+		this.llista_p = llista_p;
 	}
 	/**
 	 * Setter identificador
@@ -141,13 +109,7 @@ public class Comanda {
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
 	}
-	/**
-	 * Setter nComandes
-	 * @return
-	 */
-	public void setNComandes(int nComandes) {
-		this.nComandes = nComandes;
-	}
+
 	/**
 	 * Setter numero correlatiu
 	 * @return
@@ -155,13 +117,46 @@ public class Comanda {
 	public static void setNumCorrelatiu (int numCorrelatiu) {
 		Comanda.numCorrelatiu = numCorrelatiu;
 	}
-	
-	@Override
-	public String toString() {
-		return "\nData de la reserva: " +dia+"/"+mes+"/"+any+ 
-				"\nProducte: " + producte.toString() +
-				"\nComanda: " + nComandes + 
-				"\nIdentificador: " + identificador;
+	/**
+	 * Setter preuComanda
+	 * @param preuComanda
+	 */
+	public void setPreuComanda(float preuComanda) {
+		this.preuComanda = preuComanda;
 	}
 	
+	//METODES
+	/**
+	 * Funcio per afegir un producte a la llista de productes de la comanda
+	 * @param producte
+	 */
+	public void afegirProducteComanda (Producte producte) {
+		llista_p.afegirProducte(producte);
+		producte.setEstoc(producte.getEstoc()-1);
+		preuComanda += producte.getPreu();
+	}
+	
+	/**
+	 *	Funcio per comprovar si existeix un producte a una comanda
+	 * @param producte
+	 * @return existeix
+	 */
+	public boolean existeixProducte(Producte producte) {
+		for (int i = 0; i < llista_p.getnElem(); i++) {
+			if(llista_p.getLlista()[i].getId()==producte.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+		return "\nData de la comanda: " +dateformat.format(data)+ 
+				"\nProductes: \n" + llista_p.toString() +
+				"\nIdentificador: " + identificador+
+				"\nPreuComanda: "+preuComanda;
+	}
+
 }

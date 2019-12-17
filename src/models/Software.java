@@ -2,11 +2,12 @@ package models;
 
 public class Software extends Producte {
 	//filla
-	private  SO sistema_operatiu;
-	
-	public Software (String nom, float preu, int estoc, SO sistema_operatiu) {
+	public enum SO {WINDOWS, MACOS, LINUX};
+	private SO sistema_operatiu;
+
+	public Software (String nom, float preu, int estoc, String sistema_operatiu) {
 		super(nom, preu, estoc);
-		this.sistema_operatiu= sistema_operatiu;
+		this.sistema_operatiu = SO.valueOf(sistema_operatiu) ;
 	}
 	/**Setters i getters
 	 * 
@@ -24,6 +25,6 @@ public class Software extends Producte {
 	 * To string
 	 */
 	public String toString() {
-		return ( "nom:"+nom+"\nPreu:"+preu+ "\nEstoc:"+estoc+ "\nSistema operatiu:"+sistema_operatiu+ "\n");
+		return ( "Software=\t[Nom: "+super.getNom()+", Preu: "+super.getPreu()+ ", Estoc: "+super.getEstoc()+ ", Sistema operatiu: "+sistema_operatiu+ ", Identificador: "+super.getId()+"]");
 	}
 }

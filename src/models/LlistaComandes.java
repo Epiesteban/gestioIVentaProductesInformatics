@@ -1,150 +1,122 @@
 package models;
 
-import models.*;
-
-public class LlistaComandes {
-
-		private Comanda [] llista; 
-		private int numElem; 
-		public  int nEspais = 1000; //lliures
-		private int posBorrar; 
-		private boolean trobat;
-		 
-	
-
+import java.io.Serializable;
 
 /**
- * Constructor per defecte
+ * LLISTA COMANDA 
+ * @author Xènia Fuentes Font 
+ *
  */
-	
+
+public class LlistaComandes implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private Comanda [] llista; 
+	private int nComanda; 
+	private final int mida = 500;
+
+
 	public LlistaComandes() {
-		this.llista = new Comanda [1000];
-		this.numElem = 0;
-		this.nEspais = 1000; 
-		this.posBorrar = 0;
-		this.trobat = false;
-		
+		this.llista = new Comanda[mida];
+		this.nComanda = 0;
 	}
-/**
- * SETTERS
- */
+
+	/**
+	 * SETTERS
+	 */
 	/**
 	 * Setter nElem
-	 * @param numElem
+	 * @param numElem --> per poder canviar el numero d'elements que es guarden a la llista 
 	 */
-	public void setNElem (int numElem) {
-		this.numElem = numElem;
+	public void setNElem (int nComanda) {
+		this.nComanda = nComanda;
 	}
 	/**
-	 * Setter llitsa
-	 * @param llista
+	 * Setter llista
+	 * @param llista --> per poder canviar els elements de la llista 
 	 */
 	public void setLlista (Comanda[] llista) {
 		this.llista = llista;
 	}
-/**
- * GETTERS
- */
+	/**
+	 * GETTERS
+	 */
 	/**
 	 * Getter llista
-	 * @return
+	 * @return --> per poder aconseguir els elements que hi ha guardats a la llista
 	 */
 	public Comanda[] getLlista () {
 		return llista;
 	}
 	/**
 	 * Getter nElem
-	 * @return
+	 * @return --> per poder aconseguir el numero d'elements que hi ha guardats a la llista
 	 */
-	public int getnumElem () {
-		return numElem;
+	public int getnComanda () {
+		return nComanda;
 	}
-	
-/**
- * MÈTODES
- */
-	/**
-	 * 1.
-	 * @param index
-	 * @return
-	 */
-	public Comanda i (int index) { //Retorna l'element i de la llista i així podem accedir als elements d'aquesta
-		return llista[index];
-	}
-	
 
 	/**
-	 * 2.
-	 * @param v
+	 * MÈTODES
+	 */
+	/**
+
+	/**
+	 * 1. Afegeix una comanda en la llista 
+	 * @param v : on s'introdueix la comanda per poder-la guardar en la llista 
 	 */
 	public void afegirComanda(Comanda v) {
-		llista[numElem] = v;
-		numElem++;
-		nEspais--; 
+		if (nComanda < llista.length) {
+			llista[nComanda] = v;
+			nComanda++;
+		}
 	}
 
 	/**
-	 * 3.
-	 * @param identificador
+	 * 2. Elimina comanda en la llista
+	 * @param identificador : on s'introdueix l'identificador per poder eliminar la comanda 
 	 */
-	public void eliminarComanda (String identificador) {
-		for (int i=0 ; i<numElem; i++) {
-			if (llista[i].getIdentificador().equals(identificador)) {
-				posBorrar=i;
-				trobat=true; 
+
+	public void eliminaComanda (String Identificador) {
+
+		for (int i = 0 ; i<nComanda; i++) {
+			if (llista[i].getIdentificador().equals(Identificador)) {
+				llista[i].getLlistaProductes().buidarLlista();
+				nComanda--;
+				for (int j = i;j< nComanda;j++) {
+					llista[i] = llista[i+1]; /**Quan l'eliminem, adelantem les posicions del darrere a la posicio que hem borrat per a no tenir espais buits**/
+				}
+				
 			}
 		}
-		if (trobat==true) {
-			numElem--;  
-			for (int i=posBorrar; i<numElem; i++) {
-				llista[i]=llista[i+1]; //Canvi de posició
-				nEspais++; 
-			}
-		}
-	}
-	
-	/**
-	 * 4.
-	 * @param identificador
-	 * @return
-	 */
-	public LlistaComandes eliminarComanda2 (String identificador){
-		LlistaComandes llistaAux=new LlistaComandes();
-		for (int i=0; i<numElem; i++) {
-			if (llista[i].getIdentificador().substring(0,9).equals(identificador)){
-				llistaAux.afegirComanda(llista[i]);;
-			}
-		}
-		return llistaAux;
-	}
+	}	
 
 	/**
-	 * 5.
-	 * @param v
-	 * @return
+	 * 3. Elimina totes les comandes d'un mateix dni en la llista
+	 * @param dni : on s'introdueix el dni per poder eliminar totes les comandes d'aquest
 	 */
-	public boolean buscarComanda (Comanda v) {
-		for (int i=0; i<numElem;i++) {
-			if (llista[i].getIdentificador().equals(v.getIdentificador())) {
-				return true;
+
+	public void eliminarComandes (String dni){
+		for (int i = 0; i < nComanda; i++) {
+			if (llista[i].getClient().getDni().equalsIgnoreCase(dni)) {
+				eliminaComanda(llista[i].getIdentificador());
 			}
 		}
-		return false;
-	}
-	
+	}	
+
 	/**
 	 * TOSTRING!!!
 	 */
 	public String toString() {
-		if (numElem==0) {
-			return "";
+		if (nComanda==0) {
+			return "No hi ha elements a la llista de Comandes";
 		}else {
 			String frase="";
-			for (int i=0;i<numElem;i++) {
-				frase+=llista[i].toString()+"\n";
+			for (int i=0;i<nComanda;i++) {
+				frase+=llista[i].toString()+"\n***************************************************************************************";
 			}
 			return frase;
 		}
 	}
-	
+
 }

@@ -1,0 +1,4 @@
+producte1*12.4*10*LINUX
+producte2*10.5*25*WINDOWS
+producte3*78.8*50*CPU
+producte4*90.6*5*HDD

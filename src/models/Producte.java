@@ -1,15 +1,18 @@
 package models;
 
-public class Producte {
+import java.io.Serializable;
+
+public class Producte implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 // pare
 	/** declaracio de variables*/
 	
-	public String nom;
-	public float preu;
-	public int estoc;
-	public int id;
-	public static int cont_id;
-	
+	private String nom;
+	private float preu;
+	private int estoc;
+	private int id;
+	private static int cont_id=1;
 	
 	/** constructor
 	 * 
@@ -18,7 +21,7 @@ public class Producte {
 		this.nom= nom;
 		this.preu= preu;
 		this.estoc= estoc;
-		id=cont_id++;
+		this.id=cont_id++;
 	}
 
 	public String getNom() {
@@ -42,18 +45,18 @@ public class Producte {
 	}
 
 	public void setEstoc(int estoc) {
-		this.estoc = estoc;
+		if (estoc >= 0) this.estoc = estoc;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	
-	/**To string
-	 * 
+	/**
+	 * To string 
 	 */
+	@Override
 	public String toString() {
-		return ("nom= "+nom+ ", preu=" +preu+ ", estoc= "+ estoc+ ", id= "+id);
+		return "Producte [Nom= " + nom + ", Preu= " + preu + ", Estoc= " + estoc + ", Identificador= " + id + "]";
 	}
 }

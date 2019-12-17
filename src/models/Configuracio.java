@@ -2,14 +2,13 @@ package models;
 
 public class Configuracio extends Producte {
 	//classe filla de productes
-	
 	/**
-	 * DEclaració de variables
+	 * Declaració de variables
 	 */
 	
 	private final int mida = 500;
-	public Software[] softwares;
-	public Hardware[] hardwares;
+	private Software softwares[];
+	private Hardware hardwares[];
 	
 	/*Constructor buit*/
 	public Configuracio (String nom, float preu, int estoc) {
@@ -44,10 +43,11 @@ public class Configuracio extends Producte {
 		this.hardwares = hardwares;
 	}
 	
+	
 	/**
 	 * ToSTring
 	 */
 	public String toString() {
-		return ("nom:"+nom+ "\nPreu:"+preu+ "\nEstoc:"+ estoc+ "\nId:"+id+ "\nSoftware: "+softwares+ "\nHadware:"+ hardwares+ "\n");
+		return ("Configuracio=\t[nom: "+super.getNom()+ ", Preu: "+super.getPreu()+ ", Estoc: "+ super.getEstoc()+ ", Id: "+super.getId()+ ", Software: "+softwares+ ", Hadware: "+ hardwares+ "]");
 	}
 }
