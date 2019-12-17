@@ -16,7 +16,18 @@ public class Software extends Producte {
 	public SO getSistema_operatiu() {
 		return sistema_operatiu;
 	}
-
+	
+	public String getSOString() {
+		String aux;
+		if (sistema_operatiu==SO.WINDOWS) {
+			aux="Windows";
+		}else if (sistema_operatiu==SO.LINUX) {
+			aux="Linux";
+		}else {
+			aux="MacOS";
+		}
+		return aux;
+	}
 
 	public void setSistema_operatiu(SO sistema_operatiu) {
 		this.sistema_operatiu = sistema_operatiu;

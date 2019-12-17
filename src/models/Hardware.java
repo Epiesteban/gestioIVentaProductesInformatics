@@ -17,6 +17,23 @@ public class Hardware extends Producte{
 	public Tipus_hardware getTipus() {
 		return tipus;
 	}
+	public String getTipusHardwareString () {
+		String aux;
+		if (tipus==Tipus_hardware.CPU) {
+			aux="CPU";
+		}else if (tipus==Tipus_hardware.PERIFERIC) {
+			aux="Periferic";
+		}else if (tipus==Tipus_hardware.HDD) {
+			aux="HDD";
+		}else if (tipus==Tipus_hardware.MB) {
+			aux="MB";
+		}else if (tipus==Tipus_hardware.GPU) {
+			aux="GPU";
+		}else {
+			aux="RAM";
+		}
+		return aux;
+	}
 
 	public void setTipus(Tipus_hardware tipus) {
 		this.tipus = tipus;
