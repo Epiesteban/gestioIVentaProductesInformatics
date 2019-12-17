@@ -1,13 +1,16 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * LLISTA COMANDA 
  * @author Xènia Fuentes Font 
  *
  */
 
-public class LlistaComandes {
+public class LlistaComandes implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Comanda [] llista; 
 	private int nComanda; 
 	private final int mida = 500;

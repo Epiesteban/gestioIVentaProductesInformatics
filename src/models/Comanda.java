@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,7 +11,9 @@ import models.Client;
  * @author Xènia Fuentes Font
  *
  */
-public class Comanda {
+public class Comanda implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private Date data;
 	private LlistaProductes llista_p;
 	private String identificador;
@@ -150,7 +153,7 @@ public class Comanda {
 	@Override
 	public String toString() {
 		DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
-		return "\nData de la reserva: " +dateformat.format(data)+ 
+		return "\nData de la comanda: " +dateformat.format(data)+ 
 				"\nProductes: \n" + llista_p.toString() +
 				"\nIdentificador: " + identificador+
 				"\nPreuComanda: "+preuComanda;

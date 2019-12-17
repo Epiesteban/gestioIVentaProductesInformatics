@@ -1,6 +1,7 @@
 package models;
 
 public class Hardware extends Producte{
+
 	//filla
 	public enum Tipus_hardware {CPU, MB, HDD, RAM, GPU, PERIFERIC};
 	private Tipus_hardware tipus;

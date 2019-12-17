@@ -1,6 +1,10 @@
 package models;
 
-public class LlistaProductes {
+import java.io.Serializable;
+
+public class LlistaProductes implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Declaracio de variables
 	 */

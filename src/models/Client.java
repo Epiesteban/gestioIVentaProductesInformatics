@@ -1,13 +1,16 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Classe que implementa un client
  * 
  * @author Joel Panisello
  *
  */
-public class Client {
+public class Client implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	//ATRIBUTS
 	private String dni, correu, adresa;
 	//private LlistaComandes llistaComandes;
