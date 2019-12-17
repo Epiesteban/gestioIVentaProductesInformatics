@@ -1,6 +1,10 @@
 package models;
 
-public class Producte {
+import java.io.Serializable;
+
+public class Producte implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 // pare
 	/** declaracio de variables*/
 	

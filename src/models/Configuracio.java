@@ -2,7 +2,6 @@ package models;
 
 public class Configuracio extends Producte {
 	//classe filla de productes
-	
 	/**
 	 * Declaració de variables
 	 */
