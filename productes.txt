@@ -1,4 +1,3 @@
-producte1*12.4*10*LINUX
-producte2*10.5*25*WINDOWS
-producte3*78.8*50*CPU
-producte4*90.6*5*HDD
+S*prova1*55*222*WINDOWS
+H*prova21*105.63*200*CPU
+C*prova41*320.60*50*H*6*3*6*7*12*S*16

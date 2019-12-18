@@ -17,6 +17,7 @@ public class Software extends Producte {
 		return sistema_operatiu;
 	}
 	
+
 	public String getSOString() {
 		String aux;
 		if (sistema_operatiu==SO.WINDOWS) {

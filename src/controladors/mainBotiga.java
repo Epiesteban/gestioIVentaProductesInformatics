@@ -174,34 +174,95 @@ public class mainBotiga {
 	}
 
 	/**
-	 * Funcio per llegir fitxer Productes
+	 * Mètode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
 	 * @param llista
 	 * @throws FileNotFoundException
 	 */
 	private static void llegirFitxerProductes() throws FileNotFoundException {
 		String result="";
-		try {
-			Scanner f=new Scanner(new File("productes.txt"));
-			while (f.hasNextLine()) {
-				result= f.nextLine();
-				String[] separador = result.split("\\*");
-				int aux=Integer.parseInt(separador[4]);
-				int loc, posicio=5;
-				for (int i=0;i<aux;i++) {
-					System.out.println(separador[posicio+1]);
-					loc=llista_productes.buscarProductes(Integer.parseInt(separador[posicio+i]));
-					llista_h[i]=(Hardware)llista_productes.getLlista()[loc];
-				}
+		Scanner f=new Scanner(new File("productes.txt"));
+		while (f.hasNextLine()) {
+			result=f.nextLine();
+			String[] separador = result.split("\\*");
+			if(separador[0].equalsIgnoreCase("S")) {
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
+				String sist=separador[4];
+				Software aux_s=new Software(nom, preu, estoc, sist);
+				llista_productes.afegirProducte(aux_s);
+			}else if (separador[0].equalsIgnoreCase("H")) {
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
+				String tipus=separador[4];
+				Hardware aux_h=new Hardware(nom, preu, estoc, tipus);
+				llista_productes.afegirProducte(aux_h);
+			}else {
+				String nom=separador[1];
+				float preu=Float.parseFloat(separador[2]);
+				int estoc=Integer.parseInt(separador[3]);
+				Hardware[] llista_h= new Hardware[100];
+				int cont_h =0, cont_s = 0, cont_aux_h = 0, cont_aux_s=0; //contador llistes arrays
+				Software[] llista_s=new Software[100];
+				Integer[] llista_auxIntegers_h = new Integer[100];
+				Integer[] llista_auxIntegers_s = new Integer[100];
+				int posicio = 4;
+				if(separador[posicio].equalsIgnoreCase("H")) {
+					posicio++;
+					String aux_r= separador[posicio];
+					while (!aux_r.equals("S")) {
+						llista_auxIntegers_h[cont_aux_h] = Integer.parseInt(aux_r);
+						cont_aux_h++;
+						posicio++;
+						aux_r= separador[posicio];
+					}
+					posicio++;
+					while (posicio<separador.length) {
+						aux_r= separador[posicio];
+						llista_auxIntegers_s[cont_aux_s] = Integer.parseInt(aux_r);
+						cont_aux_s++;
+						posicio++;
+						System.out.println(aux_r);
+					}
+					
+					int cont_aux_ultra2 = 0;
+					int trobat = 0;
 				
+					while (1 == trobat) {
+						if (llista_auxIntegers_s[cont_aux_ultra2] == null) {
+							trobat =1;
+						}
+						cont_aux_ultra2++;
+					}
+					for (int i = 0; i <= cont_aux_ultra2; i++) {
+						
+
+						llista_s[cont_s] = (Software)llista_productes.buscarProducte(llista_auxIntegers_s[i]);
+						cont_s++;
+					}
+					trobat=0;
+					cont_aux_ultra2=0;
+					while (1 == trobat) {
+						if (llista_auxIntegers_s[cont_aux_ultra2] == null) {
+							trobat =1;
+						}
+						cont_aux_ultra2++;
+					}
+					for (int i = 0; i < llista_auxIntegers_h.length; i++) {
+						llista_h[cont_h] = (Hardware)llista_productes.buscarProducte(llista_auxIntegers_h[i]);
+						cont_h++;
+					}
+					
+					
+					
+					Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
+					llista_productes.afegirProducte(aux_c);
+				}
+
 			}
-			f.close();
 		}
-		catch(FileNotFoundException e) {
-			System.out.println("No existeix el fitxer.");
-		}
-		catch(Exception e) {
-			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
-		}
+		f.close();
 	}
 
 	/**
@@ -451,7 +512,7 @@ public class mainBotiga {
 			System.out.println("1- Si    2- No");
 			op=teclat.nextInt();
 		}
-		System.out.println("Escull un component Case:");
+		System.out.println("Escull un component periferic:");
 		op=0;
 		while (op!=2) {
 			for (int i=0; i<llista_productes.getnElem();i++) {
