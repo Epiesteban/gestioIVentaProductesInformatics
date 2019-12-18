@@ -90,6 +90,46 @@ public class LlistaProductes implements Serializable {
 			llista[i].setEstoc(llista[i].getEstoc()+1);
 		}
 	}
+/**
+ * LLISTES DELS PRODUCTES DE CADA TIPUS 
+ */
+	/**
+	 * 
+	 */
+	public LlistaProductes ll_software() {
+		LlistaProductes aux = new LlistaProductes();
+		for (int i = 0; i < this.llista.length; i++) {
+			if (this.llista[i] instanceof Software) {
+				aux.afegirProducte(this.llista[i]);
+			}
+		}
+		return aux;
+	}
+	/**
+	 * 
+	 */
+	public LlistaProductes ll_configuracio() {
+		LlistaProductes aux = new LlistaProductes();
+		for (int i = 0; i < this.llista.length; i++) {
+			if (this.llista[i] instanceof Configuracio) {
+				aux.afegirProducte(this.llista[i]);
+			}
+		}
+		return aux;
+	}
+	/**
+	 * 
+	 */
+	public LlistaProductes ll_hardware() {
+		LlistaProductes aux = new LlistaProductes();
+		for (int i = 0; i < this.llista.length; i++) {
+			if (this.llista[i] instanceof Hardware) {
+				aux.afegirProducte(this.llista[i]);
+			}
+		}
+		return aux;
+	}
+	
 	/**ToString
 	 * 
 	 */

@@ -103,7 +103,21 @@ public class LlistaComandes implements Serializable {
 			}
 		}
 	}	
-
+	
+	/**
+	 * Retorna la llista de comandes d'un client
+	 * @param dni
+	 * @return -->
+	 */
+	public LlistaComandes comandesClient (String dni) {
+		for (int i = 0; i < llista.length; i++) {
+			LlistaComandes = new LlistaComandes ();
+			for (int j = 0; j < llista.length; j++) {
+				Comanda
+			}
+		}
+	}
+	
 	/**
 	 * TOSTRING!!!
 	 */
