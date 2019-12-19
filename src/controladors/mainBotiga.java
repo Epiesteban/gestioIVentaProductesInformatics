@@ -17,7 +17,7 @@ public class mainBotiga {
 
 
 		llegirFitxerClients();
-		llegirFitxerProductes();
+		//llegirFitxerProductes();
 		llegirDataSerialitzable();
 
 
@@ -25,6 +25,20 @@ public class mainBotiga {
 		llista_productes.afegirProducte(new Software("hola", 65, 26, "WINDOWS"));
 		llista_productes.afegirProducte(new Software("adios", 65, 26, "LINUX"));
 		llista_productes.afegirProducte(new Software("met", 65, 26, "MACOS"));
+		
+		llista_productes.afegirProducte(new Hardware("hola2", 25, 26, "PERIFERIC"));
+		llista_productes.afegirProducte(new Hardware("adios2", 86, 26, "CPU"));
+		llista_productes.afegirProducte(new Hardware("met2", 15, 26, "RAM"));
+		llista_productes.afegirProducte(new Hardware("hola3", 25, 26, "HDD"));
+		llista_productes.afegirProducte(new Hardware("adios3", 85, 26, "GPU"));
+		llista_productes.afegirProducte(new Hardware("met3", 16, 26, "MB"));
+		llista_productes.afegirProducte(new Hardware("orde", 25, 26, "PERIFERIC"));
+		llista_productes.afegirProducte(new Hardware("ades2", 8, 26, "CPU"));
+		llista_productes.afegirProducte(new Hardware("joel", 18, 26, "RAM"));
+		llista_productes.afegirProducte(new Hardware("roser3", 5, 26, "HDD"));
+		llista_productes.afegirProducte(new Hardware("xenia3", 95, 26, "GPU"));
+		llista_productes.afegirProducte(new Hardware("johnny", 15, 26, "MB"));
+
 
 		//		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
 		//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
@@ -223,7 +237,6 @@ public class mainBotiga {
 						llista_auxIntegers_s[cont_aux_s] = Integer.parseInt(aux_r);
 						cont_aux_s++;
 						posicio++;
-						System.out.println(aux_r);
 					}
 					
 					int cont_aux_ultra2 = 0;
@@ -235,6 +248,7 @@ public class mainBotiga {
 						}
 						cont_aux_ultra2++;
 					}
+					System.out.println(llista_auxIntegers_s[1]);
 					for (int i = 0; i <= cont_aux_ultra2; i++) {
 						
 
@@ -249,7 +263,7 @@ public class mainBotiga {
 						}
 						cont_aux_ultra2++;
 					}
-					for (int i = 0; i < llista_auxIntegers_h.length; i++) {
+					for (int i = 0; i < cont_aux_ultra2; i++) {
 						llista_h[cont_h] = (Hardware)llista_productes.buscarProducte(llista_auxIntegers_h[i]);
 						cont_h++;
 					}
@@ -611,7 +625,7 @@ public class mainBotiga {
 			}
 			System.out.println("Introdueix el id del SO que vols:");
 			int pos=teclat.nextInt();
-			llista_s[j]=((Software)llista_productes.getLlista()[pos]);
+			llista_s[j]=((Software)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre SO?");
 			System.out.println("1- Si    2- No");
@@ -827,7 +841,7 @@ public class mainBotiga {
 					System.out.println("\nOpcio no valida, introdueixi un enter");
 					break;
 			}
-		}while (op != 1 ||op != 2||op != 3);
+		}while (op != 1 || op != 2 || op != 3);
 	}
 }
 
