@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class LlistaProductes implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -87,7 +89,12 @@ public class LlistaProductes implements Serializable {
 	 */
 	public void buidarLlista() {
 		for(int i =0; i < nElem;i++) {
-			llista[i].setEstoc(llista[i].getEstoc()+1);
+			try {
+				llista[i].setEstoc(llista[i].getEstoc()+1);
+			} catch (EstocNegatiu e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 /**

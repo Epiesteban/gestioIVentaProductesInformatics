@@ -4,6 +4,8 @@ import models.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
@@ -138,7 +140,7 @@ public class mainBotiga {
 	private static void llegirFitxerClients() {
 		String result="";
 		try {
-			Scanner f=new Scanner(new File("clients.txt"));
+			Scanner f=new Scanner(new File("clients.txt")); 
 			while (f.hasNextLine()) {
 				result= f.nextLine();
 				String[] separador = result.split("\\*");
@@ -478,8 +480,13 @@ public class mainBotiga {
 			i=teclat.nextInt();
 			System.out.println("Quin es el nou estoc d'aquest producte?");
 			nouEstoc=teclat.nextInt();
-			llista_productes.getLlista()[i-1].setEstoc(nouEstoc);
-			System.out.println("L'estoc actual es: "+nouEstoc);
+			try {
+				llista_productes.getLlista()[i-1].setEstoc(nouEstoc);
+			} catch (EstocNegatiu e) {
+				// TODO Auto-generated catch block
+				System.out.println("No es pot posar un estoc negatiu");
+			}
+			System.out.println("L'estoc actual es: "+llista_productes.getLlista()[i-1].getEstoc());
 		}
 		catch(InputMismatchException e) {
 			System.out.println("Has introduit un valor incorrecte.");
