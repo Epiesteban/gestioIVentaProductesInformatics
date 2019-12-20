@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class Producte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,8 +46,9 @@ public class Producte implements Serializable {
 		return estoc;
 	}
 
-	public void setEstoc(int estoc) {
+	public void setEstoc(int estoc) throws EstocNegatiu {
 		if (estoc >= 0) this.estoc = estoc;
+		else throw new EstocNegatiu("Estoc negatiu.");
 	}
 
 	public int getId() {

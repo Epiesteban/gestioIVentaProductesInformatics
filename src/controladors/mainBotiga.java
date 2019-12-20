@@ -7,6 +7,8 @@ import models.Software.SO;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class mainBotiga {
 
 	static Scanner teclat=new Scanner(System.in);
@@ -726,7 +728,12 @@ public class mainBotiga {
 			i=teclat.nextInt();
 			System.out.println("Quin es el nou estoc d'aquest producte?");
 			nouEstoc=teclat.nextInt();
-			llista_productes.getLlista()[i-1].setEstoc(nouEstoc);
+			try {
+				llista_productes.getLlista()[i-1].setEstoc(nouEstoc);
+			} catch (EstocNegatiu e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("L'estoc actual es: "+nouEstoc);
 		}
 		catch(InputMismatchException e) {

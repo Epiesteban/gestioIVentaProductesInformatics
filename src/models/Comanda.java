@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import ExceptionsBotiga.EstocNegatiu;
 import models.Client;
 /**
  * CLASSE COMANDA 
@@ -132,7 +134,12 @@ public class Comanda implements Serializable {
 	 */
 	public void afegirProducteComanda (Producte producte) {
 		llista_p.afegirProducte(producte);
-		producte.setEstoc(producte.getEstoc()-1);
+		try {
+			producte.setEstoc(producte.getEstoc()-1);
+		} catch (EstocNegatiu e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		preuComanda += producte.getPreu();
 	}
 	
