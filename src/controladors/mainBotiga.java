@@ -7,6 +7,7 @@ import models.Software.SO;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import ExceptionsBotiga.ClientInexistent;
 import ExceptionsBotiga.EstocNegatiu;
 
 public class mainBotiga {
@@ -271,8 +272,6 @@ public class mainBotiga {
 						preu+=llista_h[cont_h].getPreu();
 						cont_h++;
 					}
-
-
 
 					Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
 					llista_productes.afegirProducte(aux_c);
@@ -667,7 +666,12 @@ public class mainBotiga {
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
-		llista_clients.eliminarClient(dni);
+		try {
+			llista_clients.eliminarClient(dni);
+		} catch (ClientInexistent e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		llista_comandes.eliminarComandes(dni);
 		//}catch (clientInexistentException e) {
 		//inventar excepcio

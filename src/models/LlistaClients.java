@@ -1,4 +1,7 @@
 package models;
+
+import ExceptionsBotiga.ClientInexistent;
+
 /**
  * Classe que implementa una llista de Clients
  * @author JOEL
@@ -113,7 +116,7 @@ public class LlistaClients {
 	 * Metode que elimina un Client de la LlistaClients a partir del DNI
 	 * @param dni
 	 */
-	public void eliminarClient(String dni) {
+	public void eliminarClient(String dni) throws ClientInexistent{
 		int aux = buscarClient_id(dni);
 		if (aux != -1) {
 			for(int i=aux;i<nClient-1;i++) {
@@ -121,6 +124,7 @@ public class LlistaClients {
 			}
 			nClient--;
 		}
+		else throw new ClientInexistent("Estoc negatiu");
 	}
 
 	/**
