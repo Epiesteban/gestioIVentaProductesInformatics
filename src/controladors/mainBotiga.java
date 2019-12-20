@@ -42,17 +42,17 @@ public class mainBotiga {
 		//		llista_productes.afegirProducte(new Hardware("johnny", 15, 26, "MB"));
 
 
-		//				llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
-		//				llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-		//				llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
-		//				llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-		//				llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-		//		
-		//				llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
-		//				llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-		//				llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-		//				llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-		//				llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
+						llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
+						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
+						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+				
+						llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
+						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
 
 		int op=0;
 		do {
@@ -137,7 +137,7 @@ public class mainBotiga {
 
 		if (op == 1) {
 			guardarFitxerClients();
-			// guardarFitxerProductes(llista_productes);
+			//guardarFitxerProductes();
 			guardarDataSerialitzable();
 		}
 		System.out.println("\nAdeu, fins aviat!");
@@ -289,7 +289,7 @@ public class mainBotiga {
 	 */
 	private static void guardarFitxerProductes() {
 		try {
-			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
+			BufferedWriter bw= new BufferedWriter(new FileWriter("productesCopia.txt"));
 			String nom;
 			float preu;
 			int estoc;
