@@ -21,11 +21,11 @@ public class Software extends Producte {
 	public String getSOString() {
 		String aux;
 		if (sistema_operatiu==SO.WINDOWS) {
-			aux="Windows";
+			aux="WINDOWS";
 		}else if (sistema_operatiu==SO.LINUX) {
-			aux="Linux";
+			aux="LINUX";
 		}else {
-			aux="MacOS";
+			aux="MACOS";
 		}
 		return aux;
 	}

@@ -1,8 +1,6 @@
 package models;
 
 public class Hardware extends Producte{
-	
-
 	//filla
 	public enum Tipus_hardware {CPU, MB, HDD, RAM, GPU, PERIFERIC};
 	private Tipus_hardware tipus;
@@ -22,7 +20,7 @@ public class Hardware extends Producte{
 		if (tipus==Tipus_hardware.CPU) {
 			aux="CPU";
 		}else if (tipus==Tipus_hardware.PERIFERIC) {
-			aux="Periferic";
+			aux="PERIFERIC";
 		}else if (tipus==Tipus_hardware.HDD) {
 			aux="HDD";
 		}else if (tipus==Tipus_hardware.MB) {
