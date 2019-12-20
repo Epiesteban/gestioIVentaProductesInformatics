@@ -43,17 +43,17 @@ public class mainBotiga {
 		//		llista_productes.afegirProducte(new Hardware("johnny", 15, 26, "MB"));
 
 
-						llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
-						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
-						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-						llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-				
-						llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
-						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-						llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
+		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+
+		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
+		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
 
 		int op=0;
 		do {
@@ -516,14 +516,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("HDD")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del HDD que vols:");
 			int pos=teclat.nextInt();
-			System.out.println(((Hardware)llista_productes.getLlista()[pos]).getTipus().toString());
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent HDD?");
 			System.out.println("1- Si    2- No");
@@ -535,13 +534,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("Periferic")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del Periferic que vols:");
 			int pos=teclat.nextInt();
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent Periferic?");
 			System.out.println("1- Si    2- No");
@@ -553,13 +552,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("RAM")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del RAM que vols:");
 			int pos=teclat.nextInt();
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent RAM?");
 			System.out.println("1- Si    2- No");
@@ -571,13 +570,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("MB")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del MB que vols:");
 			int pos=teclat.nextInt();
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent MB?");
 			System.out.println("1- Si    2- No");
@@ -589,13 +588,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("CPU")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del CPU que vols:");
 			int pos=teclat.nextInt();
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent CPU?");
 			System.out.println("1- Si    2- No");
@@ -607,13 +606,13 @@ public class mainBotiga {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Hardware) {
 					if ((((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()).equalsIgnoreCase("GPU")) {
-						System.out.println(i+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
+						System.out.println(i+1+"-"+((Hardware)llista_productes.getLlista()[i]).toString());
 					}
 				}
 			}
 			System.out.println("Intordueix el id del GPU que vols:");
 			int pos=teclat.nextInt();
-			llista_h[j]=((Hardware)llista_productes.getLlista()[pos]);
+			llista_h[j]=((Hardware)llista_productes.getLlista()[pos-1]);
 			j++;
 			System.out.println("Vols afegir un altre compontent GPU?");
 			System.out.println("1- Si    2- No");
@@ -623,7 +622,7 @@ public class mainBotiga {
 		while (op!=2) {
 			for (int i=0; i<llista_productes.getnElem();i++) {
 				if ((llista_productes.getLlista()[i])instanceof Software) {
-					System.out.println(i+"-"+((Software)llista_productes.getLlista()[i]).toString());
+					System.out.println(i+1+"-"+((Software)llista_productes.getLlista()[i]).toString());
 				}
 			}
 			System.out.println("Introdueix el id del SO que vols:");
@@ -669,8 +668,7 @@ public class mainBotiga {
 		try {
 			llista_clients.eliminarClient(dni);
 		} catch (ClientInexistent e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("No s'ha trobat el client.");
 		}
 		llista_comandes.eliminarComandes(dni);
 		//}catch (clientInexistentException e) {
@@ -735,8 +733,7 @@ public class mainBotiga {
 			try {
 				llista_productes.getLlista()[i-1].setEstoc(nouEstoc);
 			} catch (EstocNegatiu e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("No s'ha modificat l'estoc.");
 			}
 			System.out.println("L'estoc actual es: "+nouEstoc);
 		}

@@ -66,7 +66,7 @@ public class Configuracio extends Producte {
 		String frase="";
 		for (int i=0;i<hardwares.length;i++) {
 			if (hardwares[i]!= null) {
-				frase+=hardwares[i].toString()+"\n";
+				frase+="\t"+hardwares[i].toString()+"\n";
 			}
 		}
 		return frase;
@@ -77,7 +77,7 @@ public class Configuracio extends Producte {
 		String frase="";
 		for (int i=0;i<softwares.length;i++) {
 			if (softwares[i]!= null) {
-				frase+=softwares[i].toString()+"\n";
+				frase+="\t"+softwares[i].toString()+"\n";
 			}
 		}
 		return frase;
@@ -86,6 +86,6 @@ public class Configuracio extends Producte {
 	 * ToSTring
 	 */
 	public String toString() {
-		return ("Configuracio=\t[nom: "+super.getNom()+ ", Preu: "+super.getPreu()+ ", Estoc: "+ super.getEstoc()+ ", Id: "+super.getId()+ "]\nSoftwares:\n"+mostraSoftware()+ "Hardwares:\n"+ mostraHardwares()+"------------------------------------------------------------------------------------------------------------");
+		return ("\nConfiguracio=\t[nom: "+super.getNom()+ ", Preu: "+super.getPreu()+ ", Estoc: "+ super.getEstoc()+ ", Id: "+super.getId()+ "]\nSoftwares:\n"+mostraSoftware()+ "Hardwares:\n"+ mostraHardwares()+"------------------------------------------------------------------------------------------------------------");
 	}
 }
