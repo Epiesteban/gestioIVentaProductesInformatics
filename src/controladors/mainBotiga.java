@@ -268,7 +268,6 @@ public class mainBotiga {
 							preu+=llista_h[cont_h].getPreu();
 							cont_h++;
 						}
-
 						Configuracio aux_c=new Configuracio(nom, preu, estoc, llista_s, llista_h);
 						llista_productes.afegirProducte(aux_c);
 					}
@@ -280,6 +279,7 @@ public class mainBotiga {
 		}
 		catch(Exception e) {
 			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
+			e.printStackTrace();
 		}
 	}
 
