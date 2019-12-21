@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class LlistaProductes implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -71,11 +73,18 @@ public class LlistaProductes implements Serializable {
 			nElem++;
 		}
 	}
+	
+	public Producte buscarProducte (int id) {
+		for(int i = 0;i < nElem;i++) {
+			if(llista[i].getId()== id) return llista[i];
+		}
+		return null;
+	}
 
 	/**
 	 * buscar algun producte per el seu id i retorna posicio 
 	 */
-	public int buscarProductes(int id) {
+	public int buscarProducte_id(int id) {
 		for(int i = 0;i < nElem;i++) {
 			if(llista[i].getId()== id) return i;
 		}
@@ -87,7 +96,12 @@ public class LlistaProductes implements Serializable {
 	 */
 	public void buidarLlista() {
 		for(int i =0; i < nElem;i++) {
-			llista[i].setEstoc(llista[i].getEstoc()+1);
+			try {
+				llista[i].setEstoc(llista[i].getEstoc()+1);
+			} catch (EstocNegatiu e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	/**ToString
