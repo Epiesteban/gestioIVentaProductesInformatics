@@ -38,17 +38,17 @@ public class mainBotiga {
 		//		llista_productes.afegirProducte(new Hardware("johnny", 15, 26, "MB"));
 
 
-//		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
-//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
-//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
-//
-//		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
-//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
-//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
+		//		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[0]));
+		//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[0]);
+		//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		//		llista_comandes.getLlista()[0].afegirProducteComanda(llista_productes.getLlista()[1]);
+		//
+		//		llista_comandes.afegirComanda(new Comanda(llista_clients.getLlista()[1]));
+		//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[2]);
+		//		llista_comandes.getLlista()[1].afegirProducteComanda(llista_productes.getLlista()[0]);
 
 		int op=0;
 		do {
@@ -131,7 +131,7 @@ public class mainBotiga {
 
 		if (op == 1) {
 			guardarFitxerClients();
-			//guardarFitxerProductes();
+			guardarFitxerProductes();
 			guardarDataSerialitzable();
 		}
 		System.out.println("\nAdeu, fins aviat!");
@@ -146,7 +146,7 @@ public class mainBotiga {
 
 	/**
 	 * Llegir fitxer clients
-	 * @param llista
+	 *
 	 */
 	private static void llegirFitxerClients() {
 		String result="";
@@ -168,28 +168,26 @@ public class mainBotiga {
 
 	/**
 	 * Funcio per guardar Fitxer Clients
-	 * @param llista_clients
 	 * @throws IOException 
 	 */
 	private static void guardarFitxerClients() throws IOException  {
 		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
 		try {
-		String frase = "";
-		Client aux;
-		for (int i = 0; i < llista_clients.getnClient();i++) {
-			aux =  llista_clients.getLlista()[i];
-			frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
-			cl.write(frase);
+			String frase = "";
+			Client aux;
+			for (int i = 0; i < llista_clients.getnClient();i++) {
+				aux =  llista_clients.getLlista()[i];
+				frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
+				cl.write(frase);
+			}
+			cl.close();
+		} catch (Exception e) {
+			System.out.println("Hi ha hagut un problema a l'escriure al fitxer!");
 		}
-		cl.close();
-	} catch (Exception e) {
-		System.out.println("Hi ha hagut un problema a l'escriure al fitxer!");
-	}
 	}
 
 	/**
 	 * Mètode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
-	 * @param llista
 	 * @throws FileNotFoundException
 	 */
 	private static void llegirFitxerProductes() throws FileNotFoundException {
@@ -287,11 +285,10 @@ public class mainBotiga {
 
 	/**
 	 * Funcio per guardar fitxer productes
-	 * @param llista_p
 	 */
 	private static void guardarFitxerProductes() {
 		try {
-			BufferedWriter bw= new BufferedWriter(new FileWriter("productesCopia.txt"));
+			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
 			int i=0;
 			String res="";
 			for (i=0;i<llista_productes.getnElem();i++) {
@@ -301,11 +298,6 @@ public class mainBotiga {
 					res+=String.valueOf(llista_productes.getLlista()[i].getPreu())+"*";
 					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
 					res+=String.valueOf(((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString())+"\n";
-////					bw.write("S*");
-////					bw.write(llista_productes.getLlista()[i].getNom()+"*");
-////					bw.write(llista_productes.getLlista()[i].getPreu()+"*");
-////					bw.write(llista_productes.getLlista()[i].getEstoc()+"*");
-////					bw.write(((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString()+"\n");
 				}
 			}
 			for (i=0;i<llista_productes.getnElem();i++) {
@@ -315,11 +307,6 @@ public class mainBotiga {
 					res+=String.valueOf(llista_productes.getLlista()[i].getPreu())+"*";
 					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
 					res+=String.valueOf(((Software)llista_productes.getLlista()[i]).getSOString())+"\n";
-////					bw.write("S*");
-////					bw.write(llista_productes.getLlista()[i].getNom()+"*");
-////					bw.write(llista_productes.getLlista()[i].getPreu()+"*");
-////					bw.write(llista_productes.getLlista()[i].getEstoc()+"*");
-////					bw.write(((Software)llista_productes.getLlista()[i]).getSOString()+"\n");
 				}
 			}
 			for (i = 0; i < llista_productes.getnElem(); i++) {
@@ -328,23 +315,17 @@ public class mainBotiga {
 					res+=String.valueOf(llista_productes.getLlista()[i].getNom())+"*";
 					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
 					res+="H";
-//					bw.write("C*");
-//					bw.write(llista_productes.getLlista()[i].getNom()+"*");
-//					bw.write(llista_productes.getLlista()[i].getEstoc()+"*");
-//					bw.write("H");
 					int numElem = ((Configuracio)llista_productes.getLlista()[i]).numElementsHardware();
 					int j=0;
 					for (j=0;j<numElem;j++) {
-						bw.write("*"+((Configuracio)llista_productes.getLlista()[i]).getHardwares()[j].getId());	//falla por el getHardwares
+						res+="*"+((Configuracio)llista_productes.getLlista()[i]).getHardwares()[j].getId();
 					}
 					res+="*S";
-					//bw.write("*S");
 					numElem = ((Configuracio)llista_productes.getLlista()[i]).numElementsSoftware();
 					for (j=0;j<numElem;j++) {
-						bw.write("*"+((Configuracio)llista_productes.getLlista()[i]).getSoftwares()[j].getId());	//falla por el getSoftwares
+						res+="*"+((Configuracio)llista_productes.getLlista()[i]).getSoftwares()[j].getId();
 					}
 					res+="\n";
-					//bw.write("\n");
 				}
 			}
 			bw.write(res);
@@ -357,7 +338,6 @@ public class mainBotiga {
 
 	/**
 	 * Funció per a escriure en una llista en format serialitzable 	
-	 * @param llista
 	 */
 	private static void guardarDataSerialitzable () {
 		ObjectOutputStream gfitxer;
@@ -372,7 +352,6 @@ public class mainBotiga {
 
 	/**
 	 * Funció per a llegir una llista que esta guardada en format serialitzable
-	 * @param llista
 	 */
 	private static void llegirDataSerialitzable () {
 		ObjectInputStream lfitxer;
@@ -415,7 +394,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 1: Afegir Software
-	 * @param llista_p
 	 */
 	private static void afegirSoftware () {
 		String nom;
@@ -459,7 +437,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 2: Afegir un Hardware
-	 * @param llista_p
 	 */
 	private static void afegirHardware () {
 		String nom;
@@ -512,7 +489,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 3: Afegir una nova configuracio
-	 * @param llista_p
 	 */
 	private static void afegirConfiguracio() {
 		Hardware[] llista_h=new Hardware[50];
@@ -660,7 +636,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 4: Donar de alta a un client.
-	 * @param llista_cl
 	 */
 	private static void altaClient () {
 
@@ -677,33 +652,24 @@ public class mainBotiga {
 
 	/**
 	 * CASE 5: donar de baixa a un client
-	 * @param llista_cl
-	 * @param llista_c
 	 */
 	private static void baixaClient () {
 
 		String dni="";
-		//try {
 		System.out.println("\nIntrodueix el dni del client que es vol donar de baixa:");
 		teclat.nextLine();//limpiar buffer
 		dni = teclat.nextLine();
 		try {
 			llista_clients.eliminarClient(dni);
+			llista_comandes.eliminarComandes(dni);
 		} catch (ClientInexistent e) {
 			System.out.println("No s'ha trobat el client.");
 		}
-		llista_comandes.eliminarComandes(dni);
-		//}catch (clientInexistentException e) {
-		//inventar excepcio
-		//}
 	}
 
 	/**
 	 * CASE 6: Treure un llistat de tots els productes que tenen alguna comanda, mostrant les dades del client
 	 *					que l’han fet.
-	 * @param llista_p
-	 * @param llista_c
-	 * @param llista_cl
 	 */
 	private static void prodComanda () {
 
@@ -742,7 +708,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 7: Modificar l'estoc de qualsevol producte a partir del seu idenntificador.
-	 * @param llista
 	 */
 	private static void modificarEstoc () {
 		int i, nouEstoc;
@@ -766,7 +731,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 8: Treure un llistat de tots el productes que tenen estoc>=1, indicant el seu estoc.
-	 * @param llista 
 	 * @return aux 
 	 */
 	private static String productesEstoc() {
@@ -782,7 +746,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 9: Treure un llistat de tots els productes que formen part d’alguna configuració.
-	 * @param llista 
 	 * @return aux 
 	 */
 	private static String productesConfiguracio() {
@@ -797,10 +760,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 1O: Mostrar el producte del qual s’han fet més comandes i indicar el número d’aquestes.
-	 * @param llista_p
-	 * @param llista_c
-	 * @param llista_cl
-	 * @return Producte 
 	 */
 	private static void mesComandes () {
 		LlistaProductes llista_aux = new LlistaProductes();
@@ -838,9 +797,6 @@ public class mainBotiga {
 
 	/**
 	 * CASE 11: Mostrar elements de qualsevol llista
-	 * @param llista_p
-	 * @param llista_c
-	 * @param llista_cl
 	 */
 	private static void consultarLlistes () {
 		int op;
