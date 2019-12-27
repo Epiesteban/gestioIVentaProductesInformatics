@@ -3,9 +3,11 @@ package interficieGrafica;
 import javax.swing.*;
 
 import controladors.mainBotiga;
+import controladors.mainClients;
 import models.LlistaClients;
 import models.LlistaComandes;
 import models.LlistaProductes;
+
 
 import java.awt.*;
 import java.awt.event.ItemEvent;
@@ -159,9 +161,6 @@ public class ProgramaPrincipal extends JFrame {
 						producteBuscadorPanel.add(producteBuscadorBoto);
 
 			container.add(producteBuscadorPanel, BorderLayout.WEST);
-		
-			
-			
 			
 			//Date avui = new Date();
 			
@@ -201,13 +200,96 @@ public class ProgramaPrincipal extends JFrame {
 				
 				/**Fem un reset al panell general**/
 				numProductes = 0;
-				JPanel bookListPanel = new JPanel();
-				bookListPanel.setLayout(new GridLayout(ll_productes.getnElem(), 1));
-			
-			
-		
+				JPanel productesListPanel = new JPanel();
+				productesListPanel.setLayout(new GridLayout(ll_productes.getnElem(), 1));
+				
+				/** Mirem si hi ha algun tema seleccionat **/
+				
+				//boolean temaSeleccionat = false;
+				//for (int i = 0; i < ll_productes.getnElem() && !temaSeleccionat; i++) {
+				//	temaSeleccionat = tipus[i].isSelected();
+				//}
+				
+				boolean end = false;
+			}
+			// Camp de cerca buit i cap tema seleccionat: es mostren tots els llibres
+				//FALTA FER TOT AIXÒ
+			// Camp de cerca no buit i cap tema seleccionat: busquem llibres per títol
+				//FALTA FER TOT AIXÒ
+			// Tema seleccionat: busquem llibre per tema.
+				//FALTA FER TOT AIXÒ
+	
+	//FUNCIONS FORA DEL MAIN	
+			/**
+			 * Mètode que s'executa al cercar un producte.
+			 * Crida al mètode actualitzarLlistaProductes.
+			 * @param busqueda Paraula clau.
+			 */
+			public void cercaLlibre(String busqueda) {
+				actualitzarLlistaProductes(busqueda);
+			}
 
-	//FUNCIONS FORA DEL MAIN	 
+			///**
+			// * Mètode que s'executa al prèmer el botó de mostra les comandes de l'usuari.
+			// * Crea una nova instància de mainClients
+			// */
+			//public void mostrarComandesUsuari() {
+			//	new mainClients();
+			//}
+
+			/**
+			 * Mètode que s'executa al seleccionar un llibre de la llista de productes disponibles.
+			 * Crea una nova instància de FinestraConfiguracio.
+			 */
+			public void informacioConfiguracio () {
+				new FinestraConfiguracio(dni, ll_productes, ll_comandes);
+			}
+			
+			/**
+			 * Mètode que canvia l'estat de l'atribut unsavedData per detectar que s'han fet canvis en les llistes.
+			 */
+			public void canvisEfectuats() {
+				unsavedData = true;
+			}
+
+			
+			/**
+			 * Guarda els canvis realitzats 
+			 */
+			public void guardarONoDades() {
+				if (unsavedData) {
+					String[] buttonLabels = new String[] { "Si", "No", "Cancel·la" };
+					String defaultOption = buttonLabels[0];
+
+					int answer = JOptionPane.showOptionDialog(null,
+							"S'han fet alguns canvis.\n" + "Vols guardar abans de sortir?", "Atencio!",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttonLabels, defaultOption);
+
+					switch (answer) {
+					case JOptionPane.YES_OPTION:
+						mainClients.guardarFitxerClients();
+						mainClients.guardarFitxerProductes();
+						mainClients.guardarDataSerialitzable();
+						System.exit(0);
+						break;
+
+					case JOptionPane.NO_OPTION:
+						System.exit(0);
+						break;
+
+					case JOptionPane.CANCEL_OPTION:
+						break;
+					}
+				} else {
+					System.exit(0);
+				}
+			}
+
+		}
+	/**
+	 * JCheckbox
+	 * @param e
+	 */
 	public void itemStateChanged (ItemEvent e) {
 		Object source = e.getItemSelectable();
 		if (source == tsoftware) {
@@ -220,6 +302,6 @@ public class ProgramaPrincipal extends JFrame {
 		if (e.getStateChange() == ItemEvent.DESELECTED) {
 			System.out.println("No hi ha cap filtre seleccionat.");
 		}
-	}
-	}
+	}}
+	
 

@@ -65,7 +65,7 @@ public class mainClients {
 	 * Funcio per guardar Fitxer Clients
 	 * @throws IOException 
 	 */
-	private static void guardarFitxerClients() throws IOException  {
+	public static void guardarFitxerClients() throws IOException  {
 		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
 		try {
 			String frase = "";
@@ -181,7 +181,7 @@ public class mainClients {
 	/**
 	 * Funcio per guardar fitxer productes
 	 */
-	private static void guardarFitxerProductes() {
+	public static void guardarFitxerProductes() {
 		try {
 			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
 			int i=0;
@@ -234,7 +234,7 @@ public class mainClients {
 	/**
 	 * Funció per a escriure en una llista en format serialitzable 	
 	 */
-	private static void guardarDataSerialitzable () {
+	public static void guardarDataSerialitzable () {
 		ObjectOutputStream gfitxer;
 		try {
 			gfitxer = new ObjectOutputStream (new FileOutputStream("comandes.ser"));
