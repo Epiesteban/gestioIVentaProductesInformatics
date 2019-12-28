@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import ExceptionsBotiga.EstocNegatiu;;
+import ExceptionsBotiga.EstocNegatiu;
 
 import ExceptionsBotiga.EstocNegatiu;
 
