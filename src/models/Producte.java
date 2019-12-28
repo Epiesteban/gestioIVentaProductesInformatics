@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 import ExceptionsBotiga.EstocNegatiu;;
 
+import ExceptionsBotiga.EstocNegatiu;
+
 public class Producte implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -138,8 +138,9 @@ public class Comanda implements Serializable {
 		try {
 			producte.setEstoc(producte.getEstoc()-1);
 		} catch (EstocNegatiu e) {
-			// TODO Auto-generated catch block
+			
 			System.out.println("No es pot posar estoc negatiu.");
+
 		}
 		preuComanda += producte.getPreu();
 	}
