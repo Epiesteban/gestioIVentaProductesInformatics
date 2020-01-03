@@ -58,7 +58,7 @@ public class finestraDNI extends JFrame {
 		});
 		
 		
-		this.panel.setBackground(Color.yellow);
+		this.panel.setBackground(Color.pink);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.setBackground(Color.blue);
 		
