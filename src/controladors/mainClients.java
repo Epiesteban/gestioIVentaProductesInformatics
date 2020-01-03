@@ -25,8 +25,8 @@ public class mainClients {
 		llegirFitxerClients();
 		llegirFitxerProductes();
 		llegirDataSerialitzable();
-		new Missatges();
-		new FinestraMenuClient().setVisible(true);
+		new Missatges(); //demanem DNI
+		new FinestraMenuClient().setVisible(true); //menu amb opcions pel client
 	}
 	
 	/**

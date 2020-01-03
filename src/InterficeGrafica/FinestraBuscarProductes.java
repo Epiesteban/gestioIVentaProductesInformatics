@@ -30,7 +30,7 @@ public class FinestraBuscarProductes extends JFrame implements ChangeListener{
 			JOptionPane.showMessageDialog(null, "No existeix cap producte amb aquest nom", "ERROR", JOptionPane.ERROR_MESSAGE);
 			nom = JOptionPane.showInputDialog("Introdueix el nom");
 		}
-		JOptionPane.showMessageDialog(null,"Productes relacionats amb la seva busqueda: \n"+mainClients.llista_productes.buscarProducte_nom(nom).getNom()+", Preu:"+mainClients.llista_productes.buscarProducte_nom(nom).getPreu()+ ",Estoc:"+mainClients.llista_productes.buscarProducte_nom(nom).getEstoc() );
+		JOptionPane.showMessageDialog(null,"Productes relacionats amb la seva busqueda: \n"+mainClients.llista_productes.buscarProducte_nom(nom).toString() );
 		 
 		
 		this.panel.setBackground(Color.pink);
