@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 import controladors.mainBotiga;
 
 public class FinestraMenuClient  extends JFrame{
@@ -26,7 +27,7 @@ public class FinestraMenuClient  extends JFrame{
 		super();
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		this.setSize(800,800);
+		this.setSize(500,350);
 		
 		this.setTitle("Menu per al client:");
 		this.buscarProductes= new Button("Buscar un producte");
@@ -40,27 +41,25 @@ public class FinestraMenuClient  extends JFrame{
 		
 		this.panel.setBackground(Color.pink);
 		this.getContentPane().setLayout(new BorderLayout());
-		this.setBackground(Color.blue);
-
+		this.setBackground(Color.pink);
+		
 		//busquem un producte
 		this.buscarProductes.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				// finestraBuscarProducte finbprod = new finestraBuscarProducte();
-				// finbprod.show();
-			
+				FinestraBuscarProductes findprod = new FinestraBuscarProductes();
+				findprod.setVisible(true);		
 			}
 		});
 		
 		//consultem les comandes
-				this.buscarProductes.addActionListener(new ActionListener() {
+		this.consultarComandes.addActionListener(new ActionListener() {
 					
-					public void actionPerformed(ActionEvent e) {
-						// finestraBuscarProducte finbprod = new finestraBuscarProducte();
-						// finbprod.show();
-					
-					}
-				});
+			public void actionPerformed(ActionEvent e) {
+				//FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
+				//consulComand.setVisible(true);
+			}
+		});
 		
 		// sortir del programa
 		this.sortir.addActionListener(new ActionListener() {
@@ -75,5 +74,5 @@ public class FinestraMenuClient  extends JFrame{
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		this.setVisible(true);
 	}
-
+	 
 }
