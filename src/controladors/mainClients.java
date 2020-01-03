@@ -1,48 +1,34 @@
 package controladors;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import InterficeGrafica.*;
+import javax.swing.*;
 
-import InterficeGrafica.finestraDNI;
-import models.*;
+import models.Client;
+import models.Configuracio;
+import models.Hardware;
+import models.LlistaClients;
+import models.LlistaComandes;
+import models.LlistaProductes;
+import models.Software;
+
 public class mainClients {
-
-	static Scanner teclat = new Scanner(System.in);
-	static int nElem=0, op=0;
-	static LlistaProductes llista_productes = new LlistaProductes();
-	static LlistaComandes llista_comandes = new LlistaComandes();
-	public static LlistaClients llista_clients= new LlistaClients();
-	public static String dni= "";
-
+	public static LlistaClients llista_clients = new LlistaClients();
+	public static LlistaProductes llista_productes = new LlistaProductes();
+	public static LlistaComandes llista_comandes = new LlistaComandes();
+	
 	public static void main(String[] args) {
-
-		// RECUPERAR DADES DE FITXERS
-		finestraDNI fDni = new finestraDNI();
-
-		System.out.println("\n ~~~GESTIO I VENTA DE PRODUCTES INFORMATICS~~~");
-		System.out.print("Introdueixi el seu DNI per comen�ar siusplau: ");
-		dni = teclat.nextLine();
-
 		llegirFitxerClients();
 		llegirFitxerProductes();
 		llegirDataSerialitzable();
-
-
-		//Cridem al programa principal
-		//	new ProgramaPrincipal (ll_productes, ll_comandes, ll_clients);
+		System.out.println(llista_clients.getLlista()[0].getDni());
+		new Missatges();
 	}
-
-	/*
-	 * FUNCIONS PER LLEGIR I ESCRIURE FITXERS 
-	 */
-
+	
 	/**
 	 * Llegir fitxer clients
 	 *
@@ -64,27 +50,7 @@ public class mainClients {
 			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
 		}
 	}
-
-	/**
-	 * Funcio per guardar Fitxer Clients
-	 * @throws IOException 
-	 */
-	public static void guardarFitxerClients() throws IOException  {
-		BufferedWriter cl=new BufferedWriter(new FileWriter("clients.txt"));
-		try {
-			String frase = "";
-			Client aux;
-			for (int i = 0; i < llista_clients.getnClient();i++) {
-				aux =  llista_clients.getLlista()[i];
-				frase =aux.getDni()+"*"+aux.getCorreu()+"*"+aux.getAdresa()+"\n";
-				cl.write(frase);
-			}
-			cl.close();
-		} catch (Exception e) {
-			System.out.println("Hi ha hagut un problema a l'escriure al fitxer!");
-		}
-	}
-
+	
 	/**
 	 * M�tode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
 	 * @throws FileNotFoundException
@@ -181,74 +147,7 @@ public class mainClients {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Funcio per guardar fitxer productes
-	 */
-	public static void guardarFitxerProductes() {
-		try {
-			BufferedWriter bw= new BufferedWriter(new FileWriter("productes.txt"));
-			int i=0;
-			String res="";
-			for (i=0;i<llista_productes.getnElem();i++) {
-				if (llista_productes.getLlista()[i] instanceof Hardware) {
-					res+="H*";
-					res+=llista_productes.getLlista()[i].getNom()+"*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getPreu())+"*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
-					res+=String.valueOf(((Hardware)llista_productes.getLlista()[i]).getTipusHardwareString())+"\n";
-				}
-			}
-			for (i=0;i<llista_productes.getnElem();i++) {
-				if (llista_productes.getLlista()[i] instanceof Software) {
-					res+="S*";
-					res+=llista_productes.getLlista()[i].getNom()+"*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getPreu())+"*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
-					res+=String.valueOf(((Software)llista_productes.getLlista()[i]).getSOString())+"\n";
-				}
-			}
-			for (i = 0; i < llista_productes.getnElem(); i++) {
-				if (llista_productes.getLlista()[i] instanceof Configuracio) {
-					res+="C*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getNom())+"*";
-					res+=String.valueOf(llista_productes.getLlista()[i].getEstoc())+"*";
-					res+="H";
-					int numElem = ((Configuracio)llista_productes.getLlista()[i]).numElementsHardware();
-					int j=0;
-					for (j=0;j<numElem;j++) {
-						res+="*"+((Configuracio)llista_productes.getLlista()[i]).getHardwares()[j].getId();
-					}
-					res+="*S";
-					numElem = ((Configuracio)llista_productes.getLlista()[i]).numElementsSoftware();
-					for (j=0;j<numElem;j++) {
-						res+="*"+((Configuracio)llista_productes.getLlista()[i]).getSoftwares()[j].getId();
-					}
-					res+="\n";
-				}
-			}
-			bw.write(res);
-			bw.close();
-		} catch (Exception e) {
-			System.out.println("Hi ha hagut un problema a l'escriure al fitxer!");
-		}
-	}
-
-
-	/**
-	 * Funci� per a escriure en una llista en format serialitzable 	
-	 */
-	public static void guardarDataSerialitzable () {
-		ObjectOutputStream gfitxer;
-		try {
-			gfitxer = new ObjectOutputStream (new FileOutputStream("comandes.ser"));
-			gfitxer.writeObject(llista_comandes);
-			gfitxer.close();
-		} catch (IOException e){
-			System.out.println("Error a l'hora d'escriure al fitxer");
-		}
-	}
-
+	
 	/**
 	 * Funci� per a llegir una llista que esta guardada en format serialitzable
 	 */
@@ -267,8 +166,7 @@ public class mainClients {
 		}
 
 	}
+	
 }
-
-
 
 
