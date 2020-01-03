@@ -19,7 +19,7 @@ public class mainClients {
 	static LlistaProductes llista_productes = new LlistaProductes();
 	static LlistaComandes llista_comandes = new LlistaComandes();
 	public static LlistaClients llista_clients= new LlistaClients();
-	static String dni= "";
+	public static String dni= "";
 
 	public static void main(String[] args) {
 
