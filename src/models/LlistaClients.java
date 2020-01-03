@@ -133,7 +133,7 @@ public class LlistaClients {
 	 * @param dni
 	 * @return
 	 */
-	private int buscarClient_id(String dni) {
+	public int buscarClient_id(String dni) {
 		for(int i = 0;i < nClient;i++) {
 			if(dni.equalsIgnoreCase(llista[i].getDni())) return i;
 		}
