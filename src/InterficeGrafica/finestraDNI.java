@@ -1,6 +1,6 @@
 package InterficeGrafica;
 import controladors.mainClients;
-
+import models.*;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
@@ -45,8 +45,7 @@ public class finestraDNI extends JFrame {
 
 			
 			public void actionPerformed(ActionEvent e) {
-				// 78542155Z
-				if(text.getText().length() == 9 && mainClients.llista_clients.buscarClient_id(text.getText())!=-1) {
+				if(mainClients.llista_clients.buscarClient_id(text.getText())!=-1) {
 					mainClients.dni = text.getText();
 					dispose();
 					FinestraMenuClient menuClient = new FinestraMenuClient();
