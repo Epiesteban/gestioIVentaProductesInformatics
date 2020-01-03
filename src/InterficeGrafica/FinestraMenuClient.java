@@ -25,7 +25,7 @@ public class FinestraMenuClient  extends JFrame{
 		super();
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		this.setSize(200,200);
+		this.setSize(800,800);
 		
 		this.setTitle("Menu per al client:");
 		this.buscarProductes= new Button("Buscar un producte");
@@ -49,8 +49,8 @@ public class FinestraMenuClient  extends JFrame{
 			}
 		});
 		
-		// sortir del programa
 		
+		// sortir del programa
 		this.sortir.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -59,6 +59,9 @@ public class FinestraMenuClient  extends JFrame{
 				
 			}
 		});
+		
+		this.getContentPane().add(panel, BorderLayout.CENTER);
+		this.setVisible(true);
 	}
 
 }
