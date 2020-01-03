@@ -17,6 +17,7 @@ import controladors.mainBotiga;
 
 public class FinestraMenuClient  extends JFrame{
 	Button buscarProductes;
+	Button consultarComandes;
 	Button sortir;
 	//falten els buttons per filtrar els productes
 	JPanel panel;
@@ -29,10 +30,12 @@ public class FinestraMenuClient  extends JFrame{
 		
 		this.setTitle("Menu per al client:");
 		this.buscarProductes= new Button("Buscar un producte");
+		this.consultarComandes = new Button("Consultar comandes realitzades");
 		//falten this per filtrar productes
 		this.sortir= new Button("Sortir del programa");
 		
 		this.panel.add(this.buscarProductes);
+		this.panel.add(this.consultarComandes);
 		this.panel.add(this.sortir);
 		
 		this.panel.setBackground(Color.pink);
@@ -49,6 +52,15 @@ public class FinestraMenuClient  extends JFrame{
 			}
 		});
 		
+		//consultem les comandes
+				this.buscarProductes.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e) {
+						// finestraBuscarProducte finbprod = new finestraBuscarProducte();
+						// finbprod.show();
+					
+					}
+				});
 		
 		// sortir del programa
 		this.sortir.addActionListener(new ActionListener() {
