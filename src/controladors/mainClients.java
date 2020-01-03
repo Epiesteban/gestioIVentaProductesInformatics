@@ -52,7 +52,7 @@ public class mainClients {
 	}
 	
 	/**
-	 * M�tode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
+	 * Metode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
 	 * @throws FileNotFoundException
 	 */
 	private static void llegirFitxerProductes() {

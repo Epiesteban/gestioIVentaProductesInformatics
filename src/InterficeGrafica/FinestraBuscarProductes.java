@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import controladors.mainClients;
 
 public class FinestraBuscarProductes extends JFrame implements ChangeListener{
 	JPanel panel;
@@ -18,9 +21,17 @@ public class FinestraBuscarProductes extends JFrame implements ChangeListener{
 		super();
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		this.setSize(150,30);
+		this.setSize(500,500);
 		
-		this.setTitle("BUSCA PRODUCTES");
+		this.setTitle("BUSCAR PRODUCTES");
+		String nom=JOptionPane.showInputDialog("Introdueix el nom del producte que busca: ");
+		while (mainClients.llista_productes.buscarProducte_nom(nom) == null) {
+			// Missatge d'error.
+			JOptionPane.showMessageDialog(null, "No existeix cap producte amb aquest nom", "ERROR", JOptionPane.ERROR_MESSAGE);
+			nom = JOptionPane.showInputDialog("Introdueix el nom");
+		}
+		JOptionPane.showMessageDialog(null,"Productes relacionats amb la seva busqueda: \n"+mainClients.llista_productes.buscarProducte_nom(nom).getNom()+", Preu:"+mainClients.llista_productes.buscarProducte_nom(nom).getPreu()+ ",Estoc:"+mainClients.llista_productes.buscarProducte_nom(nom).getEstoc() );
+		 
 		
 		this.panel.setBackground(Color.pink);
 		this.getContentPane().setLayout(new BorderLayout());
@@ -28,17 +39,17 @@ public class FinestraBuscarProductes extends JFrame implements ChangeListener{
 		
 		//afegim filtres
         check1=new JCheckBox("Hardware");
-        check1.setBounds(10,0,150,30);
+        check1.setBounds(10,1,500,30);
         check1.addChangeListener(this); //canviarà l'estat dels filtres
         add(check1).setVisible(true);
         
         check2=new JCheckBox("Software");
-        check2.setBounds(10,10,150,30);
+        check2.setBounds(10,15,500,30);
         check2.addChangeListener(this);        
         add(check2).setVisible(true);
         
         check3=new JCheckBox("Configuracions");
-        check3.setBounds(10,20,150,30);
+        check3.setBounds(10,20,500,30);
         check3.addChangeListener(this);        
         add(check3).setVisible(true);;        
 		

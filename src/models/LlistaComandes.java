@@ -103,6 +103,20 @@ public class LlistaComandes implements Serializable {
 			}
 		}
 	}	
+	/**
+	 * Metode que retorna totes les comandes d'un client
+	 * @param dni
+	 * @return
+	 */
+	public LlistaComandes comandesClient (String dni) {
+		LlistaComandes auxComandes = new LlistaComandes();
+		for (int i=0; i<nComanda; i++) {
+			if (llista[i].getClient().equals(dni)) {
+				auxComandes.afegirComanda(llista[i]);
+			}
+		}
+		return auxComandes;
+	}
 
 	/**
 	 * TOSTRING!!!

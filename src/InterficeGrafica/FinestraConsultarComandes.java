@@ -5,22 +5,25 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-//public class FinestraConsultarComandes extends JFrame {
-//	JPanel panel;
-//	public FinestraConsultarComandes() {
-//		super();
-//		panel = new JPanel();
-//		panel.setLayout(new FlowLayout());
-//		this.setSize(400,450);
-//		
-//		this.setTitle("BUSCA COMANDES");
-//		this.panel.setBackground(Color.pink);
-//		this.getContentPane().setLayout(new BorderLayout());
-//		this.setBackground(Color.pink);
-//	}
+import controladors.mainClients;
 
-//}
+public class FinestraConsultarComandes extends JFrame {
+
+	public FinestraConsultarComandes() {
+		String dni = JOptionPane.showInputDialog("Torni a introdueir el dni per veure les seves comandes:");
+		while (mainClients.llista_comandes.comandesClient(dni) == null) {
+			// Missatge d'error.
+			JOptionPane.showMessageDialog(null, "No existeix cap comanda", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+		JOptionPane.showMessageDialog(null, "Les seves comandes son: \n"+mainClients.llista_comandes.comandesClient(dni));
+   }
+	public static void main(String[] args) {
+		new FinestraConsultarComandes();
+       
+	}
+}
 
 

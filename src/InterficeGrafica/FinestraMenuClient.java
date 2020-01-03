@@ -32,7 +32,7 @@ public class FinestraMenuClient  extends JFrame{
 		this.setTitle("Menu per al client:");
 		this.buscarProductes= new Button("Buscar un producte");
 		this.consultarComandes = new Button("Consultar comandes realitzades");
-		//falten this per filtrar productes
+		
 		this.sortir= new Button("Sortir del programa");
 		
 		this.panel.add(this.buscarProductes);
@@ -56,8 +56,8 @@ public class FinestraMenuClient  extends JFrame{
 		this.consultarComandes.addActionListener(new ActionListener() {
 					
 			public void actionPerformed(ActionEvent e) {
-				//FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
-				//consulComand.setVisible(true);
+				FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
+				consulComand.setVisible (true);
 			}
 		});
 		
