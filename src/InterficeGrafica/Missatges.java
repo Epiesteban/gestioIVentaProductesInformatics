@@ -12,7 +12,7 @@ public class Missatges {
 		String dni = JOptionPane.showInputDialog("Introdueix el dni:");
 		while (mainClients.llista_clients.buscarClient(dni) == null) {
 			// Missatge d'error.
-			JOptionPane.showMessageDialog(null, "Cal un dni valid!", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Client inexistent, cal un dni valid!", "ERROR", JOptionPane.ERROR_MESSAGE);
 			dni = JOptionPane.showInputDialog("Introdueix el dni");
 		}
 
@@ -22,7 +22,7 @@ public class Missatges {
 	}
 	public static void main(String[] args) {
 		new Missatges();
-		new FinestraMenuClient().setVisible(true);
+		
 	}
 
 }
