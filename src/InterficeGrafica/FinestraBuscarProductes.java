@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,18 +50,22 @@ public class FinestraBuscarProductes extends JFrame{
 				      // No fem res
 				   }
 				});
-		JButton botoCarrega = new JButton("Carrega cataleg de productes!"); //El click carregarà la llista de productes completa
+		JButton botoCarrega = new JButton("CARREGA CATALEG DE PRODUCTES"); //El click carregarà la llista de productes completa
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
-		JFrame frame = new JFrame (); //CHECKLIST
-		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
+		
 		 final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
 		    JCheckList<String> myCheckList = new JCheckList<>(myModel);
+		    
+		    
 		        myModel.addItem("Hardware");
 		        myModel.addItem("Software");
 		        myModel.addItem("Configuracions");
+		        myModel.addItem("Productes amb estoc");
+		        myModel.addItem("Productes sense estoc");
 		        
 		        //Per a que el programa sapigui quines de les caselles estan checked
-		        frame.addWindowListener(
+		        finestra.addWindowListener(
 		            new WindowAdapter() {
 		              @Override
 		              public void windowClosing(WindowEvent e) {
@@ -82,23 +87,21 @@ public class FinestraBuscarProductes extends JFrame{
 		                e.getWindow().dispose();
 		              }
 		            });     	
-		      frame.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.EAST);
-		      frame.setSize(new Dimension(150, 250));
-		      
-		     
-		      
-		      
-		      
+		 
+	      
 		      
 		      
 	//Per ferho tot visible 
 	finestra.setLayout(new FlowLayout());
-	finestra.setSize(600, 400);
+	finestra.setSize(800, 500);
 	finestra.setVisible(true);
 		finestra.add(textField);
 		finestra.add(botoCarrega);
 		finestra.add(botoCerca);
-		finestra.add(frame);
+		finestra.add(botoComanda);
+		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
+	      finestra.setVisible(true);
+	finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	}
 
