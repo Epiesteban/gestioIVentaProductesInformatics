@@ -22,6 +22,7 @@ public class FinestraConsultarComandes extends JFrame {
 		JTable j;
 	
     	JFrame finestra = new JFrame ("CONSULTA COMANDES");
+    	finestra.setBackground(new Color(0,0,153));
     	JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
 		

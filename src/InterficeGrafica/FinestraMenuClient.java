@@ -42,9 +42,9 @@ public class FinestraMenuClient  extends JFrame{
 		this.panel.add(this.consultarComandes);
 		this.panel.add(this.sortir);
 		
-		this.panel.setBackground(Color.pink);
+		this.panel.setBackground(new Color(0,0,153));
 		this.getContentPane().setLayout(new BorderLayout());
-		this.setBackground(Color.pink);
+		
 		
 		//busquem un producte
 		this.buscarProductes.addActionListener(new ActionListener() {
@@ -77,13 +77,5 @@ public class FinestraMenuClient  extends JFrame{
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		
 	}
-	 public static void main(String[] args) {
-		    ImagePanel panel = new ImagePanel(
-		        new ImageIcon("edu.uclouvain.swing/background.png").getImage());
-
-		    JFrame frame = new JFrame();
-		    frame.getContentPane().add(panel);
-		    frame.pack();
-		    frame.setVisible(true);
-		  }
+	 
 }

@@ -40,6 +40,7 @@ public class FinestraBuscarProductes extends JFrame{
 		JTable j;
 	
     	JFrame finestra = new JFrame ("BUSCA PRODUCTES");
+    	finestra.setBackground(new Color(0,0,153));
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
 		textField.setBackground(new Color(204, 204, 204));
 		textField.setForeground(new java.awt.Color(102, 102, 255));
