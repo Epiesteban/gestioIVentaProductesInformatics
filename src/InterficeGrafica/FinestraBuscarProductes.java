@@ -1,7 +1,10 @@
 package InterficeGrafica;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -22,9 +25,12 @@ public class FinestraBuscarProductes extends JFrame{
 
 	public FinestraBuscarProductes() {
 		super();
-
-    	
-		JTextField textField = new JTextField(); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
+		JTextField textField;
+	
+    	JFrame finestra = new JFrame ("BUSCA PRODUCTES");
+		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
+		textField.setBackground(new Color(204, 204, 204));
+		textField.setForeground(new java.awt.Color(102, 102, 255));
 			//Busquem lletra per lletra el nom del producte 
 		
 			//Afegim una acció al JTextField per a que al polsar <enter> sapigui que s'ha acabat d'escriure
@@ -44,7 +50,7 @@ public class FinestraBuscarProductes extends JFrame{
 				   }
 				});
 		JButton botoCarrega = new JButton("Carrega cataleg de productes!"); //El click carregarà la llista de productes completa
-		JButton botoCerca = new JButton("CERCA"); //El click cercarà els productes amb filtres inclosos
+		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JFrame frame = new JFrame (); //CHECKLIST
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
@@ -78,7 +84,7 @@ public class FinestraBuscarProductes extends JFrame{
 		            });     	
 		      frame.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.EAST);
 		      frame.setSize(new Dimension(150, 250));
-		      frame.setVisible(true);
+		      
 		     
 		      
 		      
@@ -86,7 +92,14 @@ public class FinestraBuscarProductes extends JFrame{
 		      
 		      
 	//Per ferho tot visible 
-	this.setVisible(true);
+	finestra.setLayout(new FlowLayout());
+	finestra.setSize(600, 400);
+	finestra.setVisible(true);
+		finestra.add(textField);
+		finestra.add(botoCarrega);
+		finestra.add(botoCerca);
+		finestra.add(frame);
+	
 	}
 
  public static void main(String[] args) {
