@@ -27,6 +27,7 @@ public class mainClients {
 		llegirDataSerialitzable();
 		System.out.println(llista_clients.getLlista()[0].getDni());
 		new Missatges();
+		
 	}
 	
 	/**
