@@ -25,9 +25,8 @@ public class mainClients {
 		llegirFitxerClients();
 		llegirFitxerProductes();
 		llegirDataSerialitzable();
-		System.out.println(llista_clients.getLlista()[0].getDni());
-		new Missatges();
-		
+		new Missatges(); //demanem DNI
+		new FinestraMenuClient().setVisible(true); //menu amb opcions pel client
 	}
 	
 	/**
@@ -53,7 +52,7 @@ public class mainClients {
 	}
 	
 	/**
-	 * M�tode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
+	 * Metode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
 	 * @throws FileNotFoundException
 	 */
 	private static void llegirFitxerProductes() {

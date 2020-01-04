@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+
+
 import ExceptionsBotiga.EstocNegatiu;
 
 public class LlistaProductes implements Serializable {
@@ -66,6 +68,7 @@ public class LlistaProductes implements Serializable {
 */
 	/**
 	 * Afegir producte a comanda
+	 * @param p producte que volem afegir
 	 */
 	public void afegirProducte(Producte p) {
 		if(nElem <  mida) {
@@ -73,16 +76,38 @@ public class LlistaProductes implements Serializable {
 			nElem++;
 		}
 	}
-	
+	/**buscar algun producte per seu id i retorna la instancia del producte
+	 * 
+	 * @param id
+	 * @return instancia del producte si el trobem, sino null
+	 */
 	public Producte buscarProducte (int id) {
 		for(int i = 0;i < nElem;i++) {
 			if(llista[i].getId()== id) return llista[i];
 		}
 		return null;
 	}
+	
+	/**
+	 * metode que busca un producte pel seu nom
+	 * @param nom
+	 * @return llista productes si el troba
+	 */
+	
+	public LlistaProductes buscarProducte_nom (String nom) {
+		LlistaProductes auxProductes = new LlistaProductes();
+		for (int i=0; i<nElem; i++) {
+			if (llista[i].getNom().startsWith(nom)) {
+				auxProductes.afegirProducte(llista[i]);
+			}
+		}
+		return auxProductes;
+	}
 
 	/**
 	 * buscar algun producte per el seu id i retorna posicio 
+	 * @param id , identificador
+	 * @return posició del producte buscat
 	 */
 	public int buscarProducte_id(int id) {
 		for(int i = 0;i < nElem;i++) {
