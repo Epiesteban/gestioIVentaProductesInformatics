@@ -47,8 +47,8 @@ public class FinestraMenuClient  extends JFrame{
 		this.buscarProductes.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				FinestraBuscarProductes findprod = new FinestraBuscarProductes();
-				findprod.setVisible(true);		
+				FinestraBuscarProductes findProd = new FinestraBuscarProductes();
+				findProd.setVisible(true);		
 			}
 		});
 		
@@ -57,11 +57,11 @@ public class FinestraMenuClient  extends JFrame{
 					
 			public void actionPerformed(ActionEvent e) {
 				FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
-				consulComand.setVisible (true);
+				consulComand.setVisible(true);
 			}
 		});
 		
-		// sortir del programa
+		//sortim del programa
 		this.sortir.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {

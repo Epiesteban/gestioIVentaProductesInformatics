@@ -13,7 +13,7 @@ import controladors.mainClients;
 public class FinestraConsultarComandes extends JFrame {
 
 	public FinestraConsultarComandes() {
-		String dni = JOptionPane.showInputDialog("Torni a introdueir el dni per veure les seves comandes:");
+		String dni = JOptionPane.showInputDialog("Introdueixi el dni del client per veure les comandes que ha realitzat: ");
 		while (mainClients.llista_comandes.comandesClient(dni) == null) {
 			// Missatge d'error.
 			JOptionPane.showMessageDialog(null, "No existeix cap comanda", "ERROR", JOptionPane.ERROR_MESSAGE);
