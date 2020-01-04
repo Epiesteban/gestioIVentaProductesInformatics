@@ -12,12 +12,18 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame; 
+import javax.swing.JScrollPane; 
+import javax.swing.JTable;
 
+import javax.swing.JApplet;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableModel;
 
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
 import edu.uclouvain.swing.JCheckList;
@@ -27,6 +33,7 @@ public class FinestraBuscarProductes extends JFrame{
 	public FinestraBuscarProductes() {
 		super();
 		JTextField textField;
+		JTable j;
 	
     	JFrame finestra = new JFrame ("BUSCA PRODUCTES");
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
@@ -80,14 +87,29 @@ public class FinestraBuscarProductes extends JFrame{
 				       		//no hi ha cap check ficat, per tant la busqueda nomes es definirà per lo que s'escriu al JTextField
 				        }
 				        if (checked = true) {
-				        	//hi ha actualment checks seleccionats, per tant segons quin xhexk hi hagi haurem d'afegir els productes d'un tipus o d'un altre
+				        	//hi ha actualment checks seleccionats, per tant segons quin check i hagi haurem d'afegir els productes d'un tipus o d'un altre
 				        	
 				        }
 		                }
 		                e.getWindow().dispose();
 		              }
 		            });     	
-		 
+		
+		        // Column Names 
+		        String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
+		        // Informacio per omplir la taula
+		        String[][] data = { 
+		                //afegir taula productes
+		            }; 
+		  
+		        // Initializing the JTable 
+		        j = new JTable(data, columnNames); 
+		        j.setBounds(30, 40, 200, 300); 
+		        
+		        // Adding it to JScrollPane 
+		        JScrollPane sp = new JScrollPane(j); 
+		
+		       
 	      
 		      
 		      
@@ -101,9 +123,12 @@ public class FinestraBuscarProductes extends JFrame{
 		finestra.add(botoComanda);
 		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
 	      finestra.setVisible(true);
+	    finestra.add(sp);
 	finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	}
+ 
+ 
 
  public static void main(String[] args) {
 	new FinestraBuscarProductes();
