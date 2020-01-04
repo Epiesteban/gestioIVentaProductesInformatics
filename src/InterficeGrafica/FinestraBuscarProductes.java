@@ -94,7 +94,10 @@ public class FinestraBuscarProductes extends JFrame{
 		                e.getWindow().dispose();
 		              }
 		            });     	
-		
+		        
+		        /**
+		         * TAULA DE PRODUCTES
+		         */
 		        // Column Names 
 		        String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
 		        // Informacio per omplir la taula
@@ -108,11 +111,7 @@ public class FinestraBuscarProductes extends JFrame{
 		        
 		        // Adding it to JScrollPane 
 		        JScrollPane sp = new JScrollPane(j); 
-		
-		       
-	      
-		      
-		      
+		 
 	//Per ferho tot visible 
 	finestra.setLayout(new FlowLayout());
 	finestra.setSize(800, 500);
