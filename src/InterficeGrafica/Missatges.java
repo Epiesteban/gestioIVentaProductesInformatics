@@ -18,11 +18,11 @@ public class Missatges {
 
 		// Missatge d'informaci�.
 		JOptionPane.showMessageDialog(null, "Client amb DNI: "+mainClients.llista_clients.buscarClient(dni).getDni()+" confirmat!", "Benvingut", JOptionPane.INFORMATION_MESSAGE);	
-		
+
 	}
 	public static void main(String[] args) {
 		new Missatges();
-		
+
 	}
 
 }

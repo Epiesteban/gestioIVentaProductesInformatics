@@ -20,7 +20,7 @@ public class mainClients {
 	public static LlistaClients llista_clients = new LlistaClients();
 	public static LlistaProductes llista_productes = new LlistaProductes();
 	public static LlistaComandes llista_comandes = new LlistaComandes();
-	
+
 	public static void main(String[] args) {
 		llegirFitxerClients();
 		llegirFitxerProductes();
@@ -28,7 +28,7 @@ public class mainClients {
 		new Missatges(); //demanem DNI
 		new FinestraMenuClient().setVisible(true); //menu amb opcions pel client
 	}
-	
+
 	/**
 	 * Llegir fitxer clients
 	 *
@@ -50,7 +50,7 @@ public class mainClients {
 			System.out.println("Hi ha hagut algun error en la lectura de l'arxiu o al afegir els elements a la llista.\n");
 		}
 	}
-	
+
 	/**
 	 * Metode per a llegir les dades d'un fitxer de text i guardar les dades dins la llista_productes
 	 * @throws FileNotFoundException
@@ -147,7 +147,7 @@ public class mainClients {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Funcio per a llegir una llista que esta guardada en format serialitzable
 	 */
@@ -166,7 +166,7 @@ public class mainClients {
 		}
 
 	}
-	
+
 }
 
 
