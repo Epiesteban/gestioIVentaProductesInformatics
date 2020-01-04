@@ -19,14 +19,18 @@ import javax.swing.JTable;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import controladors.mainClients;
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
 import edu.uclouvain.swing.JCheckList;
+import models.Producte;
 
 public class FinestraBuscarProductes extends JFrame{
 
@@ -57,7 +61,6 @@ public class FinestraBuscarProductes extends JFrame{
 				      // No fem res
 				   }
 				});
-		JButton botoCarrega = new JButton("CARREGA CATALEG DE PRODUCTES"); //El click carregarà la llista de productes completa
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
 		
@@ -98,12 +101,27 @@ public class FinestraBuscarProductes extends JFrame{
 		        // Column Names 
 		        String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
 		        // Informacio per omplir la taula
-		        String[][] data = { 
-		                //afegir taula productes
-		            }; 
+		       
+		        //Carregar info productes
+		        Object [][]data= new Object[100][3];		     
+		        for (int i=0; i<mainClients.llista_productes.getnElem();i++) {
+		        	for (int x=0;x<3;x++) {
+		        		if (x==0) {
+		        			data[i][x]=mainClients.llista_productes.getLlista()[i].getNom();
+		        		}else if (x==1) {
+		        			data[i][x]=mainClients.llista_productes.getLlista()[i].getPreu();
+
+						}else {
+		        			data[i][x]=mainClients.llista_productes.getLlista()[i].getEstoc();
+						}
+		        	}
+		        }
 		  
-		        // Initializing the JTable 
+		        // Initializing the JTable
 		        j = new JTable(data, columnNames); 
+		        for (int i=0;i<mainClients.llista_productes.getnElem();i++) {
+		        	
+		        }
 		        j.setBounds(30, 40, 200, 300); 
 		        
 		        // Adding it to JScrollPane 
@@ -118,7 +136,6 @@ public class FinestraBuscarProductes extends JFrame{
 	finestra.setSize(800, 500);
 	finestra.setVisible(true);
 		finestra.add(textField);
-		finestra.add(botoCarrega);
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
 		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
