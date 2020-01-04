@@ -149,7 +149,7 @@ public class mainClients {
 	}
 	
 	/**
-	 * Funci� per a llegir una llista que esta guardada en format serialitzable
+	 * Funcio per a llegir una llista que esta guardada en format serialitzable
 	 */
 	private static void llegirDataSerialitzable () {
 		ObjectInputStream lfitxer;
