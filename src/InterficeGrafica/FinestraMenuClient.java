@@ -9,7 +9,10 @@ import java.awt.FlowLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -27,7 +30,7 @@ public class FinestraMenuClient  extends JFrame{
 		super();
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
-		this.setSize(800,800);
+		this.setSize(626,417);
 		
 		this.setTitle("Menu per al client:");
 		this.buscarProductes= new Button("Buscar un producte");
@@ -72,7 +75,15 @@ public class FinestraMenuClient  extends JFrame{
 		});
 		
 		this.getContentPane().add(panel, BorderLayout.CENTER);
-		this.setVisible(true);
+		
 	}
-	 
+	 public static void main(String[] args) {
+		    ImagePanel panel = new ImagePanel(
+		        new ImageIcon("edu.uclouvain.swing/background.png").getImage());
+
+		    JFrame frame = new JFrame();
+		    frame.getContentPane().add(panel);
+		    frame.pack();
+		    frame.setVisible(true);
+		  }
 }
