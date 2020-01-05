@@ -4,35 +4,37 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame; 
 import javax.swing.JScrollPane; 
 import javax.swing.JTable;
-
+import javax.swing.JTextArea;
 import javax.swing.JApplet;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import controladors.mainClients;
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
 import edu.uclouvain.swing.JCheckList;
-import models.Hardware;
 import models.LlistaProductes;
 import models.Producte;
 import sun.tools.jar.resources.jar;
@@ -43,15 +45,14 @@ public class FinestraBuscarProductes extends JFrame{
 		super();
 		JTextField textField;
 		JTable j;
-
+		
 		
 
-
+		
 		JFrame finestra = new JFrame ("BUSCA PRODUCTES");
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
 		textField.setBackground(new Color(204, 204, 204));
 		textField.setForeground(new java.awt.Color(102, 102, 255));
-		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
 		//Busquem lletra per lletra el nom del producte 
 
 		//Afegim una acció al JTextField per a que al polsar <enter> sapigui que s'ha acabat d'escriure
@@ -73,22 +74,38 @@ public class FinestraBuscarProductes extends JFrame{
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
 
-		//Filtres
-		JCheckBox[] checkList= new JCheckBox[5];
-		checkList[0]=new JCheckBox("Hardwares", false);
-		checkList[1]=new JCheckBox("Softwares", false);
-		checkList[2]=new JCheckBox("Configuracions", false);
-		checkList[3]=new JCheckBox("Productes amb estoc", false);
-		checkList[4]=new JCheckBox("Productes sense estoc", false);
-		//Panell de filtres
-		JPanel filtres= new JPanel();
-		filtres.setLayout(new GridLayout(5, 1));
-		filtres.add(checkList[0]);
-		filtres.add(checkList[1]);
-		filtres.add(checkList[2]);
-		filtres.add(checkList[3]);
-		filtres.add(checkList[4]);
 		
+		final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
+		JCheckList<String> myCheckList = new JCheckList<>(myModel);
+
+		
+		myModel.addItem("Hardware");
+		myModel.addItem("Software");
+		myModel.addItem("Configuracions");
+		myModel.addItem("Productes amb estoc");
+		myModel.addItem("Productes sense estoc");
+
+		//Per a que el programa sapigui quines de les caselles estan checked
+		finestra.addWindowListener(
+				new WindowAdapter() {
+
+					public void windowClosing(WindowEvent e) {
+						boolean checked = false;
+						for (int i = 0; i < myModel.getSize(); i++) {
+							if (myModel.isChecked(i)) {
+								checked = true;
+							} else {
+								checked = false;
+							}
+							if (checked = false) {
+							}
+							if (checked = true) {
+								
+							}
+						}
+						e.getWindow().dispose();
+					}
+				});     	
 
 		
 		/**
@@ -114,43 +131,24 @@ public class FinestraBuscarProductes extends JFrame{
 		j.setBounds(30, 40, 200, 300); 
 		
 		//Funció de botoCerca
-				/*botoCerca.addActionListener(new ActionListener() {
+				botoCerca.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						LlistaProductes llista_aux=new LlistaProductes();
-						if (!((textField.getText()).equals(""))) {
-							if (checkList[0].isSelected() || checkList[1].isSelected() || checkList[1].isSelected() || checkList[2].isSelected() || checkList[3].isSelected() || checkList[4].isSelected()) {
-								eliminarTaula(j);
-								if (checkList[0].isSelected()) {
-									for (int x=0;i<mainClients.llista_productes.getnElem();x++) {
-										if (mainClients.llista_productes.getLlista()[x] instanceof Hardware) {
-											llista_aux.afegirProducte(mainClients.llista_productes.getLlista()[x]);
-										}
-									}
-								}
-								if (checkList[1].isSelected()) {
-									
-								}
-								if (checkList[2].isSelected()) {
-									
-								}
-								if (checkList[3].isSelected()) {
-									
-								}
-								if (checkList[4].isSelected()) {
-									
-								}
-							}else {
-								eliminarTaula(j);
-								for (int i=0;i<llista_aux.getnElem();i++) {
-									j.setValueAt(llista_aux.getLlista()[i].getNom(), i, 0);
-									j.setValueAt(llista_aux.getLlista()[i].getPreu(), i, 1);
-									j.setValueAt(llista_aux.getLlista()[i].getEstoc(), i, 2);
-								}
+						llista_aux=mainClients.llista_productes.buscarProducte_nom(textField.getText());
+						eliminarTaula(j);
+						if(llista_aux.getLlista()!=null) {
+							for (int i=0; i<llista_aux.getnElem();i++) {
+								j.setValueAt(llista_aux.getLlista()[i].getNom(), i, 0);
+								j.setValueAt(llista_aux.getLlista()[i].getPreu(), i, 1);
+								j.setValueAt(llista_aux.getLlista()[i].getEstoc(), i, 2);
 							}
 						}
 					}
-				});*/
-
+				});
+		
+		//Afegim funció per a que funcioni la selecció d'elements en la taula
+				
+	
 		// Adding it to JScrollPane 
 		JScrollPane sp = new JScrollPane(j); 
 
@@ -161,8 +159,7 @@ public class FinestraBuscarProductes extends JFrame{
 		finestra.add(textField);
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
-		finestra.add(filtres, BorderLayout.WEST);
-		finestra.add(botoRetorna);
+		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
 		finestra.add(sp);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -183,5 +180,4 @@ public class FinestraBuscarProductes extends JFrame{
 	}
 
 }
-
 
