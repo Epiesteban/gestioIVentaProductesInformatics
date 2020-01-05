@@ -73,7 +73,18 @@ public class FinestraBuscarProductes extends JFrame{
 		});
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
-
+		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
+		botoRetorna.addActionListener(new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de tornar al menu principal?", "RETORNA AL MENU PRINCIPAL", JOptionPane.YES_NO_CANCEL_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					dispose();
+					new FinestraMenuClient();
+				}else {
+					//No fa res 
+				}
+			}
+		});
 		
 		final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
 		JCheckList<String> myCheckList = new JCheckList<>(myModel);
@@ -154,13 +165,14 @@ public class FinestraBuscarProductes extends JFrame{
 
 		//Per ferho tot visible 
 		finestra.setLayout(new FlowLayout());
-		finestra.setSize(800, 500);
+		finestra.setSize(800, 550);
 		finestra.setVisible(true);
 		finestra.add(textField);
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
 		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
 		finestra.add(sp);
+		finestra.add(botoRetorna);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}

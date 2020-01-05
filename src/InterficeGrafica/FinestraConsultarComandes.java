@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,8 +27,20 @@ public class FinestraConsultarComandes extends JFrame {
 
 		JFrame finestra = new JFrame ("CONSULTA COMANDES");
 		finestra.setBackground(new Color(0,0,153));
+		
 		JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
+			botoRetorna.addActionListener(new ActionListener() {
+				public void actionPerformed (ActionEvent e) {
+					int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de tornar al menu principal?", "RETORNA AL MENU PRINCIPAL", JOptionPane.YES_NO_CANCEL_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
+						dispose();
+						new FinestraMenuClient();
+					}else {
+						//No fa res 
+					}
+				}
+			});
 
 		/**
 		 * TAULA DE COMANDES

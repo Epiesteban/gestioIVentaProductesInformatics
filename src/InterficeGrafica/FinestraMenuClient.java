@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -48,7 +49,8 @@ public class FinestraMenuClient  extends JFrame{
 			
 			public void actionPerformed(ActionEvent e) {
 				FinestraBuscarProductes findProd = new FinestraBuscarProductes();
-				//findProd.setVisible(true);		
+				findProd.setVisible(true);
+				
 			}
 		});
 		
@@ -58,16 +60,21 @@ public class FinestraMenuClient  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
 				consulComand.setVisible(true);
+				
 			}
 		});
 		
 		//sortim del programa
 		this.sortir.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				System.exit(0);
-				
+				int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de sortir del programa?", "SORTIR DEL PROGRAMA", JOptionPane.YES_NO_CANCEL_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					dispose();
+					System.exit(0);
+				}else {
+					//No fa res 
+				}
+		
 			}
 		});
 		
