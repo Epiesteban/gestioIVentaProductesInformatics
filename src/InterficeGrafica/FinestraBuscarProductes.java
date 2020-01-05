@@ -51,6 +51,7 @@ public class FinestraBuscarProductes extends JFrame{
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
 		textField.setBackground(new Color(204, 204, 204));
 		textField.setForeground(new java.awt.Color(102, 102, 255));
+		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
 		//Busquem lletra per lletra el nom del producte 
 
 		//Afegim una acció al JTextField per a que al polsar <enter> sapigui que s'ha acabat d'escriure
@@ -161,6 +162,7 @@ public class FinestraBuscarProductes extends JFrame{
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
 		finestra.add(filtres, BorderLayout.WEST);
+		finestra.add(botoRetorna);
 		finestra.add(sp);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
