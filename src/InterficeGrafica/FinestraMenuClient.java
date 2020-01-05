@@ -39,9 +39,9 @@ public class FinestraMenuClient  extends JFrame{
 		
 		this.sortir= new Button("Sortir del programa");
 		
-		this.panel.add(this.buscarProductes);
-		this.panel.add(this.consultarComandes);
-		this.panel.add(this.sortir);
+		panel.add(buscarProductes, BorderLayout.CENTER);
+		panel.add(consultarComandes, BorderLayout.CENTER);
+		panel.add(sortir, BorderLayout.CENTER);
 		
 		ImatgeFondo image = new ImatgeFondo();
 	    image.setImage("/InterficeGrafica/background.jpg");

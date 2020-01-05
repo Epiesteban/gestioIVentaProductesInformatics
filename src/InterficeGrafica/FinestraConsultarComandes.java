@@ -23,6 +23,7 @@ public class FinestraConsultarComandes extends JFrame {
 
 	public FinestraConsultarComandes() {
 		super();
+		AccioTancaPestanyaComandes accioR;
 		JTable j;
 
 		JFrame finestra = new JFrame ("CONSULTA COMANDES");
@@ -30,17 +31,8 @@ public class FinestraConsultarComandes extends JFrame {
 		
 		JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
-			botoRetorna.addActionListener(new ActionListener() {
-				public void actionPerformed (ActionEvent e) {
-					int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de tornar al menu principal?", "RETORNA AL MENU PRINCIPAL", JOptionPane.YES_NO_CANCEL_OPTION);
-					if (reply == JOptionPane.YES_OPTION) {
-						dispose();
-						new FinestraMenuClient();
-					}else {
-						//No fa res 
-					}
-				}
-			});
+			botoRetorna.
+				
 
 		/**
 		 * TAULA DE COMANDES
@@ -57,7 +49,6 @@ public class FinestraConsultarComandes extends JFrame {
 					data[i][x]=mainClients.llista_productes.getLlista()[i].getNom();
 				}else if (x==1) {
 					data[i][x]=mainClients.llista_productes.getLlista()[i].getPreu();
-
 				}else {
 					data[i][x]=mainClients.llista_productes.getLlista()[i].getEstoc();
 				}
