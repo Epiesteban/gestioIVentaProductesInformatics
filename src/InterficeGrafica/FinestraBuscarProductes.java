@@ -45,6 +45,7 @@ public class FinestraBuscarProductes extends JFrame{
 
 
 		JFrame finestra = new JFrame ("BUSCA PRODUCTES");
+		JFrame f = new JFrame ("FILTRES");
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
 		textField.setBackground(new Color(204, 204, 204));
 		textField.setForeground(new java.awt.Color(102, 102, 255));
@@ -73,7 +74,7 @@ public class FinestraBuscarProductes extends JFrame{
 		final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
 		JCheckList<String> myCheckList = new JCheckList<>(myModel);
 
-
+		
 		myModel.addItem("Hardware");
 		myModel.addItem("Software");
 		myModel.addItem("Configuracions");
@@ -81,7 +82,7 @@ public class FinestraBuscarProductes extends JFrame{
 		myModel.addItem("Productes sense estoc");
 
 		//Per a que el programa sapigui quines de les caselles estan checked
-		finestra.addWindowListener(
+		f.addWindowListener(
 				new WindowAdapter() {
 
 					public void windowClosing(WindowEvent e) {
@@ -151,9 +152,11 @@ public class FinestraBuscarProductes extends JFrame{
 		finestra.add(textField);
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
-		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
-		finestra.setVisible(true);
-		finestra.add(sp);
+		f.setLayout(new FlowLayout());
+		f.setSize(190, 200);
+		f.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
+		f.setVisible(true);
+		f.add(sp);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
