@@ -122,6 +122,7 @@ public class FinestraBuscarProductes extends JFrame{
 		/**
 		 * TAULA DE PRODUCTES
 		 */
+		
 		// Column Names 
 		String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
 		// Informacio per omplir la taula
@@ -140,6 +141,11 @@ public class FinestraBuscarProductes extends JFrame{
 
 		}
 		j.setBounds(30, 40, 200, 300); 
+		j.setRowSelectionAllowed(true);
+		j.setColumnSelectionAllowed(false);
+		
+		//accedir a les files seleccionades de la taula
+		int[] selected = j.getSelectedRows();
 		
 		//Funció de botoCerca
 				botoCerca.addActionListener(new ActionListener() {
