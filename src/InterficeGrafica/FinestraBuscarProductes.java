@@ -156,7 +156,7 @@ public class FinestraBuscarProductes extends JFrame{
 		f.setSize(190, 200);
 		f.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
 		f.setVisible(true);
-		f.add(sp);
+		finestra.add(sp);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
