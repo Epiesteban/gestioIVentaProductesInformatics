@@ -31,7 +31,7 @@ public class FinestraConsultarComandes extends JFrame {
 		
 		JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
-			botoRetorna.
+			
 				
 
 		/**

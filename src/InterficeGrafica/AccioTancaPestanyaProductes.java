@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-public class AccioTancaPestanyaComandes implements ActionListener {
-	private FinestraConsultarComandes finestra;
-	public AccioTancaPestanyaComandes (FinestraConsultarComandes f) {
+public class AccioTancaPestanyaProductes implements ActionListener {
+	private FinestraBuscarProductes finestra;
+	public AccioTancaPestanyaProductes (FinestraBuscarProductes f) {
 		finestra = f;
 	}
 	public void actionPerformed (ActionEvent e) {
@@ -20,6 +20,3 @@ public class AccioTancaPestanyaComandes implements ActionListener {
 		}	
 	}
 }
-
-
-
