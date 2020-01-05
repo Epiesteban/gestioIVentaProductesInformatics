@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,8 +45,11 @@ import javax.swing.text.StyledEditorKit.ForegroundAction;
 import controladors.mainClients;
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
 import edu.uclouvain.swing.JCheckList;
+import models.Configuracio;
+import models.Hardware;
 import models.LlistaProductes;
 import models.Producte;
+import models.Software;
 import sun.tools.jar.resources.jar;
 
 public class FinestraBuscarProductes extends JFrame{
@@ -84,37 +89,23 @@ public class FinestraBuscarProductes extends JFrame{
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL"); //El click fara que retornem al menu principal
 			botoRetorna.addActionListener(accioR);
 		
-		final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
-		JCheckList<String> myCheckList = new JCheckList<>(myModel);
-
-		
-		myModel.addItem("Hardware");
-		myModel.addItem("Software");
-		myModel.addItem("Configuracions");
-		myModel.addItem("Productes amb estoc");
-		myModel.addItem("Productes sense estoc");
-
+			//Filtres
+			JCheckBox[] checkList= new JCheckBox[5];
+			checkList[0]=new JCheckBox("Hardwares", false);
+			checkList[1]=new JCheckBox("Softwares", false);
+			checkList[2]=new JCheckBox("Configuracions", false);
+			checkList[3]=new JCheckBox("Productes amb estoc", false);
+			checkList[4]=new JCheckBox("Productes sense estoc", false);
+			//Panell de filtres
+			JPanel filtres= new JPanel();
+			filtres.setLayout(new GridLayout(5, 1));
+			filtres.add(checkList[0]);
+			filtres.add(checkList[1]);
+			filtres.add(checkList[2]);
+			filtres.add(checkList[3]);
+			filtres.add(checkList[4]);
 		//Per a que el programa sapigui quines de les caselles estan checked
-		finestra.addWindowListener(
-				new WindowAdapter() {
-
-					public void windowClosing(WindowEvent e) {
-						boolean checked = false;
-						for (int i = 0; i < myModel.getSize(); i++) {
-							if (myModel.isChecked(i)) {
-								checked = true;
-							} else {
-								checked = false;
-							}
-							if (checked = false) {
-							}
-							if (checked = true) {
-								
-							}
-						}
-						e.getWindow().dispose();
-					}
-				});     	
+		
 
 		
 		/**
@@ -204,21 +195,196 @@ public class FinestraBuscarProductes extends JFrame{
             }
         });
 
-		//Funció de botoCerca
-				botoCerca.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						LlistaProductes llista_aux=new LlistaProductes();
-						llista_aux=mainClients.llista_productes.buscarProducte_nom(textField.getText());
+      //Funció de botoCerca
+		botoCerca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LlistaProductes llista_aux=new LlistaProductes();
+				boolean selected=false; //Instancia que indica si hi ha alguna cosa seleccionada
+				int sel_aux=0, aux=0;
+				while (sel_aux<5 && !selected) {
+					if (checkList[sel_aux].isSelected()) {
+						selected=true;
+					}else {
+						sel_aux++;
+					}
+				}
+				if (selected) {//Si hi ha seleccionat algun filtre 
+					if (!((textField.getText()).equals(""))) {//Hi ha seleccionat un filtre i hi ha text al TextField
 						eliminarTaula(j);
-						if(llista_aux.getLlista()!=null) {
-							for (int i=0; i<llista_aux.getnElem();i++) {
-								j.setValueAt(llista_aux.getLlista()[i].getNom(), i, 0);
-								j.setValueAt(llista_aux.getLlista()[i].getPreu(), i, 1);
-								j.setValueAt(llista_aux.getLlista()[i].getEstoc(), i, 2);
+						aux=0;
+						llista_aux=mainClients.llista_productes.buscarProducte_nom(textField.getText());
+						for (int i=0;i<llista_aux.getnElem();i++) {
+							if (checkList[0].isSelected()) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((llista_aux.getLlista()[i] instanceof Hardware) && (llista_aux.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((llista_aux.getLlista()[i] instanceof Hardware) && (llista_aux.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (llista_aux.getLlista()[i] instanceof Hardware) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
+							}
+							if (checkList[1].isSelected()) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((llista_aux.getLlista()[i] instanceof Software) && (llista_aux.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((llista_aux.getLlista()[i] instanceof Software) && (llista_aux.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (llista_aux.getLlista()[i] instanceof Software) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
+							}
+							if (checkList[2].isSelected()) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((llista_aux.getLlista()[i] instanceof Configuracio) && (llista_aux.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((llista_aux.getLlista()[i] instanceof Configuracio) && (llista_aux.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (llista_aux.getLlista()[i] instanceof Configuracio) {
+										j.setValueAt(llista_aux.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(llista_aux.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(llista_aux.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
 							}
 						}
+					}else {
+						eliminarTaula(j);
+						aux=0;
+						for (int i=0;i<mainClients.llista_productes.getnElem();i++) {
+							if ((checkList[0].isSelected())) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Hardware) && (mainClients.llista_productes.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Hardware) && (mainClients.llista_productes.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (mainClients.llista_productes.getLlista()[i] instanceof Hardware) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
+							}
+							if (checkList[1].isSelected()) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Software) && (mainClients.llista_productes.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Software) && (mainClients.llista_productes.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (mainClients.llista_productes.getLlista()[i] instanceof Software) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
+							}
+							if (checkList[2].isSelected()) {
+								if((checkList[3].isSelected())&& !(checkList[4].isSelected())) {//Tipus Hardware i amb estoc
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Configuracio) && (mainClients.llista_productes.getLlista()[i].getEstoc()>0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else if (!(checkList[3].isSelected()) && (checkList[4].isSelected())) {
+									if ((mainClients.llista_productes.getLlista()[i] instanceof Configuracio) && (mainClients.llista_productes.getLlista()[i].getEstoc()<0)) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}else {
+									if (mainClients.llista_productes.getLlista()[i] instanceof Configuracio) {
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), aux, 0);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), aux, 1);
+										j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), aux, 2);
+										aux++;
+									}
+								}
+							}									
+						}
 					}
-				});
+				}else {
+					if (!((textField.getText()).equals(""))) {
+						eliminarTaula(j);
+						llista_aux=mainClients.llista_productes.buscarProducte_nom(textField.getText());
+						for (int i=0;i<llista_aux.getnElem();i++) {
+							j.setValueAt(llista_aux.getLlista()[i].getNom(), i, 0);
+							j.setValueAt(llista_aux.getLlista()[i].getPreu(), i, 1);
+							j.setValueAt(llista_aux.getLlista()[i].getEstoc(), i, 2);
+						}
+					}else {
+						eliminarTaula(j);
+						for (int i=0;i<mainClients.llista_productes.getnElem();i++) {
+							j.setValueAt(mainClients.llista_productes.getLlista()[i].getNom(), i, 0);
+							j.setValueAt(mainClients.llista_productes.getLlista()[i].getPreu(), i, 1);
+							j.setValueAt(mainClients.llista_productes.getLlista()[i].getEstoc(), i, 2);
+						}
+					}
+				}
+			}
+		});
 		
 		
 				
@@ -233,7 +399,7 @@ public class FinestraBuscarProductes extends JFrame{
 		finestra.add(textField);
 		finestra.add(botoCerca);
 		finestra.add(botoComanda);
-		finestra.getContentPane().add(new JScrollPane(myCheckList), BorderLayout.SOUTH);
+		finestra.add(filtres);
 		finestra.add(sp);
 		finestra.add(botoRetorna);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
