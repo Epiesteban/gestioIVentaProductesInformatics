@@ -53,6 +53,7 @@ public class FinestraMenuClient  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				FinestraBuscarProductes findProd = new FinestraBuscarProductes();
 				findProd.setVisible(true);
+				panel.setVisible(false);
 				
 			}
 		});

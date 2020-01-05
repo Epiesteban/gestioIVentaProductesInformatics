@@ -23,15 +23,15 @@ public class FinestraConsultarComandes extends JFrame {
 
 	public FinestraConsultarComandes() {
 		super();
-		AccioTancaPestanyaComandes accioR;
+		AccioTancaPestanyaComandes accioR = new AccioTancaPestanyaComandes(this);
 		JTable j;
 
 		JFrame finestra = new JFrame ("CONSULTA COMANDES");
-		finestra.setBackground(new Color(0,0,153));
+		finestra.getContentPane().setBackground(Color.decode("#afc3da"));
 		
 		JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
-			
+			botoRetorna.addActionListener(accioR);
 				
 
 		/**

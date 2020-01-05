@@ -2,6 +2,7 @@ package InterficeGrafica;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
@@ -12,12 +13,18 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JFrame; 
 import javax.swing.JScrollPane; 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.imageio.ImageIO;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,6 +37,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import controladors.mainClients;
@@ -43,13 +51,13 @@ public class FinestraBuscarProductes extends JFrame{
 
 	public FinestraBuscarProductes() {
 		super();
+		AccioTancaPestanyaProductes accioR = new AccioTancaPestanyaProductes(this);
 		JTextField textField;
 		JTable j;
 		
-		
-
-		
 		JFrame finestra = new JFrame ("BUSCA PRODUCTES");
+		finestra.getContentPane().setBackground(Color.decode("#afc3da"));
+		
 		textField = new JTextField("Busca el producte que vulguis", 40); //Aqui ficarem la busqueda --> lletra x lletra anirà eliminant productes 
 		textField.setBackground(new Color(204, 204, 204));
 		textField.setForeground(new java.awt.Color(102, 102, 255));
@@ -73,18 +81,8 @@ public class FinestraBuscarProductes extends JFrame{
 		});
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
-		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
-		botoRetorna.addActionListener(new ActionListener() {
-			public void actionPerformed (ActionEvent e) {
-				int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de tornar al menu principal?", "RETORNA AL MENU PRINCIPAL", JOptionPane.YES_NO_CANCEL_OPTION);
-				if (reply == JOptionPane.YES_OPTION) {
-					dispose();
-					new FinestraMenuClient();
-				}else {
-					//No fa res 
-				}
-			}
-		});
+		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL"); //El click fara que retornem al menu principal
+			botoRetorna.addActionListener(accioR);
 		
 		final DefaultCheckListModel<String> myModel = new DefaultCheckListModel<String>(); //llista de filtres 
 		JCheckList<String> myCheckList = new JCheckList<>(myModel);
@@ -122,11 +120,16 @@ public class FinestraBuscarProductes extends JFrame{
 		/**
 		 * TAULA DE PRODUCTES
 		 */
-		
 		// Column Names 
-		String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
+		String[] columnNames = { "NOM", "PREU", "ESTOC", "INFORMACIÓ"}; 
 		// Informacio per omplir la taula
-
+		final Class[] tiposColumnas = new Class[]{
+	            java.lang.String.class,
+	            java.lang.Float.class,
+	            java.lang.Integer.class,
+	            JButton.class // la ultima fila es pels botons
+	        };
+		
 		//Carregar info productes
 		Object [][]data= new Object[100][3];	
 		for (int i=0; i<mainClients.llista_productes.getnElem();i++) {
@@ -137,16 +140,70 @@ public class FinestraBuscarProductes extends JFrame{
 
 		// Initializing the JTable
 		j = new JTable(data, columnNames); 
+		
 		for (int i=0;i<mainClients.llista_productes.getnElem();i++) {
 
 		}
 		j.setBounds(30, 40, 200, 300); 
-		j.setRowSelectionAllowed(true);
-		j.setColumnSelectionAllowed(false);
 		
-		//accedir a les files seleccionades de la taula
-		int[] selected = j.getSelectedRows();
-		
+		/**
+		 * INFORMACIO EN UN CLICK DEL PRODUCTE
+		 */
+	    
+        // Defineixo el TableModel i li indico les dades i noms de columnes
+		j.setModel(new javax.swing.table.DefaultTableModel(data, columnNames) {
+        	Class[] tipos = tiposColumnas;
+        	public Class getColumnClass(int columnIndex) {
+                // Aquest mètode és invocat pel CellRenderer per saber que dibuixar a la cel·la, observen que estem retornant la classe que definim per endavant.
+                return tipos[columnIndex];
+            }
+        	@Override
+            public boolean isCellEditable(int row, int column) {
+        		// Sobreescrivim el metode per evitar que la columna que conté els botons sigui editada.
+                return !(this.getColumnClass(column).equals(JButton.class));
+            }
+        });
+        j.setDefaultRenderer(JButton.class, new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
+            	JLabel etiqueta = new JLabel();
+
+                if(columna == 4){
+                    if(estaSeleccionado)
+                        etiqueta.setBackground (Color.CYAN);
+                    else
+                        etiqueta.setBackground (Color.YELLOW);
+                }else
+                    etiqueta.setBackground (j.getBackground());
+            	
+            	/**
+                 * Retornar l'objecte que es va a dibuixar a la cel·la. 
+                 * Això vol dir que es dibuixarà a la cel·la l'objecte que torni el TableModel. 
+                 * També vol dir que aquest renderer ens permetria dibuixar qualsevol objecte gràfic a la graella, 
+                 * ja que retorna l'objecte tal com el rep.
+                 */
+                return (Component) objeto;
+            }
+        });
+        j.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = j.rowAtPoint(e.getPoint());
+                int columna = j.columnAtPoint(e.getPoint());
+
+               
+                if (j.getModel().getColumnClass(columna).equals(JButton.class)) {
+                   
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < j.getModel().getColumnCount(); i++) {
+                        if (!j.getModel().getColumnClass(i).equals(JButton.class)) {
+                            sb.append("\n").append(j.getModel().getColumnName(i)).append(": ").append(j.getModel().getValueAt(fila, i));
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Seleccionada la fila" + fila + sb.toString());
+                }
+            }
+        });
+
 		//Funció de botoCerca
 				botoCerca.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -163,7 +220,7 @@ public class FinestraBuscarProductes extends JFrame{
 					}
 				});
 		
-		//Afegim funció per a que funcioni la selecció d'elements en la taula
+		
 				
 	
 		// Adding it to JScrollPane 
