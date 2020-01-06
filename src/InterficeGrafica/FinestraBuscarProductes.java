@@ -1,8 +1,10 @@
 package InterficeGrafica;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -387,6 +389,43 @@ public class FinestraBuscarProductes extends JFrame{
 		});
 		
 		
+		
+		//Funcio boto comanda
+		botoComanda.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				//INICIALITZEM LA FINESTRA
+				JFrame fComandes=new JFrame("Realitzar comanda");
+				JPanel panell=new JPanel();
+				JCheckBox[] checkComanda=new JCheckBox[100];
+				int i =0;
+				while (j.getValueAt(i, 0)!= null) {
+					checkComanda[i]=new JCheckBox(((String)j.getValueAt(i, 0)), false);
+					panell.add(checkComanda[i]);
+					i++;
+				}
+				panell.setLayout(new GridLayout(i,1));
+				JScrollPane scroll= new JScrollPane(panell);
+				fComandes.setLayout(new BorderLayout());
+				fComandes.setSize(300,500);
+				fComandes.setVisible(true);
+				fComandes.add(scroll, BorderLayout.EAST);
+				fComandes.add(panell, BorderLayout.WEST);
+				
+				JButton confirmar=new JButton("CONFIRMA COMANDA");
+				fComandes.add(confirmar, BorderLayout.NORTH);
+				confirmar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de realitzar la comanda?", "CONFIRMAR COMANDA", JOptionPane.YES_NO_CANCEL_OPTION);
+						if (reply == JOptionPane.YES_OPTION) {
+							
+						}else {
+							
+						}	
+					}
+				});
+			}
+		});
 				
 	
 		// Adding it to JScrollPane 
