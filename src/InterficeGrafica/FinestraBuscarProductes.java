@@ -444,7 +444,6 @@ public class FinestraBuscarProductes extends JFrame{
 									count++;
 								}
 								mainClients.guardarDataSerialitzable();
-								System.out.println(mainClients.llista_comandes.getLlista()[pos_client].toString());
 							}else {
 								JOptionPane.showInternalMessageDialog(null, "NO HA SELECCIONAT RES!");
 							}
