@@ -44,7 +44,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import controladors.mainClients;
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
@@ -434,16 +433,19 @@ public class FinestraBuscarProductes extends JFrame{
 							}
 							if (trobat=true) {
 								count=0;
-								int pos_client=mainClients.llista_comandes.buscarClient(dni);
+								Comanda c=new Comanda(mainClients.llista_clients.buscarClient(dni));
 								Producte p;
 								while (checkComanda[count+1]!=null) {
 									if (checkComanda[count].isSelected()) {
 										p=mainClients.llista_productes.buscarProducte_nom(checkComanda[count].getText()).getLlista()[0];//Agafem el primer producte trobat de la llista
-										mainClients.llista_comandes.getLlista()[pos_client].afegirProducteComanda(p);
+										c.afegirProducteComanda(p);
+										mainClients.llista_comandes.afegirComanda(c);
 									}
 									count++;
 								}
 								mainClients.guardarDataSerialitzable();
+								String text= "ID: "+c.getIdentificador()+"\n PREU TOTAL:"+c.getPreuComanda();
+								JOptionPane.showConfirmDialog(null, text, "La comanda s'ha realitzat satisfactoriament", JOptionPane.CLOSED_OPTION);
 							}else {
 								JOptionPane.showInternalMessageDialog(null, "NO HA SELECCIONAT RES!");
 							}

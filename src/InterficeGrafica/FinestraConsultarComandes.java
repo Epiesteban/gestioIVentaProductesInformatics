@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controladors.mainClients;
+import models.LlistaComandes;
 
 public class FinestraConsultarComandes extends JFrame {
 
@@ -38,15 +39,25 @@ public class FinestraConsultarComandes extends JFrame {
 		 * TAULA DE COMANDES
 		 */
 		// Column Names 
-		String[] columnNames = { "NOM", "PREU"}; 
+		String[] columnNames = {"COMANDA", "NOM", "PREU"}; 
 		// Informacio per omplir la taula
 
 		//Carregar info productes
-		Object [][]data= new Object[100][2];		     
-		int pos_client=mainClients.llista_comandes.buscarClient(dni);
-		for (int i=0; i<mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getnElem();i++) {
-				data[i][0]=mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getLlista()[i].getNom();
-				data[i][1]=mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getLlista()[i].getPreu();
+		Object [][]data= new Object[100][3];
+		LlistaComandes llista=mainClients.llista_comandes.comandesClient(dni);
+		int linies=0;
+		boolean inici=true;
+		for (int i=0; i<llista.getnComanda();i++) {
+				for (int x=0 ;x<llista.getLlista()[i].getLlistaProductes().getnElem();x++) {
+					if (inici==true) {
+						data[linies][0]="Consulta"+i;
+						data[linies][2]=llista.getLlista()[i].getLlistaProductes().getLlista()[x].getPreu();
+						inici=false;
+					}
+					data[linies][1]=llista.getLlista()[i].getLlistaProductes().getLlista()[x].getNom();
+					linies++;
+				}
+				inici=true;
 		}
 
 		// Initializing the JTable

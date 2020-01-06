@@ -111,7 +111,7 @@ public class LlistaComandes implements Serializable {
 	public LlistaComandes comandesClient (String dni) {
 		LlistaComandes auxComandes = new LlistaComandes();
 		for (int i=0; i<nComanda; i++) {
-			if (llista[i].getClient().equals(dni)) {
+			if ((llista[i].getClient().getDni()).equals(dni)) {
 				auxComandes.afegirComanda(llista[i]);
 			}
 		}
