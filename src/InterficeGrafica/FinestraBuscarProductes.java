@@ -46,8 +46,6 @@ import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 
 import controladors.mainClients;
-import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
-import edu.uclouvain.swing.JCheckList;
 import models.Client;
 import models.Comanda;
 import models.Configuracio;
