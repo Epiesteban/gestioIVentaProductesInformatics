@@ -129,7 +129,7 @@ public class Comanda implements Serializable {
 	
 	//METODES
 	/**
-	 * Funcio per afegir un producte a la llista de productes de la comanda
+	 * Mètode per afegir un producte a la llista de productes de la comanda
 	 * @param producte
 	 */
 	public void afegirProducteComanda (Producte producte) {
@@ -144,7 +144,7 @@ public class Comanda implements Serializable {
 	}
 	
 	/**
-	 *	Funcio per comprovar si existeix un producte a una comanda
+	 *	Mètode per comprovar si existeix un producte a una comanda
 	 * @param producte
 	 * @return existeix
 	 */

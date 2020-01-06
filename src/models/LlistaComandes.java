@@ -104,9 +104,9 @@ public class LlistaComandes implements Serializable {
 		}
 	}	
 	/**
-	 * Metode que retorna totes les comandes d'un client
+	 * 4. Mètode que retorna totes les comandes d'un client
 	 * @param dni
-	 * @return
+	 * @return auxComandes
 	 */
 	public LlistaComandes comandesClient (String dni) {
 		LlistaComandes auxComandes = new LlistaComandes();
@@ -120,7 +120,7 @@ public class LlistaComandes implements Serializable {
 	
 	
 	/**
-	 *Busca posició d'un client a la llista 
+	 *5. Mètode que busca la posició d'un client a la llista 
 	 */
 	public int buscarClient(String dni) {
 		boolean trobat=false;

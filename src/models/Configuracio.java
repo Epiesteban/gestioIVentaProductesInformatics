@@ -2,9 +2,8 @@ package models;
 
 public class Configuracio extends Producte {
 	//classe filla de productes
-	/**
-	 * Declaració de variables
-	 */
+	//Declaració de variables
+	 
 	
 	private final int mida = 500;
 	private Software softwares[];
@@ -17,7 +16,10 @@ public class Configuracio extends Producte {
 		softwares=new Software[mida];
 	}
 	
-	/*Constructor*/
+	/*
+	 * Constructor
+	 * @param nom
+	 */
 	public Configuracio (String nom, float preu, int estoc, Software[] softwares, Hardware[] hardwares) {
 		super(nom, preu, estoc);
 		this.hardwares=hardwares;
@@ -50,7 +52,10 @@ public class Configuracio extends Producte {
 		return i;
 	}
 
-
+/**
+ * Mètode que retorna el número de softwares
+ * @return i
+ */
 	public int numElementsSoftware () {
 		int i=0;
 		while (softwares[i]!=null) {
@@ -59,8 +64,9 @@ public class Configuracio extends Producte {
 		return i;
 	}
 	
-	/**
-	 * 
+	/*
+	 * Mètode que mostra els hardwares en una configuració
+	 * @return frase
 	 */
 	public String mostraHardwares () {
 		String frase="";
@@ -72,7 +78,10 @@ public class Configuracio extends Producte {
 		return frase;
 	}
 	
-	
+	/**
+	 * Mètode que mostra els softwares en una configuració
+	 * @return frase
+	 */
 	public String mostraSoftware () {
 		String frase="";
 		for (int i=0;i<softwares.length;i++) {

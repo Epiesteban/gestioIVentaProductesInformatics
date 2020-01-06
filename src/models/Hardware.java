@@ -15,6 +15,8 @@ public class Hardware extends Producte{
 	public Tipus_hardware getTipus() {
 		return tipus;
 	}
+	
+	
 	public String getTipusHardwareString () {
 		String aux;
 		if (tipus==Tipus_hardware.CPU) {
