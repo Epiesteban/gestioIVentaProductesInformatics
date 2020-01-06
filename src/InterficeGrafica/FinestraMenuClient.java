@@ -7,12 +7,14 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,42 +26,42 @@ public class FinestraMenuClient  extends JFrame{
 	Button buscarProductes;
 	Button consultarComandes;
 	Button sortir;
-	//falten els buttons per filtrar els productes
 	JPanel panel;
 	
 	public FinestraMenuClient (String dni) {
 		super();
 		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
+		panel.setLayout(new GridLayout(3,1));
 		this.setSize(626,417);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		
 		this.setTitle("Menu per al client:");
-		this.buscarProductes= new Button("Buscar un producte");
-		this.consultarComandes = new Button("Consultar comandes realitzades");
+		JButton buscarProductes= new JButton("Buscar un producte");
+		JButton consultarComandes = new JButton("Consultar comandes realitzades");
 		
-		this.sortir= new Button("Sortir del programa");
+		JButton sortir= new JButton("Sortir del programa");
 		
-		panel.add(buscarProductes, BorderLayout.CENTER);
-		panel.add(consultarComandes, BorderLayout.CENTER);
-		panel.add(sortir, BorderLayout.CENTER);
+		panel.add(buscarProductes);
+		panel.add(consultarComandes);
+		panel.add(sortir);
 		
 		ImatgeFondo image = new ImatgeFondo();
 	    image.setImage("/InterficeGrafica/background.jpg");
 	    setContentPane(image);
 		
 		//busquem un producte
-		this.buscarProductes.addActionListener(new ActionListener() {
+		buscarProductes.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				FinestraBuscarProductes findProd = new FinestraBuscarProductes(dni);
 				findProd.setVisible(true);
-				panel.setVisible(false);
 				
 			}
 		});
 		
 		//consultem les comandes
-		this.consultarComandes.addActionListener(new ActionListener() {
+		consultarComandes.addActionListener(new ActionListener() {
 					
 			public void actionPerformed(ActionEvent e) {
 				FinestraConsultarComandes consulComand = new FinestraConsultarComandes(dni);
@@ -69,7 +71,7 @@ public class FinestraMenuClient  extends JFrame{
 		});
 		
 		//sortim del programa
-		this.sortir.addActionListener(new ActionListener() {
+		sortir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de sortir del programa?", "SORTIR DEL PROGRAMA", JOptionPane.YES_NO_CANCEL_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
@@ -81,8 +83,7 @@ public class FinestraMenuClient  extends JFrame{
 		
 			}
 		});
-		
-		this.getContentPane().add(panel, BorderLayout.CENTER);
+		this.add(panel);
 		this.setVisible(true);		
 	}
 

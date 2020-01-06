@@ -60,7 +60,6 @@ public class FinestraBuscarProductes extends JFrame{
 
 	public FinestraBuscarProductes(String dni) {
 		super();
-		AccioTancaPestanyaProductes accioR = new AccioTancaPestanyaProductes(this);
 		JTextField textField;
 		JTable j;
 		
@@ -91,7 +90,6 @@ public class FinestraBuscarProductes extends JFrame{
 		JButton botoCerca = new JButton("CERCA AMB FILTRES"); //El click cercarà els productes amb filtres inclosos
 		JButton botoComanda = new JButton("FES UNA COMANDA"); //El click fara un comanda amb els productes seleccionats 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL"); //El click fara que retornem al menu principal
-			botoRetorna.addActionListener(accioR);
 		
 			//Filtres
 			JCheckBox[] checkList= new JCheckBox[5];
@@ -422,30 +420,38 @@ public class FinestraBuscarProductes extends JFrame{
 						if (reply == JOptionPane.YES_OPTION) {
 							int count=0;
 							boolean trobat=false;
-							while ((checkComanda[count+1]!=null) && !trobat) {
+							while ((checkComanda[count]!=null) && !trobat) {
 								if (checkComanda[count].isSelected()) {
 									trobat=true;
 								}else {
 								count++;
 								}
 							}
-							if (trobat=true) {
+							if (trobat==true) {
 								count=0;
 								Comanda c=new Comanda(mainClients.llista_clients.buscarClient(dni));
 								Producte p;
-								while (checkComanda[count+1]!=null) {
+								while (checkComanda[count]!=null) {
 									if (checkComanda[count].isSelected()) {
 										p=mainClients.llista_productes.buscarProducte_nom(checkComanda[count].getText()).getLlista()[0];//Agafem el primer producte trobat de la llista
 										c.afegirProducteComanda(p);
-										mainClients.llista_comandes.afegirComanda(c);
 									}
 									count++;
 								}
+								mainClients.llista_comandes.afegirComanda(c);
 								mainClients.guardarDataSerialitzable();
 								String text= "ID: "+c.getIdentificador()+"\n PREU TOTAL:"+c.getPreuComanda();
 								JOptionPane.showConfirmDialog(null, text, "La comanda s'ha realitzat satisfactoriament", JOptionPane.CLOSED_OPTION);
+								fComandes.setVisible(false);
+								finestra.setVisible(false);
 							}else {
-								JOptionPane.showInternalMessageDialog(null, "NO HA SELECCIONAT RES!");
+								if (checkComanda[0]==null) {
+									JOptionPane.showMessageDialog(null, "NO HI HA PRODUCTES!!");
+									fComandes.setVisible(false);
+									finestra.setVisible(false);
+								}else {
+									JOptionPane.showMessageDialog(null, "NO HA SELECCIONAT RES!");
+								}
 							}
 						}else {
 						}	
@@ -454,7 +460,14 @@ public class FinestraBuscarProductes extends JFrame{
 			}
 		});
 				
-	
+		//FUNCIO BOTO RETORNA
+		botoRetorna.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finestra.setVisible(false);				
+			}
+		});
+		
+		
 		// Adding it to JScrollPane 
 		JScrollPane sp = new JScrollPane(j); 
 
