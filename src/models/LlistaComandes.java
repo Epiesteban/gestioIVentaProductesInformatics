@@ -117,6 +117,24 @@ public class LlistaComandes implements Serializable {
 		}
 		return auxComandes;
 	}
+	
+	
+	/**
+	 *Busca posició d'un client a la llista 
+	 */
+	public int buscarClient(String dni) {
+		boolean trobat=false;
+		int i =0;
+		while ((i<nComanda) && !trobat) {
+			if(dni.equals(llista[i].getClient().getDni())) {
+				trobat=true;
+			}else {
+				i++;
+			}
+		}
+		return i;
+	}
+	
 
 	/**
 	 * TOSTRING!!!

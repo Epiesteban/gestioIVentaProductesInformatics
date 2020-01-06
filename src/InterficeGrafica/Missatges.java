@@ -15,10 +15,10 @@ public class Missatges {
 			JOptionPane.showMessageDialog(null, "Client inexistent, cal un dni valid!", "ERROR", JOptionPane.ERROR_MESSAGE);
 			dni = JOptionPane.showInputDialog("Introdueix el dni");
 		}
-
+		
 		// Missatge d'informaci�.
 		JOptionPane.showMessageDialog(null, "Client amb DNI: "+mainClients.llista_clients.buscarClient(dni).getDni()+" confirmat!", "Benvingut", JOptionPane.INFORMATION_MESSAGE);	
-		
+		new FinestraMenuClient(dni).setVisible(true);
 	}
 	public static void main(String[] args) {
 		new Missatges();

@@ -21,38 +21,32 @@ import controladors.mainClients;
 
 public class FinestraConsultarComandes extends JFrame {
 
-	public FinestraConsultarComandes() {
+	public FinestraConsultarComandes(String dni) {
 		super();
 		AccioTancaPestanyaComandes accioR = new AccioTancaPestanyaComandes(this);
 		JTable j;
 
 		JFrame finestra = new JFrame ("CONSULTA COMANDES");
 		finestra.getContentPane().setBackground(Color.decode("#afc3da"));
-		
+
 		JButton botoElimina = new JButton("ELIMINA UNA COMANDA"); 
 		JButton botoRetorna = new JButton("TORNA AL MENU PRINCIPAL");
-			botoRetorna.addActionListener(accioR);
-				
+		botoRetorna.addActionListener(accioR);
+
 
 		/**
 		 * TAULA DE COMANDES
 		 */
 		// Column Names 
-		String[] columnNames = { "NOM", "PREU", "ESTOC" }; 
+		String[] columnNames = { "NOM", "PREU"}; 
 		// Informacio per omplir la taula
 
 		//Carregar info productes
-		Object [][]data= new Object[100][3];		     
-		for (int i=0; i<mainClients.llista_comandes.getnComanda();i++) {
-			for (int x=0;x<3;x++) {
-				if (x==0) {
-					data[i][x]=mainClients.llista_productes.getLlista()[i].getNom();
-				}else if (x==1) {
-					data[i][x]=mainClients.llista_productes.getLlista()[i].getPreu();
-				}else {
-					data[i][x]=mainClients.llista_productes.getLlista()[i].getEstoc();
-				}
-			}
+		Object [][]data= new Object[100][2];		     
+		int pos_client=mainClients.llista_comandes.buscarClient(dni);
+		for (int i=0; i<mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getnElem();i++) {
+				data[i][0]=mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getLlista()[i].getNom();
+				data[i][1]=mainClients.llista_comandes.getLlista()[pos_client].getLlistaProductes().getLlista()[i].getPreu();
 		}
 
 		// Initializing the JTable
@@ -73,9 +67,5 @@ public class FinestraConsultarComandes extends JFrame {
 		finestra.add(botoElimina);
 		finestra.add(botoRetorna);
 		finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-	}
-	public static void main(String[] args) {
-		new FinestraConsultarComandes();
-
 	}
 }

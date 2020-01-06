@@ -14,7 +14,7 @@ public class AccioTancaPestanyaProductes implements ActionListener {
 		int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de tornar al menu principal?", "RETORNA AL MENU PRINCIPAL", JOptionPane.YES_NO_CANCEL_OPTION);
 		if (reply == JOptionPane.YES_OPTION) {
 			finestra.setVisible(false);
-			new FinestraMenuClient();
+			//new FinestraMenuClient();
 		}else {
 			//No fa res  
 		}	

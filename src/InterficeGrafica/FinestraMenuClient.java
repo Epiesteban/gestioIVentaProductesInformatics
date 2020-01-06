@@ -27,7 +27,7 @@ public class FinestraMenuClient  extends JFrame{
 	//falten els buttons per filtrar els productes
 	JPanel panel;
 	
-	public FinestraMenuClient () {
+	public FinestraMenuClient (String dni) {
 		super();
 		panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -51,7 +51,7 @@ public class FinestraMenuClient  extends JFrame{
 		this.buscarProductes.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				FinestraBuscarProductes findProd = new FinestraBuscarProductes();
+				FinestraBuscarProductes findProd = new FinestraBuscarProductes(dni);
 				findProd.setVisible(true);
 				panel.setVisible(false);
 				
@@ -62,7 +62,7 @@ public class FinestraMenuClient  extends JFrame{
 		this.consultarComandes.addActionListener(new ActionListener() {
 					
 			public void actionPerformed(ActionEvent e) {
-				FinestraConsultarComandes consulComand = new FinestraConsultarComandes();
+				FinestraConsultarComandes consulComand = new FinestraConsultarComandes(dni);
 				consulComand.setVisible(true);
 				
 			}

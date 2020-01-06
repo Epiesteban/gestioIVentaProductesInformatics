@@ -44,11 +44,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import controladors.mainClients;
 import edu.uclouvain.swing.DefaultCheckListModel; //importat del package edu.uclouvain.swing
 import edu.uclouvain.swing.JCheckList;
+import models.Client;
+import models.Comanda;
 import models.Configuracio;
 import models.Hardware;
+import models.LlistaComandes;
 import models.LlistaProductes;
 import models.Producte;
 import models.Software;
@@ -56,7 +61,7 @@ import sun.tools.jar.resources.jar;
 
 public class FinestraBuscarProductes extends JFrame{
 
-	public FinestraBuscarProductes() {
+	public FinestraBuscarProductes(String dni) {
 		super();
 		AccioTancaPestanyaProductes accioR = new AccioTancaPestanyaProductes(this);
 		JTextField textField;
@@ -418,9 +423,32 @@ public class FinestraBuscarProductes extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						int reply = JOptionPane.showConfirmDialog(null, "N'estas segur de realitzar la comanda?", "CONFIRMAR COMANDA", JOptionPane.YES_NO_CANCEL_OPTION);
 						if (reply == JOptionPane.YES_OPTION) {
-							
+							int count=0;
+							boolean trobat=false;
+							while ((checkComanda[count+1]!=null) && !trobat) {
+								if (checkComanda[count].isSelected()) {
+									trobat=true;
+								}else {
+								count++;
+								}
+							}
+							if (trobat=true) {
+								count=0;
+								int pos_client=mainClients.llista_comandes.buscarClient(dni);
+								Producte p;
+								while (checkComanda[count+1]!=null) {
+									if (checkComanda[count].isSelected()) {
+										p=mainClients.llista_productes.buscarProducte_nom(checkComanda[count].getText()).getLlista()[0];//Agafem el primer producte trobat de la llista
+										mainClients.llista_comandes.getLlista()[pos_client].afegirProducteComanda(p);
+									}
+									count++;
+								}
+								mainClients.guardarDataSerialitzable();
+								System.out.println(mainClients.llista_comandes.getLlista()[pos_client].toString());
+							}else {
+								JOptionPane.showInternalMessageDialog(null, "NO HA SELECCIONAT RES!");
+							}
 						}else {
-							
 						}	
 					}
 				});
@@ -445,11 +473,6 @@ public class FinestraBuscarProductes extends JFrame{
 
 	}
 
-
-
-	public static void main(String[] args) {
-		new FinestraBuscarProductes();
-	}
 	
 	public void eliminarTaula(JTable taula) {
 		for (int i=0;i<taula.getColumnCount();i++) {
@@ -458,6 +481,9 @@ public class FinestraBuscarProductes extends JFrame{
 			}
 		}
 	}
+	
+	
+	
 
 }
 

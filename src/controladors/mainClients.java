@@ -2,8 +2,10 @@ package controladors;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import InterficeGrafica.*;
 import javax.swing.*;
@@ -26,7 +28,6 @@ public class mainClients {
 		llegirFitxerProductes();
 		llegirDataSerialitzable();
 		new Missatges(); //demanem DNI
-		new FinestraMenuClient().setVisible(true); //menu amb opcions pel client
 	}
 	
 	/**
@@ -165,6 +166,21 @@ public class mainClients {
 			System.out.println ("Error, el format de l'arxiu no ï¿½s correcte per poder-lo obrir i llegir-lo");	
 		}
 
+	}
+	
+	
+	/**
+	 * Funció per a escriure en una llista en format serialitzable 	
+	 */
+	public static void guardarDataSerialitzable () {
+		ObjectOutputStream gfitxer;
+		try {
+			gfitxer = new ObjectOutputStream (new FileOutputStream("comandes.ser"));
+			gfitxer.writeObject(llista_comandes);
+			gfitxer.close();
+		} catch (IOException e){
+			System.out.println("Error a l'hora d'escriure al fitxer");
+		}
 	}
 	
 }
